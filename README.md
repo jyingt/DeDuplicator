@@ -8,4 +8,3 @@ Design and implement an efficient data storage locker that utilizes deduplicatio
 * Hansen Zhang
 * Yuteng Pan
 * Chengxi Yang
-* Tolga Bolukbasi
