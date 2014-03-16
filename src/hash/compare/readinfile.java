@@ -1,5 +1,6 @@
 package hash.compare;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -150,6 +151,18 @@ public class readinfile {
 		    System.out.println(string.charAt(string.length()-1));
 		
 		}
+		return result;
+	}
+	
+	public static ArrayList<String> readinbybyte(File file) throws IOException
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		FileInputStream fin = new FileInputStream(file);
+		byte[] buffer = new byte[(int)file.length()];
+		new DataInputStream(fin).readFully(buffer);
+		fin.close();
+		String s = new String(buffer,"UTF-8");
+		result.add(s);
 		return result;
 	}
 	

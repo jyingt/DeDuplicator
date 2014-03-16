@@ -3,6 +3,7 @@ import naive.decoder.decodefile;
 import hash.compare.diff_match_patch.Diff;
 import hash.compare.diff_match_patch.Operation;
 import hash.compare.diffmatch.DiffNoPreandSur;
+import hash.hashcodegenerator.hashcodegenerator;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

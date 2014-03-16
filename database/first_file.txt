@@ -213,4 +213,4 @@ Please use the "Course Info" menu section to view course material.
 </div><!-- /patternPage-->
 </div><!-- /patternPageShadow-->
 </div><!-- /patternScreen-->
-</body></html>>
+</body></html>
