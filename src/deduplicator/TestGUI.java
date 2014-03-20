@@ -61,11 +61,13 @@ implements ActionListener {
 		frmTestgui.getContentPane().setLayout(springLayout);
 		
 		btnSave = new JButton("Save");
+		btnSave.addActionListener(this);
 		springLayout.putConstraint(SpringLayout.NORTH, btnSave, 76, SpringLayout.NORTH, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSave, 99, SpringLayout.NORTH, frmTestgui.getContentPane());
 		frmTestgui.getContentPane().add(btnSave);
 		
 		btnRetrieve = new JButton("Retrieve");
+		btnRetrieve.addActionListener(this);
 		frmTestgui.getContentPane().add(btnRetrieve);
 		
 		comboBox = new JComboBox();
@@ -83,7 +85,7 @@ implements ActionListener {
 		springLayout.putConstraint(SpringLayout.NORTH, progressBar, 198, SpringLayout.NORTH, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, progressBar, 143, SpringLayout.WEST, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, progressBar, -145, SpringLayout.EAST, frmTestgui.getContentPane());
-		progressBar.setValue(100);
+		progressBar.setValue(0);
 		frmTestgui.getContentPane().add(progressBar);
 		
 		textField = new JTextField();
@@ -110,6 +112,7 @@ implements ActionListener {
 		frmTestgui.getContentPane().add(btnOpen);
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(this);
 		springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 38, SpringLayout.SOUTH, btnSave);
 		springLayout.putConstraint(SpringLayout.WEST, btnDelete, 18, SpringLayout.EAST, btnRetrieve);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnDelete, -38, SpringLayout.NORTH, progressBar);
@@ -129,10 +132,23 @@ implements ActionListener {
                 //This is where a real application would open the file.
             } else {
                 /*Error Window*/
+            	JOptionPane.showMessageDialog(frmTestgui, "An error occured. Please try again.");
             }
  
         //Handle save button action.
         } else if (arg0.getSource() == btnSave) {
+        	progressBar.setValue(100);
+        	JOptionPane.showMessageDialog(frmTestgui, "File save completed.");
+ 
+        //Handle save button action.
+        } else if (arg0.getSource() == btnRetrieve) {
+        	progressBar.setValue(100);
+        	JOptionPane.showMessageDialog(frmTestgui, "File retieval completed.");
+ 
+        //Handle save button action.
+        } else if (arg0.getSource() == btnDelete) {
+        	progressBar.setValue(100);
+        	JOptionPane.showMessageDialog(frmTestgui, "File deletion completed.");
         }
 	}
 }
