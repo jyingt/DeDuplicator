@@ -1,10 +1,17 @@
-package hash.hashcodegenerator;
+package naive.encoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
 public class hashcodegenerator {
-	public static String makehash(String input) throws NoSuchAlgorithmException
+	
+
+	public hashcodegenerator(String input) throws NoSuchAlgorithmException
+	{
+		str = makehash(input);
+		
+	}
+	public String makehash(String input) throws NoSuchAlgorithmException
 	{
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		md.reset();
@@ -19,6 +26,6 @@ public class hashcodegenerator {
 		return hexStr;
 	}
 	
-	
+	public String str;
 
 }

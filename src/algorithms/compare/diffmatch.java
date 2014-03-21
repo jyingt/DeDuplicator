@@ -1,4 +1,4 @@
-package hash.compare;
+package algorithms.compare;
 
 import java.util.ArrayList;
 
