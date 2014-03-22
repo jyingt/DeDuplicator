@@ -48,7 +48,17 @@ public class DeDuplicator
         
         bufferedReader.close();
         fileReader.close();
-
+        
+        // STORE
+        // convert to char array?
+        // send to compress
+        // then store
+        
+        // RETRIEVE
+        // get file info from database
+        // decompress
+        // deliever to client
+        
         /*
         // Create file
         File file = new File("test_file_01.txt");

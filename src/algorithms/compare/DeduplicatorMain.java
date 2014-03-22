@@ -1,6 +1,5 @@
 package algorithms.compare;
 
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -8,8 +7,8 @@ import java.util.ArrayList;
 import naive.encoder.hashcodegenerator;
 import naive.encoder.mainsaving;
 
-
-public class Deduplicator {
+public class DeduplicatorMain
+{
 	public static void main(String [] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		//ArrayList<String> file1 = readinfile.readinmain("plain.txt");
@@ -29,5 +28,4 @@ public class Deduplicator {
 	{
 		System.out.println(a);
 	}
-	
 }

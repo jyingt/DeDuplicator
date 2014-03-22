@@ -1,7 +1,5 @@
 package naive.encoder;
 
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,24 +8,20 @@ import java.io.PrintStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-
 import algorithms.compare.comparison;
 
-public class mainsaving extends readinfile{
-	
+public class mainsaving extends readinfile
+{
+    private static int CHUNKS = 1000;
+    
 	public mainsaving(String file, ArrayList<savelet> ss, String action) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
-		switch (action)
-		{
-		case "write":
-			writefile(file);
-			break;
-		case "save":
-			savefile(file, ss);
-			
-		}
-		
+	    if (action.equals("write"))
+	        writefile(file);
+	    else if (action.equals("save"))
+	        savefile(file, ss);
 	}
+	
 	public static boolean initialfilechecker()
 	{
 		File ff = new File("data/data.txt");
@@ -44,8 +38,9 @@ public class mainsaving extends readinfile{
 		//-----------------
 		
 		readinfile rr = new readinfile(file);
-		ArrayList<savelet>  ss = rr.ss;
+		ArrayList<savelet> ss = rr.ss;
 		log(Integer.toString(ss.size()));
+		
 		if (initialfilechecker()==false)
 		{
 			log("not exists");
@@ -69,7 +64,6 @@ public class mainsaving extends readinfile{
 			{
 				ss.remove(0);
 				comparison cc = new comparison(filename,ss);
-				
 			}
 		}
 		else
@@ -77,10 +71,6 @@ public class mainsaving extends readinfile{
 			log("here");
 			comparison cc = new comparison(filename,ss);
 		}
-			
-		
-		
-		
 	}
 	
 	public static void savefile(String filename, ArrayList<savelet> ss2) throws FileNotFoundException
@@ -92,10 +82,8 @@ public class mainsaving extends readinfile{
 		outDecode.close();
 	}
 	
-	
 	private static void log(String a)
 	{
 		System.out.println(a);
 	}
-	private static int CHUNKS =  1000;
 }
