@@ -1,35 +1,36 @@
-package algorithms.compare;
+package compare;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import naive.encoder.hashcodegenerator;
-import naive.encoder.mainsaving;
-import naive.encoder.readinfile;
+import naive.encoder.HashCodeGenerator;
+import naive.encoder.MainSaving;
+import naive.encoder.ReadInFile;
 
-public class comparison extends readinfile{
+public class Comparison extends ReadInFile{
 	
-	public comparison(String filename, ArrayList<savelet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public Comparison(String filename, ArrayList<savelet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		stepcompare(filename,ss);
 	}
 	
 	public void stepcompare(String filename, ArrayList<savelet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
-		readinfile rr = new readinfile("data/data.txt");
+		ReadInFile rr = new ReadInFile("test/data.txt");
 		ArrayList<savelet> data =rr.ss;
 		String[] str = data.get(0).getfilecontent().split("\n");
 		ArrayList<String> result = new ArrayList<String>();
 		int ii = 0 ; 
-		int counter=0;
+		int counter = 0;
 		int LENGTH = ss2.get(0).getfilecontent().length();
 		log(Integer.toString(LENGTH));
-		while (  ii <= LENGTH && counter < data.size() )
+		
+		while (ii <= LENGTH && counter < data.size())
 		{
 			String temp = ss2.get(0).getfilecontent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH));
-			hashcodegenerator hh = new hashcodegenerator(temp);
+			HashCodeGenerator hh = new HashCodeGenerator(temp);
 			String ss = hh.str;
 			if ( ss.equals(str[counter++]))
 			{
@@ -45,15 +46,15 @@ public class comparison extends readinfile{
 		}
 		
 		data.get(0).setfilecontent(result.toString());
-		mainsaving mm = new mainsaving(filename, data,"save");
+		MainSaving mm = new MainSaving(filename, data,"save");
 		result.clear();
 		log(Integer.toString(counter) + " " + data.size());
 	}
 	
 	public static boolean initialcheckV2(String s1, String s2) throws NoSuchAlgorithmException
 	{
-		hashcodegenerator hh1 = new hashcodegenerator(s1);
-		hashcodegenerator hh2 = new hashcodegenerator(s1);
+		HashCodeGenerator hh1 = new HashCodeGenerator(s1);
+		HashCodeGenerator hh2 = new HashCodeGenerator(s1);
 		
 		if (hh1.str.equals(hh2.str))
 			return true;

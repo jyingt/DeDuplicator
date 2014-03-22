@@ -8,13 +8,13 @@ import java.io.PrintStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import algorithms.compare.comparison;
+import compare.Comparison;
 
-public class mainsaving extends readinfile
+public class MainSaving extends ReadInFile
 {
     private static int CHUNKS = 1000;
     
-	public mainsaving(String file, ArrayList<savelet> ss, String action) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public MainSaving(String file, ArrayList<savelet> ss, String action) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 	    if (action.equals("write"))
 	        writefile(file);
@@ -37,7 +37,7 @@ public class mainsaving extends readinfile
 		String filename="xx.txt";
 		//-----------------
 		
-		readinfile rr = new readinfile(file);
+		ReadInFile rr = new ReadInFile(file);
 		ArrayList<savelet> ss = rr.ss;
 		log(Integer.toString(ss.size()));
 		
@@ -51,7 +51,7 @@ public class mainsaving extends readinfile
 			int LENGTH = ss.get(0).getfilecontent().length();
 			while ( ii < LENGTH)
 			{
-				hashcodegenerator hh = new hashcodegenerator(ss.get(0).getfilecontent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
+				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getfilecontent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
 				String str = hh.str;
 				outDecode.println(str);
 				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
@@ -63,13 +63,13 @@ public class mainsaving extends readinfile
 			if(ss.size()>1)
 			{
 				ss.remove(0);
-				comparison cc = new comparison(filename,ss);
+				Comparison cc = new Comparison(filename,ss);
 			}
 		}
 		else
 		{
 			log("here");
-			comparison cc = new comparison(filename,ss);
+			Comparison cc = new Comparison(filename,ss);
 		}
 	}
 	

@@ -1,10 +1,11 @@
-package algorithms.compare;
+package compare;
 
 import java.util.Vector;
 
-public class stringcomparison {
-
-	public class Change {
+public class StringComparison
+{
+	public class Change
+	{
 		public Change(int myposition, int myoperation, String mycontent) {
 			position = myposition;
 			operation = myoperation;
@@ -27,7 +28,7 @@ public class stringcomparison {
 		
 	}
 	
-	public stringcomparison() {
+	public StringComparison() {
 		LOC = new Vector <Change> ();
 	}
 	

@@ -3,10 +3,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class hashcodegenerator {
+public class HashCodeGenerator {
 	
 
-	public hashcodegenerator(String input) throws NoSuchAlgorithmException
+	public HashCodeGenerator(String input) throws NoSuchAlgorithmException
 	{
 		str = makehash(input);
 		
@@ -19,6 +19,7 @@ public class hashcodegenerator {
 		md.update(buffer);
 		byte[] digest = md.digest();
 		String hexStr="";
+		
 		for (int ii = 0 ; ii < digest.length ; ii++)
 		{
 			hexStr += Integer.toString((digest[ii] & 0xff) + 0x100,16).substring(1);
