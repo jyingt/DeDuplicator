@@ -1,4 +1,4 @@
-package naive.encoder;
+package deduplicator.encoder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import compare.Comparison;
+import deduplicator.compare.Comparison;
 
 public class MainSaving extends ReadInFile
 {

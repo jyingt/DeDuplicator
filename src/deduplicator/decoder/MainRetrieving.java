@@ -1,4 +1,4 @@
-package naive.decoder;
+package deduplicator.decoder;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import naive.encoder.ReadInFile;
+import deduplicator.encoder.ReadInFile;
 
 public class MainRetrieving extends ReadInFile
 {

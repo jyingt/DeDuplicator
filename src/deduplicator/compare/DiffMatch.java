@@ -1,4 +1,4 @@
-package compare;
+package deduplicator.compare;
 
 import java.util.ArrayList;
 

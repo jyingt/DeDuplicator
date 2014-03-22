@@ -1,4 +1,4 @@
-package naive.encoder;
+package deduplicator.encoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

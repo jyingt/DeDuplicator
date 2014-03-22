@@ -1,12 +1,11 @@
-package deduplicator;
+package deduplicator.client;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-import compare.StringComparison;
-
-import naive.encoder.MainSaving;
+import deduplicator.compare.StringComparison;
+import deduplicator.encoder.MainSaving;
 
 public class DeDuplicator
 {   

@@ -1,13 +1,13 @@
-package compare;
+package deduplicator.compare;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import naive.encoder.HashCodeGenerator;
-import naive.encoder.MainSaving;
-import naive.encoder.ReadInFile;
+import deduplicator.encoder.HashCodeGenerator;
+import deduplicator.encoder.MainSaving;
+import deduplicator.encoder.ReadInFile;
 
 public class Comparison extends ReadInFile{
 	

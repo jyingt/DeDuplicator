@@ -1,5 +1,5 @@
 
-package deduplicator;
+package deduplicator.client;
 
 import java.awt.EventQueue;
 
