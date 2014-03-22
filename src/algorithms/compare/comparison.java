@@ -1,6 +1,5 @@
 package algorithms.compare;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -42,10 +41,9 @@ public class comparison extends readinfile{
 				//log("false");
 				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
 				result.add(temp);
-				
 			}
-			
 		}
+		
 		data.get(0).setfilecontent(result.toString());
 		mainsaving mm = new mainsaving(filename, data,"save");
 		result.clear();
@@ -56,22 +54,20 @@ public class comparison extends readinfile{
 	{
 		hashcodegenerator hh1 = new hashcodegenerator(s1);
 		hashcodegenerator hh2 = new hashcodegenerator(s1);
+		
 		if (hh1.str.equals(hh2.str))
-		{
 			return true;
-		}
 		else
 			return false;
 	}
 	
 	public static void stepcheckV2(String s1, String s2) throws NoSuchAlgorithmException
 	{
-		if (initialcheckV2(s1,s2)==false)
-		{
+		if (initialcheckV2(s1,s2) == false) {
 			int MAXSIZE = Math.max(s1.length(), s2.length());
 			int CHUNKSIZE = MAXSIZE/CHUNKS;
 			int startpt = 0 ; 
-			while (startpt<MAXSIZE)
+			while (startpt < MAXSIZE)
 			{
 				//no relative location here, just naive setup structure
 				String sub1 = s1.substring(startpt,Math.min(startpt+CHUNKSIZE, s1.length()));
@@ -82,8 +78,7 @@ public class comparison extends readinfile{
 			log("I run through the while loop");
 			
 		}
-		else
-		{
+		else {
 			log("Same file!");
 		}
 	}
@@ -98,5 +93,6 @@ public class comparison extends readinfile{
 	{
 		System.out.println(a);
 	}
+	
 	private static int CHUNKS = 1000;
 }
