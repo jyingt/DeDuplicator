@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class ReadInFile
 {
+    public ArrayList<savelet> ss;
+    
     public ReadInFile()
     {
         //
@@ -65,6 +67,8 @@ public class ReadInFile
     
     protected class savelet
     {
+        public String filename, filecontent;
+        
         public savelet(String filenames, String filecontents)
         {
             filename = filenames;
@@ -83,22 +87,17 @@ public class ReadInFile
         
         public void setfilename(String filenames)
         {
-            filename=filenames;
+            filename = filenames;
         }
         
         public void setfilecontent(String filecontents)
         {
             filecontent=filecontents;
         }
-        
-        public String filename;
-        public String filecontent;
     }
     
     private static void log(String a)
     {
         System.out.println(a);
     }
-    
-    public ArrayList<savelet> ss;
 }

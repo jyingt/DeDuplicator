@@ -25,6 +25,7 @@ public class MainSaving extends ReadInFile
 	public static boolean initialfilechecker()
 	{
 		File ff = new File("data/data.txt");
+		
 		if (ff.exists())
 			return true;
 		else
@@ -34,7 +35,7 @@ public class MainSaving extends ReadInFile
 	public void writefile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		//temp var
-		String filename="xx.txt";
+		String filename = "xx.txt";
 		//-----------------
 		
 		ReadInFile rr = new ReadInFile(file);
@@ -46,9 +47,10 @@ public class MainSaving extends ReadInFile
 			log("not exists");
 			//File ff = new File(filename);
 			
-			int ii=0;
+			int ii = 0;
 			PrintStream outDecode = new PrintStream(new FileOutputStream("data/data.txt"));
 			int LENGTH = ss.get(0).getfilecontent().length();
+			
 			while ( ii < LENGTH)
 			{
 				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getfilecontent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
@@ -76,9 +78,7 @@ public class MainSaving extends ReadInFile
 	public static void savefile(String filename, ArrayList<savelet> ss2) throws FileNotFoundException
 	{
 		PrintStream outDecode = new PrintStream(new FileOutputStream("database/" + filename));
-		
 		outDecode.print(ss2.get(0).getfilecontent());
-		
 		outDecode.close();
 	}
 	
