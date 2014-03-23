@@ -7,10 +7,14 @@ import java.util.*;
 import deduplicator.compare.StringComparison;
 import deduplicator.encoder.MainSaving;
 
+/**
+ * Main block
+ * @author John Ying
+ *
+ */
 public class DeDuplicator
 {   
-    public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
-    {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
         //ArrayList<String> file1 = readinfile.readinmain("test/plain.txt");
         //ArrayList<String> file2 = readinfile.readinmain("test/change.txt");
         
