@@ -24,7 +24,7 @@ public class DeDuplicator
         //initialhashcodegenerator.writefile("test");
         //readinfile.readinbybyte("plain.txt");
         StringComparison tt = new StringComparison();
-        tt.finddiff("abcdefghijkl", "defghijk", 0);
+        tt.findDiff("abcdefghijkl", "defghijk", 0);
         tt.show();
     
         /*

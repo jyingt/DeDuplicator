@@ -13,10 +13,10 @@ public class HashCodeGenerator
     public String str;
     
 	public HashCodeGenerator(String input) throws NoSuchAlgorithmException {
-		str = makehash(input);		
+		str = makeHash(input);		
 	}
 	
-	public String makehash(String input) throws NoSuchAlgorithmException {
+	public String makeHash(String input) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		md.reset();
 		byte[] buffer = input.getBytes();

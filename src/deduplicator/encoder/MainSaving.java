@@ -15,7 +15,7 @@ public class MainSaving extends ReadInFile
 {
     private static int CHUNKS = 1000;
     
-	public MainSaving(String file, ArrayList<savelet> ss, String action) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	public MainSaving(String file, ArrayList<SaveLet> ss, String action) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 	    if (action.equals("write"))
 	        writefile(file);
 	    else if (action.equals("save"))
@@ -37,7 +37,7 @@ public class MainSaving extends ReadInFile
 		//-----------------
 		
 		ReadInFile rr = new ReadInFile(file);
-		ArrayList<savelet> ss = rr.ss;
+		ArrayList<SaveLet> ss = rr.ss;
 		log("" + ss.size());
 		
 		if (initialfilechecker() == false) {
@@ -46,10 +46,10 @@ public class MainSaving extends ReadInFile
 			
 			int ii = 0;
 			PrintStream outDecode = new PrintStream(new FileOutputStream("data/data.txt"));
-			int LENGTH = ss.get(0).getfilecontent().length();
+			int LENGTH = ss.get(0).getFileContent().length();
 			
 			while ( ii < LENGTH) {
-				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getfilecontent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
+				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
 				String str = hh.str;
 				outDecode.println(str);
 				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
@@ -70,9 +70,9 @@ public class MainSaving extends ReadInFile
 		}
 	}
 	
-	public static void savefile(String filename, ArrayList<savelet> ss2) throws FileNotFoundException {
+	public static void savefile(String filename, ArrayList<SaveLet> ss2) throws FileNotFoundException {
 		PrintStream outDecode = new PrintStream(new FileOutputStream("database/" + filename));
-		outDecode.print(ss2.get(0).getfilecontent());
+		outDecode.print(ss2.get(0).getFileContent());
 		outDecode.close();
 	}
 	

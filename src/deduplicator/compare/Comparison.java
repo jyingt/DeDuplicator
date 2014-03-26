@@ -11,25 +11,25 @@ import deduplicator.encoder.ReadInFile;
 
 public class Comparison extends ReadInFile{
 	
-	public Comparison(String filename, ArrayList<savelet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public Comparison(String filename, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		stepcompare(filename,ss);
 	}
 	
-	public void stepcompare(String filename, ArrayList<savelet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public void stepcompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		ReadInFile rr = new ReadInFile("test/data.txt");
-		ArrayList<savelet> data =rr.ss;
-		String[] str = data.get(0).getfilecontent().split("\n");
+		ArrayList<SaveLet> data =rr.ss;
+		String[] str = data.get(0).getFileContent().split("\n");
 		ArrayList<String> result = new ArrayList<String>();
 		int ii = 0 ; 
 		int counter = 0;
-		int LENGTH = ss2.get(0).getfilecontent().length();
+		int LENGTH = ss2.get(0).getFileContent().length();
 		log(Integer.toString(LENGTH));
 		
 		while (ii <= LENGTH && counter < data.size())
 		{
-			String temp = ss2.get(0).getfilecontent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH));
+			String temp = ss2.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH));
 			HashCodeGenerator hh = new HashCodeGenerator(temp);
 			String ss = hh.str;
 			if ( ss.equals(str[counter++]))

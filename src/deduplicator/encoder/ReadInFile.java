@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class ReadInFile
 {
-    public ArrayList<savelet> ss;
+    public ArrayList<SaveLet> ss;
     
     /**
      * Default constructor
@@ -28,7 +28,7 @@ public class ReadInFile
      * @throws IOException
      */
     public ReadInFile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-        ss = readinmain(file);
+        ss = readInMain(file);
     }
     
     /**
@@ -39,13 +39,13 @@ public class ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    public ArrayList<savelet> readinmain(String name) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+    public ArrayList<SaveLet> readInMain(String name) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
         File file = new File(name);
         
         if (file.isFile())
-            return readinbybyte(name, file);
+            return readInByByte(name, file);
         else
-            return readinfolder(name, file);
+            return readInByFolder(name, file);
     }
     
     /**
@@ -55,8 +55,8 @@ public class ReadInFile
      * @return
      * @throws IOException
      */
-    public ArrayList<savelet> readinbybyte(String filename, File file) throws IOException {
-        ArrayList<savelet> save = new ArrayList<savelet>();
+    public ArrayList<SaveLet> readInByByte(String filename, File file) throws IOException {
+        ArrayList<SaveLet> save = new ArrayList<SaveLet>();
         FileInputStream fin = new FileInputStream(file);
         byte[] buffer = new byte[(int) file.length()];
         new DataInputStream(fin).readFully(buffer);
@@ -64,7 +64,7 @@ public class ReadInFile
         fin.close();
         
         String result = new String(buffer, "UTF-8");
-        savelet sa =  new savelet(filename, result);
+        SaveLet sa =  new SaveLet(filename, result);
         
         save.add(sa);
         
@@ -78,12 +78,12 @@ public class ReadInFile
      * @return
      * @throws IOException
      */
-    public ArrayList<savelet> readinfolder(String foldername, File folder) throws IOException {
+    public ArrayList<SaveLet> readInByFolder(String foldername, File folder) throws IOException {
         File[] listoffiles = folder.listFiles();
-        ArrayList<savelet> result = new ArrayList<savelet>();
+        ArrayList<SaveLet> result = new ArrayList<SaveLet>();
         
         for (File file: listoffiles) {
-            result.add(readinbybyte(file.getName(),file).get(0));
+            result.add(readInByByte(file.getName(),file).get(0));
         }
         
         return result;
@@ -94,24 +94,24 @@ public class ReadInFile
      * @author Yuteng Pan, Hansen Zhang
      *
      */
-    protected class savelet
+    protected class SaveLet
     {
         public String filename, filecontent;
         
-        public savelet(String filenames, String filecontents) {
+        public SaveLet(String filenames, String filecontents) {
             filename = filenames;
             filecontent = filecontents;
         }
         
-        public String getfilename() {
+        public String getFileName() {
             return filename;
         }
         
-        public String getfilecontent() {
+        public String getFileContent() {
             return filecontent;
         }
         
-        public void setfilename(String filenames) {
+        public void setFileName(String filenames) {
             filename = filenames;
         }
         

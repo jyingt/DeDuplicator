@@ -32,7 +32,7 @@ public class StringComparison
 		LOC = new Vector <Change> ();
 	}
 	
-	public void finddiff(String str1, String str2, int startpos) {
+	public void findDiff(String str1, String str2, int startpos) {
 		int i = 0;
 		int index;
 		int diffptr;
@@ -128,7 +128,7 @@ public class StringComparison
 		System.out.println("string1 is " + newstr1 + " length is " + newstr1.length() + 
 						" string2 is " + newstr2 + " length is " + newstr2.length());
 		
-		finddiff(newstr1, newstr2, startpos + i);
+		findDiff(newstr1, newstr2, startpos + i);
 
 		return;
 	}
@@ -144,11 +144,11 @@ public class StringComparison
 								+ " is " + tmps);
 		
 		}
-		int sizediff = getdiffsize();
+		int sizediff = getDiffSize();
 		System.out.println("Size Diff:" + sizediff);
 	}
 	
-	public int getdiffsize()
+	public int getDiffSize()
 	{
 		int result=0;
 		for (Change cc : LOC )
