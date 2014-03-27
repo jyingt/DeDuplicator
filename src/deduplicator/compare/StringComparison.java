@@ -68,8 +68,9 @@ public class StringComparison
 		// here both diffptr and i means the total size of identical section from the start
 		diffptr = i;
 		
-		String window = str2.substring(Math.max(0, i-5),Math.min(i+5,str2.length()));
-		System.out.println(window);
+//		String window = str2.substring(Math.max(0, i-5),Math.min(i+5,str2.length()));
+		String window = str2.substring(i,Math.min(i+5,str2.length()));
+		System.out.println("window is " + window);
 		// locate within 5 character window the char that matches
 		while(((index = window.indexOf(str1.charAt(i))) == -1)) {				
 			del += str1.charAt(i++);
@@ -85,7 +86,8 @@ public class StringComparison
 		/* after the while loop, i becomes the index of the start of the next 
 		 * string1 in original string1
 		 */
-		//index = index + i - 5;
+		// index is the end of insertion
+		index = diffptr + index;
 		/* here index means the index of the start of the the next string2 in
 		 * string2
 		 */
