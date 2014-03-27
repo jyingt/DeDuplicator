@@ -13,7 +13,7 @@ public class StringComparison
 		}
 		
 		private int position;
-		private int operation;
+		private int operation; // 0 for replace, 1 for delete, 2 for insert
 		private String content;
 		
 		public int getPosition() {
@@ -28,8 +28,9 @@ public class StringComparison
 		
 	}
 	
-	public StringComparison() {
+	public StringComparison(String s1, String s2, int startpos) {
 		LOC = new Vector <Change> ();
+		findDiff(s1,s2,startpos);
 	}
 	
 	public void findDiff(String str1, String str2, int startpos) {
@@ -52,7 +53,7 @@ public class StringComparison
 			if (i == len1 && i < len2) {
 				//System.out.println((len2 - len1) + " chars " + str2.substring(i+1) + " inserted at " + len1 + " on string1");
 				// sample string has more characters at the end
-				//LOC.addElement(new Change(i+1, 2, str2.substring(i+1)));
+				LOC.addElement(new Change(i+1, 2, str2.substring(i+1)));
 				return;
 			}
 			else if (i == len2 && i < len1) {
@@ -84,7 +85,7 @@ public class StringComparison
 		/* after the while loop, i becomes the index of the start of the next 
 		 * string1 in original string1
 		 */
-		//index += i;
+		index = index + i -5;
 		/* here index means the index of the start of the the next string2 in
 		 * string2
 		 */

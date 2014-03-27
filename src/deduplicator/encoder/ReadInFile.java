@@ -94,7 +94,7 @@ public class ReadInFile
      * @author Yuteng Pan, Hansen Zhang
      *
      */
-    protected class SaveLet
+    public class SaveLet
     {
         public String filename, filecontent;
         

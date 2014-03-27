@@ -13,21 +13,30 @@ public class Comparison extends ReadInFile{
 	
 	public Comparison(String filename, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
-		stepcompare(filename,ss);
+		stepCompare(filename,ss);
 	}
 	
-	public void stepcompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public void stepCompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
-		ReadInFile rr = new ReadInFile("test/data.txt");
+		ReadInFile rr = new ReadInFile("db/database/file1.txt");
 		ArrayList<SaveLet> data =rr.ss;
-		String[] str = data.get(0).getFileContent().split("\n");
+		//String[] str = data.get(0).getFileContent().split("\n");
 		ArrayList<String> result = new ArrayList<String>();
 		int ii = 0 ; 
 		int counter = 0;
+		int startpt = 0;
 		int LENGTH = ss2.get(0).getFileContent().length();
 		log(Integer.toString(LENGTH));
 		
-		while (ii <= LENGTH && counter < data.size())
+		while ( ii < LENGTH) {
+			StringComparison tt = new StringComparison(data.get(0).getFileContent(),ss2.get(0).getFileContent(),startpt);
+			//tt.getDiffSize()
+			ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
+
+		}
+		
+		
+		/*while (ii <= LENGTH && counter < data.size())
 		{
 			String temp = ss2.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH));
 			HashCodeGenerator hh = new HashCodeGenerator(temp);
@@ -43,15 +52,15 @@ public class Comparison extends ReadInFile{
 				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
 				result.add(temp);
 			}
-		}
+		}*/
 		
 		data.get(0).setfilecontent(result.toString());
-		MainSaving mm = new MainSaving(filename, data,"save");
+		MainSaving mm = new MainSaving(filename, data);
 		result.clear();
 		log(Integer.toString(counter) + " " + data.size());
 	}
 	
-	public static boolean initialcheckV2(String s1, String s2) throws NoSuchAlgorithmException
+	public static boolean initialCheckV2(String s1, String s2) throws NoSuchAlgorithmException
 	{
 		HashCodeGenerator hh1 = new HashCodeGenerator(s1);
 		HashCodeGenerator hh2 = new HashCodeGenerator(s1);
@@ -62,9 +71,9 @@ public class Comparison extends ReadInFile{
 			return false;
 	}
 	
-	public static void stepcheckV2(String s1, String s2) throws NoSuchAlgorithmException
+	public static void stepCheckV2(String s1, String s2) throws NoSuchAlgorithmException
 	{
-		if (initialcheckV2(s1,s2) == false) {
+		if (initialCheckV2(s1,s2) == false) {
 			int MAXSIZE = Math.max(s1.length(), s2.length());
 			int CHUNKSIZE = MAXSIZE/CHUNKS;
 			int startpt = 0 ; 
@@ -73,7 +82,7 @@ public class Comparison extends ReadInFile{
 				//no relative location here, just naive setup structure
 				String sub1 = s1.substring(startpt,Math.min(startpt+CHUNKSIZE, s1.length()));
 				String sub2 = s2.substring(startpt,Math.min(startpt+CHUNKSIZE, s2.length()));
-				stepcompare(sub1,sub2);
+				stepCompare(sub1,sub2);
 				startpt = Math.min(startpt+CHUNKSIZE, MAXSIZE);				
 			}
 			log("I run through the while loop");
@@ -83,7 +92,7 @@ public class Comparison extends ReadInFile{
 			log("Same file!");
 		}
 	}
-	public static int stepcompare(String s1, String s2)
+	public static int stepCompare(String s1, String s2)
 	{
 		//where we need to find the relative location of different strings
 		return -1;
