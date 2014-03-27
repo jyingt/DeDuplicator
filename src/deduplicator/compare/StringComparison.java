@@ -81,11 +81,11 @@ public class StringComparison
 		}
 		
 		System.out.println("index is " + index + " i is " + i);
-		System.out.println("index is " + index);
+		System.out.println("index is " + index + " diffptr is " + diffptr);
 		/* after the while loop, i becomes the index of the start of the next 
 		 * string1 in original string1
 		 */
-		index = index + i -5;
+		//index = index + i - 5;
 		/* here index means the index of the start of the the next string2 in
 		 * string2
 		 */
@@ -126,8 +126,8 @@ public class StringComparison
 			
 		}
 		
-		System.out.println("string1 is " + newstr1 + " length is " + newstr1.length() + 
-						" string2 is " + newstr2 + " length is " + newstr2.length());
+//		System.out.println("string1 is " + newstr1 + " length is " + newstr1.length() + 
+//						" string2 is " + newstr2 + " length is " + newstr2.length());
 		
 		findDiff(newstr1, newstr2, startpos + i);
 
