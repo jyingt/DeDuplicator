@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Vector;
 
+import deduplicator.compare.StringComparison.Change;
 import deduplicator.encoder.HashCodeGenerator;
 import deduplicator.encoder.MainSaving;
 import deduplicator.encoder.ReadInFile;
@@ -16,25 +18,32 @@ public class Comparison extends ReadInFile{
 		stepCompare(filename,ss);
 	}
 	
-	public void stepCompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public ArrayList<String> stepCompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		ReadInFile rr = new ReadInFile("db/database/file1.txt");
 		ArrayList<SaveLet> data =rr.ss;
 		//String[] str = data.get(0).getFileContent().split("\n");
-		ArrayList<String> result = new ArrayList<String>();
-		int ii = 0 ; 
-		int counter = 0;
-		int startpt = 0;
-		int LENGTH = ss2.get(0).getFileContent().length();
-		log(Integer.toString(LENGTH));
 		
-		while ( ii < LENGTH) {
-			StringComparison tt = new StringComparison(data.get(0).getFileContent(),ss2.get(0).getFileContent(),startpt);
+		//int ii = 0 ; 
+		//int counter = 0;
+		//int startpt = 0;
+		//int LENGTH = ss2.get(0).getFileContent().length();
+		//log(Integer.toString(LENGTH));
+		
+		/*while ( ii < LENGTH) {
+			StringComparison tt = new StringComparison(data.get(0).getFileContent(),ss2.get(0).getFileContent());
 			//tt.getDiffSize()
 			ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
 
-		}
+		}*/
+
+		StringComparison tt = new StringComparison(data.get(0).getFileContent(),ss2.get(0).getFileContent());
+		Vector<Change> vc = tt.getLOC();
+        for (int i = 0; i < vc.size(); i++) {
+			Change tmpc = vc.get(i);
+			result.add(tmpc.getPosition() + ":" + tmpc.getContent());
 		
+		}
 		
 		/*while (ii <= LENGTH && counter < data.size())
 		{
@@ -52,14 +61,18 @@ public class Comparison extends ReadInFile{
 				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
 				result.add(temp);
 			}
-		}*/
+		}
 		
 		data.get(0).setfilecontent(result.toString());
 		MainSaving mm = new MainSaving(filename, data);
 		result.clear();
 		log(Integer.toString(counter) + " " + data.size());
+		*/
+		
+		return result;
 	}
 	
+	/*
 	public static boolean initialCheckV2(String s1, String s2) throws NoSuchAlgorithmException
 	{
 		HashCodeGenerator hh1 = new HashCodeGenerator(s1);
@@ -97,12 +110,21 @@ public class Comparison extends ReadInFile{
 		//where we need to find the relative location of different strings
 		return -1;
 	}
-	
+	*/
 	
 	private static void log(String a)
 	{
 		System.out.println(a);
 	}
+	private static void log(Integer a)
+	{
+		System.out.println(a);
+	}
 	
+	public static ArrayList<String> getResult()
+	{
+		return result;
+	}
 	private static int CHUNKS = 1000;
+	private static ArrayList<String> result = new ArrayList<String>();
 }

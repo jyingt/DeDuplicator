@@ -28,9 +28,9 @@ public class StringComparison
 		
 	}
 	
-	public StringComparison(String s1, String s2, int startpos) {
+	public StringComparison(String s1, String s2) {
 		LOC = new Vector <Change> ();
-		findDiff(s1,s2,startpos);
+		findDiff(s1,s2,0);
 	}
 	
 	public void findDiff(String str1, String str2, int startpos) {
@@ -42,10 +42,10 @@ public class StringComparison
 		int len1 = str1.length()-1;
 		int len2 = str2.length()-1;
 		
-		System.out.println("startpos is " + startpos);
+		//System.out.println("startpos is " + startpos);
 
 		if(str1.equals(str2)) {
-			System.out.println("no diff till end, complete");
+			//System.out.println("no diff till end, complete");
 			return;		
 		}
 		
@@ -53,13 +53,13 @@ public class StringComparison
 			if (i == len1 && i < len2) {
 				//System.out.println((len2 - len1) + " chars " + str2.substring(i+1) + " inserted at " + len1 + " on string1");
 				// sample string has more characters at the end
-				LOC.addElement(new Change(i+1, 2, str2.substring(i+1)));
+				LOC.addElement(new Change(startpos + i+1, 2, str2.substring(i+1)));
 				return;
 			}
 			else if (i == len2 && i < len1) {
 				//System.out.println((len1 - len2) + " chars " + str1.substring(i+1) + " deleted at " + len2 + " on string1");
 				// other string has more characters at the end
-				LOC.addElement(new Change(i+1, 1, str1.substring(i+1)));
+				LOC.addElement(new Change(startpos +i+1, 1, str1.substring(i+1)));
 				return;				
 			}
 
@@ -69,8 +69,9 @@ public class StringComparison
 		diffptr = i;
 		
 //		String window = str2.substring(Math.max(0, i-5),Math.min(i+5,str2.length()));
-		String window = str2.substring(i,Math.min(i+5,str2.length()));
-		System.out.println("window is " + window);
+		String window = str2.substring(i,Math.min(i+6,str2.length()));
+		System.out.println("window is " + window); 
+		
 		// locate within 5 character window the char that matches
 		while(((index = window.indexOf(str1.charAt(i))) == -1)) {				
 			del += str1.charAt(i++);
@@ -81,8 +82,8 @@ public class StringComparison
 			}
 		}
 		
-		System.out.println("index is " + index + " i is " + i);
-		System.out.println("index is " + index + " diffptr is " + diffptr);
+		//System.out.println("index is " + index + " i is " + i);
+		//System.out.println("index is " + index + " diffptr is " + diffptr);
 		/* after the while loop, i becomes the index of the start of the next 
 		 * string1 in original string1
 		 */
@@ -98,8 +99,8 @@ public class StringComparison
 		int delcnt = i - diffptr;		// size of deletion
 		int inscnt = index - diffptr;	// size of insertion
 		int currpos = diffptr + startpos;
-		System.out.println(delcnt + " chars " + del + " deleted at " + currpos);
-		System.out.println(inscnt + " chars " + diff + " inserted at " + currpos);
+		//System.out.println(delcnt + " chars " + del + " deleted at " + currpos);
+		//System.out.println(inscnt + " chars " + diff + " inserted at " + currpos);
 
 		String newstr1 = str1.substring(i);
 		String newstr2 = str2.substring(index);
@@ -165,5 +166,10 @@ public class StringComparison
 		return result;
 	}
 	
+	public static Vector<Change> getLOC()
+	{
+
+		return LOC;
+	}
 	private static Vector <Change> LOC;
 }

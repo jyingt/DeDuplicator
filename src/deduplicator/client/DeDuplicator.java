@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import deduplicator.compare.StringComparison;
+import deduplicator.compare.StringComparison.Change;
 import deduplicator.encoder.MainSaving;
 import deduplicator.encoder.ReadInFile;
 import deduplicator.encoder.ReadInFile.SaveLet;
@@ -17,21 +18,21 @@ import deduplicator.encoder.ReadInFile.SaveLet;
 public class DeDuplicator
 {   
     public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-    	ReadInFile rr1 =new ReadInFile("file1.txt");
-    	ReadInFile rr2 =new ReadInFile("file2.txt");
-        ArrayList<SaveLet> sl1 = rr1.ss;
-        ArrayList<SaveLet> sl2 = rr2.ss;
+//    	ReadInFile rr1 =new ReadInFile("file1.txt");
+//    	ReadInFile rr2 =new ReadInFile("file4.txt");
+//        ArrayList<SaveLet> sl1 = rr1.ss;
+//       ArrayList<SaveLet> sl2 = rr2.ss;
+//       StringComparison sc = new StringComparison(sl1.get(0).getFileContent(),sl2.get(0).getFileContent());
+//       sc.show();
+  
         //stepcheckV2(file1.get(0).toString(),file2.get(0).toString());
         //readinfile.readinmain("test");
-        //MainSaving m1 = new MainSaving("file1.txt");
-       // MainSaving m2 = new MainSaving("file2.txt");
-        //MainSaving m3 = new MainSaving("file3.txt");
-        //MainSaving m4 = new MainSaving("file4.txt");
+        MainSaving m1 = new MainSaving("file1.txt");
+       MainSaving m2 = new MainSaving("file2.txt");
+        MainSaving m3 = new MainSaving("file3.txt");
+        MainSaving m4 = new MainSaving("file4.txt");
         //initialhashcodegenerator.writefile("test");
-        
-        StringComparison tt = new StringComparison(sl1.get(0).getFileContent(),sl2.get(0).getFileContent(),0);
-        tt.show();
-    
+
         /*
         // Test file
         File file;
@@ -100,5 +101,14 @@ public class DeDuplicator
         writer.flush();
         writer.close();
         */
+    }
+    public static void log(String a)
+    {
+    	System.out.println(a);
+    }
+    public static void log(Integer a)
+    {
+    	System.out.println(a);
+    	
     }
 }

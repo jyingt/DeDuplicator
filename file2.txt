@@ -1,5 +1,5 @@
-<!DOCT1112 html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<head>a
+f<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
 <script type="text/javascript" src="/twiki/pub/TWiki/JQueryPlugin/jquery.js"></script>
 <script type="text/javascript" src="/twiki/pub/TWiki/JQueryPlugin/jquery-migrate.js"></script>
 <link rel="stylesheet" href="/twiki/pub/TWiki/JQueryPlugin/jquery-all.css" type="text/css" media="all" />
@@ -208,9 +208,9 @@ Please use the "Course Info" menu section to view course material.
 <li> <form name="jumpForm" action="/twiki/bin/view/EC504/WebHome"><input id="jumpFormField" type="text" class="twikiInputField" name="topic" value="" size="18" /><noscript>&nbsp;<input type="submit" class="twikiButton" size="5" name="submit" value="Jump" />&nbsp;</noscript>   </form>
 </li> <li> <form name="quickSearchForm" action="/twiki/bin/view/EC504/WebSearch"><input type="text" class="twikiInputField" id="quickSearchBox" name="search" value="" size="18" /><input type="hidden" name="scope" value="all" /><input type="hidden" name="web" value="EC504" /><noscript>&nbsp;<input type="submit" size="5" class="twikiButton" name="submit" value="Search" />&nbsp;</noscript>   </form>
 </li> <li> 
-</li></ul> 
+</li></ul> e
 </td></tr></table></div></div><!-- /patternTopBar--><div id="patternBottomBar"><div id="patternBottomBarContents"><div id="patternWebBottomBar"><div class="twikiCopyright"><span class="twikiRight"> <a href="http://twiki.org/"><img src="/twiki/pub/TWiki/TWikiLogos/T-badge-88x31.gif" alt="This site is powered by the TWiki collaboration platform" width="88" height="31" title="This site is powered by the TWiki collaboration platform" border="0" /></a></span><span class="twikiRight" style="padding:0 10px 0 10px"> <a href="http://www.perl.org/"><img src="/twiki/pub/TWiki/TWikiLogos/perl-logo-88x31.gif" alt="Powered by Perl" width="88" height="31" title="Powered by Perl" border="0" /></a></span>Copyright &copy; 2008-2014 by the contributing authors. All material on this collaboration platform is the property of the contributing authors. <br /> Ideas, requests, problems regarding TWiki? <a href='mailto:bodek@ipsit.bu.edu?subject=TWiki%20Feedback%20on%20EC504.WebHome'>Send feedback</a></div><!--/patternWebBottomBar--></div><!-- /patternBottomBarContents--></div><!-- /patternBottomBar-->
-</div><!-- /patternPage-->
-</div><!-- /patternPageShadow-->
-</div><!-- /patternScreen-->
-</body></html>
+</div><!-- /patternPage-->d
+</div><!-- /patternPageShadow-->c
+</div><!-- /patternScreen-->b
+</body></html>a
