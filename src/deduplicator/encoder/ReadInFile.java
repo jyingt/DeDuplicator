@@ -4,6 +4,7 @@ import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+
 /**
  * Read at a specified path and return contents of file or folder
  * @author Yuteng Pan, Hansen Zhang
@@ -27,10 +28,10 @@ public class ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    public ReadInFile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-        ss = readInMain(file);
+    public ReadInFile(String file,String type) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+        ss = readInMain(file,type);
     }
-    
+   
     /**
      * Open file and read by byte or folder
      * @param name
@@ -39,9 +40,10 @@ public class ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    public ArrayList<SaveLet> readInMain(String name) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+    public ArrayList<SaveLet> readInMain(String name, String type) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
         File file = new File(name);
-        
+        if(type=="line")
+        	return readInByLine(name);
         if (file.isFile())
             return readInByByte(name, file);
         else
@@ -70,6 +72,23 @@ public class ReadInFile
         
         return save;
     }
+    public ArrayList<SaveLet> readInByLine(String filename) throws IOException {
+        ArrayList<SaveLet> save = new ArrayList<SaveLet>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			String text;
+			while( (text=reader.readLine())!=null)
+			{
+				save.add(new SaveLet(filename,text));
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Could not open file " + filename);
+			System.exit(-1);
+		}
+        
+        return save;
+    }
+    
     
     /**
      * Read in contents of a folder
@@ -98,6 +117,10 @@ public class ReadInFile
     {
         public String filename, filecontent;
         
+        public SaveLet()
+        {
+        	
+        }
         public SaveLet(String filenames, String filecontents) {
             filename = filenames;
             filecontent = filecontents;

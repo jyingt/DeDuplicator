@@ -20,7 +20,7 @@ public class Comparison extends ReadInFile{
 	
 	public ArrayList<String> stepCompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
-		ReadInFile rr = new ReadInFile("db/database/file1.txt");
+		ReadInFile rr = new ReadInFile("db/database/file1.txt","byte");
 		ArrayList<SaveLet> data =rr.ss;
 		//String[] str = data.get(0).getFileContent().split("\n");
 		
@@ -41,7 +41,7 @@ public class Comparison extends ReadInFile{
 		Vector<Change> vc = tt.getLOC();
         for (int i = 0; i < vc.size(); i++) {
 			Change tmpc = vc.get(i);
-			result.add(tmpc.getPosition() + ":" + tmpc.getContent());
+			result.add(tmpc.getPosition() + ":" + tmpc.getContent() + ":" + tmpc.getOperation());
 		
 		}
 		
@@ -72,45 +72,6 @@ public class Comparison extends ReadInFile{
 		return result;
 	}
 	
-	/*
-	public static boolean initialCheckV2(String s1, String s2) throws NoSuchAlgorithmException
-	{
-		HashCodeGenerator hh1 = new HashCodeGenerator(s1);
-		HashCodeGenerator hh2 = new HashCodeGenerator(s1);
-		
-		if (hh1.str.equals(hh2.str))
-			return true;
-		else
-			return false;
-	}
-	
-	public static void stepCheckV2(String s1, String s2) throws NoSuchAlgorithmException
-	{
-		if (initialCheckV2(s1,s2) == false) {
-			int MAXSIZE = Math.max(s1.length(), s2.length());
-			int CHUNKSIZE = MAXSIZE/CHUNKS;
-			int startpt = 0 ; 
-			while (startpt < MAXSIZE)
-			{
-				//no relative location here, just naive setup structure
-				String sub1 = s1.substring(startpt,Math.min(startpt+CHUNKSIZE, s1.length()));
-				String sub2 = s2.substring(startpt,Math.min(startpt+CHUNKSIZE, s2.length()));
-				stepCompare(sub1,sub2);
-				startpt = Math.min(startpt+CHUNKSIZE, MAXSIZE);				
-			}
-			log("I run through the while loop");
-			
-		}
-		else {
-			log("Same file!");
-		}
-	}
-	public static int stepCompare(String s1, String s2)
-	{
-		//where we need to find the relative location of different strings
-		return -1;
-	}
-	*/
 	
 	private static void log(String a)
 	{

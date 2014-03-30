@@ -39,7 +39,7 @@ public class MainSaving extends ReadInFile
 	
 	public void writefile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 		
-		ReadInFile rr = new ReadInFile(file);
+		ReadInFile rr = new ReadInFile(file,"byte");
 		ArrayList<SaveLet> ss = rr.ss;
 		if (initialfilechecker() == false) {
 			log("not exists");

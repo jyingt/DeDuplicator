@@ -11,23 +11,94 @@ import deduplicator.encoder.ReadInFile;
 
 public class MainRetrieving extends ReadInFile
 {
-    public static void decode(String inputfilename, String outputfilename, String change, int line, int startpt, int orilength ) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	public MainRetrieving(String Path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+	{
+		decoder(Path,filename);
+	}
+    public boolean checkExisting(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
-        /*
-        readinfile rr = new readinfile(inputfilename);
-        ArrayList<savelet> defaultversion = rr.ss;
-        String ll = defaultversion.get(0).getfilecontent().get(line-1);
-        System.out.println(defaultversion.get(line-1));
-        String llpre = ll.substring(0,startpt);
-        String llsuf = ll.substring(startpt+orilength,ll.length());
-        ll = llpre + change + llsuf;
-        defaultversion.get(0).getfilecontent().add(line-1,ll);
-        defaultversion.remove(line);
-        
-        System.out.println(defaultversion.get(line-1));
-        PrintStream outDecode = new PrintStream(new FileOutputStream(outputfilename));
-        outDecode.print(defaultversion.get(line-1));
-        outDecode.close();
-        */
+    	ReadInFile rr = new ReadInFile(NAMEPATH,"byte");
+    	String[] str = rr.ss.get(0).getFileContent().split("\n");
+    	SAMPLEFILE = str[0].substring(0,str[0].length()-1);
+    	for (String s: str)
+    	{
+    		s=s.substring(0, s.length()-1);
+    		if (s.equals(filename)==true)
+    			return true;
+    	}
+    	return false;
+    	
     }
+    public void decoder(String Path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+    {
+    	if (checkExisting(filename)==true)
+    	{
+    		ReadInFile ff = new ReadInFile(FILEPATH+filename,"line");
+    		ReadInFile ori = new ReadInFile(FILEPATH + SAMPLEFILE,"byte");
+    		for (SaveLet s : ff.ss)
+    		{
+    			String[] str = s.getFileContent().split(":");
+    			AC.add(new Change(Integer.parseInt(str[0]),Integer.parseInt(str[2]),str[1]));
+    			
+    		}
+		
+    		for (Change c:AC)
+    			c.Print();
+    		String output = ori.ss.get(0).getFileContent();
+    		log(output.length(),true);
+    		for (int ii = AC.size()-1; ii >=0 ; ii--)
+    		{
+    			if (AC.get(ii).getOperation()==2)
+    			{
+    				output = output.substring(0, AC.get(ii).getPosition()) + AC.get(ii).getContent() + output.substring(AC.get(ii).getPosition(), output.length());
+    			}
+    		}
+    		log(output,true);
+    		
+    	}
+    	
+    }
+    public class Change
+	{
+		public Change(int myposition, int myoperation, String mycontent) {
+			position = myposition;
+			operation = myoperation;
+			content = mycontent;
+		}
+		
+		private int position;
+		private int operation; // 0 for replace, 1 for delete, 2 for insert
+		private String content;
+		
+		public int getPosition() {
+			return position;
+		}
+		public int getOperation() {
+			return operation;
+		}
+		public String getContent() {
+			return content;
+		}
+		public void Print()
+		{
+			log(position + " " + operation + " " + content , true);
+		}
+		
+	}
+    private static void log(String a,boolean newline) {
+    	if(newline)
+    		System.out.println(a);
+    	else
+    		System.out.print(a);
+	}
+    private static void log(Integer a,boolean newline) {
+    	if(newline)
+    		System.out.println(a);
+    	else
+    		System.out.print(a);
+	}
+    private static String NAMEPATH = "db/key/name.txt";
+    private static String FILEPATH = "db/database/";
+    private static String SAMPLEFILE;
+    private static ArrayList<Change> AC = new ArrayList<Change>();
 }

@@ -6,6 +6,7 @@ import java.util.*;
 
 import deduplicator.compare.StringComparison;
 import deduplicator.compare.StringComparison.Change;
+import deduplicator.decoder.MainRetrieving;
 import deduplicator.encoder.MainSaving;
 import deduplicator.encoder.ReadInFile;
 import deduplicator.encoder.ReadInFile.SaveLet;
@@ -27,10 +28,11 @@ public class DeDuplicator
   
         //stepcheckV2(file1.get(0).toString(),file2.get(0).toString());
         //readinfile.readinmain("test");
-        MainSaving m1 = new MainSaving("file1.txt");
-       MainSaving m2 = new MainSaving("file2.txt");
-        MainSaving m3 = new MainSaving("file3.txt");
-        MainSaving m4 = new MainSaving("file4.txt");
+//        MainSaving m1 = new MainSaving("file1.txt");
+//       MainSaving m2 = new MainSaving("file2.txt");
+//        MainSaving m3 = new MainSaving("file3.txt");
+//        MainSaving m4 = new MainSaving("file4.txt");
+    	MainRetrieving mr = new MainRetrieving("aa","file2.txt");
         //initialhashcodegenerator.writefile("test");
 
         /*
