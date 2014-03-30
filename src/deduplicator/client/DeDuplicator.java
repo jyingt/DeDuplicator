@@ -32,7 +32,10 @@ public class DeDuplicator
 //       MainSaving m2 = new MainSaving("file2.txt");
 //        MainSaving m3 = new MainSaving("file3.txt");
 //        MainSaving m4 = new MainSaving("file4.txt");
-    	MainRetrieving mr = new MainRetrieving("aa","file2.txt");
+    	MainRetrieving mr1 = new MainRetrieving("retrievefolder","file1.txt");
+    	MainRetrieving mr2 = new MainRetrieving("retrievefolder","file2.txt");
+    	MainRetrieving mr3 = new MainRetrieving("retrievefolder","file3.txt");
+    	MainRetrieving mr4 = new MainRetrieving("retrievefolder","file4.txt");
         //initialhashcodegenerator.writefile("test");
 
         /*
