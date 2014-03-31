@@ -13,10 +13,27 @@ import deduplicator.encoder.ReadInFile;
 
 public class MainRetrieving extends ReadInFile
 {
+	 /**
+     * Constructor
+     * @param Path
+     * @param filename
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
 	public MainRetrieving(String Path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		WriteToFile(Path,filename);
 	}
+	
+	/**
+     * Check whether the database has this file or not
+     * @param filename
+     * @return boolean 
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
     public boolean checkExisting(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
     	ReadInFile rr = new ReadInFile(NAMEPATH,"byte");
@@ -31,6 +48,15 @@ public class MainRetrieving extends ReadInFile
     	return false;
     	
     }
+    
+	/**
+     * Regenerate the file and prepare for retrieving
+     * @param filename
+     * @return string
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
     public String decoder(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
     	if (checkExisting(filename)==true)
@@ -48,22 +74,13 @@ public class MainRetrieving extends ReadInFile
     			ff = new ReadInFile(FILEPATH+filename,"byte");
     			return ff.ss.get(0).getFileContent();
     		}
-    		
-    		
-    		
-    		
-    		
-    		
-    		
+
     		for (SaveLet s : ff.ss)
     		{
     			String[] str = s.getFileContent().split(":");
     			AC.add(new Change(Integer.parseInt(str[0]),Integer.parseInt(str[2]),str[1]));
     			
     		}
-		
-    		for (Change c:AC)
-    			c.Print();
     		String output = ori.ss.get(0).getFileContent();
     		log(output.length(),true);
     		for (int ii = AC.size()-1; ii >=0 ; ii--)
@@ -94,6 +111,14 @@ public class MainRetrieving extends ReadInFile
     	
     }
     
+	/**
+     * Retrieve the files from database
+     * @param filename
+     * @param Path
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
     public void WriteToFile(String Path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
     	File checkexist = new File(Path);
@@ -110,6 +135,10 @@ public class MainRetrieving extends ReadInFile
 
     }
     
+    /**
+     * Helper class for regenerating the file
+     * @author Yuteng Pan, Hansen Zhang
+     */
     public class Change
 	{
 		public Change(int myposition, int myoperation, String mycontent) {
@@ -137,12 +166,24 @@ public class MainRetrieving extends ReadInFile
 		}
 		
 	}
+    
+	/**
+     * Consoler output helper function
+     * @param string
+     * @param newline
+     */
     private static void log(String a,boolean newline) {
     	if(newline)
     		System.out.println(a);
     	else
     		System.out.print(a);
 	}
+    
+	/**
+     * Overloaded consoler output helper function
+     * @param Integer
+     * @param newline
+     */
     private static void log(Integer a,boolean newline) {
     	if(newline)
     		System.out.println(a);

@@ -1,5 +1,6 @@
 package deduplicator.encoder;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,11 +12,20 @@ import java.security.NoSuchAlgorithmException;
 public class HashCodeGenerator
 {
     public String str;
-    
+    /**
+     * Constructor
+     * @param input
+     * @throws NoSuchAlgorithmException
+     */
 	public HashCodeGenerator(String input) throws NoSuchAlgorithmException {
 		str = makeHash(input);		
 	}
-	
+	 /**
+     * Generate the hashcode
+     * @param input
+     * @return string
+     * @throws NoSuchAlgorithmException
+     */
 	public String makeHash(String input) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		md.reset();

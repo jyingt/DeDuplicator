@@ -18,7 +18,7 @@ public class ReadInFile
      * Default constructor
      */
     public ReadInFile() {
-        // Do something here?
+       //do nothing, simply for initialization. 
     }
     
     /**
@@ -35,7 +35,7 @@ public class ReadInFile
     /**
      * Open file and read by byte or folder
      * @param name
-     * @return
+     * @return ArrayList<SaveLet>
      * @throws ClassNotFoundException
      * @throws NoSuchAlgorithmException
      * @throws IOException
@@ -54,7 +54,7 @@ public class ReadInFile
      * Read in file by byte
      * @param filename
      * @param file
-     * @return
+     * @return ArrayList<SaveLet> 
      * @throws IOException
      */
     public ArrayList<SaveLet> readInByByte(String filename, File file) throws IOException {
@@ -72,6 +72,12 @@ public class ReadInFile
         
         return save;
     }
+    /**
+     * Read in file by line
+     * @param filename
+     * @return ArrayList<SaveLet>
+     * @throws IOException
+     */
     public ArrayList<SaveLet> readInByLine(String filename) throws IOException {
         ArrayList<SaveLet> save = new ArrayList<SaveLet>();
 		try {
@@ -94,7 +100,7 @@ public class ReadInFile
      * Read in contents of a folder
      * @param foldername
      * @param folder
-     * @return
+     * @return ArrayList<SaveLet>
      * @throws IOException
      */
     public ArrayList<SaveLet> readInByFolder(String foldername, File folder) throws IOException {

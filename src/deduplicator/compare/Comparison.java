@@ -13,11 +13,29 @@ import deduplicator.encoder.ReadInFile;
 
 public class Comparison extends ReadInFile{
 	
+	
+	 /**
+     * Constructor
+     * @param filename
+     * @param ArrayList<SaveLet>
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
 	public Comparison(String filename, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		stepCompare(filename,ss);
 	}
 	
+	/**
+     * Locate the difference between two files
+     * @param filename
+     * @param ArrayList<SaveLet>
+     * @return ArrayList<SaveLet>
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
 	public ArrayList<String> stepCompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		ReadInFile rr = new ReadInFile("db/database/file1.txt","byte");
@@ -72,16 +90,28 @@ public class Comparison extends ReadInFile{
 		return result;
 	}
 	
-	
+	/**
+     * Consoler output helper function
+     * @param string
+     */
 	private static void log(String a)
 	{
 		System.out.println(a);
 	}
+	
+	/**
+     * Overloaded consoler output helper function
+     * @param Integer
+     */
 	private static void log(Integer a)
 	{
 		System.out.println(a);
 	}
 	
+	/**
+     * Return the result for comparison
+     * @return ArrayList<String>
+     */
 	public static ArrayList<String> getResult()
 	{
 		return result;

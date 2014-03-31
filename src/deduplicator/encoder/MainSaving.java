@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import deduplicator.compare.Comparison;
 
 /**
- * Database saving?
+ * Database encoding part - save files
  * @author Yuteng Pan, Hansen Zhang
  *
  */
@@ -15,18 +15,36 @@ public class MainSaving extends ReadInFile
 {
     private static int CHUNKS = 1000;
     
+    /**
+     * Constructor
+     * @param file
+     * @param ss
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
 	public MainSaving(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 	   
 		
 	       saveFile(file, ss,true);
 	}
-	
+	 /**
+     * Overloaded constructor
+     * @param file
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
 	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
 		
-		 writefile(file);
+		 writeFile(file);
 	}
 	
+	/**
+     * Initial database existing check
+     * @return boolean
+     */
 	public static boolean initialfilechecker() {
 		
 		File ff = new File(KEYPATHFILE);
@@ -37,7 +55,14 @@ public class MainSaving extends ReadInFile
 			return false;
 	}
 	
-	public void writefile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	/**
+     * Handle all the writing files to database
+     * @param file
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
+	public void writeFile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 		
 		ReadInFile rr = new ReadInFile(file,"byte");
 		ArrayList<SaveLet> ss = rr.ss;
@@ -93,6 +118,15 @@ public class MainSaving extends ReadInFile
  		}
 	}
 	
+	/**
+     * Output files to database
+     * @param filename
+     * @param ss2 
+     * @param newline
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
 	public static void saveFile(String filename, ArrayList<SaveLet> ss2, boolean newline) throws IOException {
 		
 		PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
@@ -114,7 +148,11 @@ public class MainSaving extends ReadInFile
 		log(filename + " is saved successfully!");
 
 	}
-
+	
+	/**
+     * Consoler output helper function
+     * @param string
+     */
 	private static void log(String a) {
 		System.out.println(a);
 	}
