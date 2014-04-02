@@ -9,7 +9,6 @@ import deduplicator.compare.Comparison;
 /**
  * Database encoding part - save files
  * @author Yuteng Pan, Hansen Zhang
- *
  */
 public class MainSaving extends ReadInFile
 {
@@ -42,7 +41,7 @@ public class MainSaving extends ReadInFile
      * Initial database existing check
      * @return boolean
      */
-	public static boolean initialfilechecker() {
+	public static boolean initialFileChecker() {
 		File ff = new File(KEYPATHFILE);
 		
 		if (ff.exists())
@@ -62,7 +61,7 @@ public class MainSaving extends ReadInFile
 		ReadInFile rr = new ReadInFile(file, "byte");
 		ArrayList<SaveLet> ss = rr.ss;
 		
-		if (initialfilechecker() == false) {
+		if (initialFileChecker() == false) {
 			log("not exists");
 			//File ff = new File(filename);
 			File key = new File(KEYPATH);
@@ -80,18 +79,30 @@ public class MainSaving extends ReadInFile
 			PrintStream outDecode = new PrintStream(new FileOutputStream(KEYPATHFILE));
 			int LENGTH = ss.get(0).getFileContent().length();
 			
+			// Keep list of hashes
+			ArrayList<String> hashList = new ArrayList<String>();
+			
 			while (ii < LENGTH) {
-				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
+				Hash hh = new Hash(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
 				String str = hh.str;
 				outDecode.println(str);     // write hash to database
 				ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
+				
+				// Add hash to list
+				hashList.add(hh.str);
 			}
 			
-			/**
-             * TODO:
-             * - Make hashtable
-             * - Serialize object into database
-             */
+			// Serialize list of hashes
+			try {
+			    FileOutputStream fileOut = new FileOutputStream("hashes.ser");
+			    ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			    objectOut.writeObject(hashList);
+			    objectOut.close();
+			    fileOut.close();
+			} 
+			catch (IOException e) {
+			    e.printStackTrace();
+			}
 			
 			outDecode.close();
 			saveFile(file, ss, false);
@@ -140,7 +151,7 @@ public class MainSaving extends ReadInFile
 		FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
 		BufferedWriter bufferedWriter = new BufferedWriter(writer);  
 		
-		bufferedWriter.write(savelets.get(0).getFileName());    
+		bufferedWriter.write(savelets.get(0).getFileName());
 		bufferedWriter.newLine();
 		bufferedWriter.flush();
 		bufferedWriter.close();
@@ -157,9 +168,9 @@ public class MainSaving extends ReadInFile
 		System.out.println(a);
 	}
 	
-	private static String MAINPATH = "db";
-	private static String KEYPATH = "db/key";
-	private static String KEYPATHFILE = "db/key/data.txt";
-	private static String DBPATH = "db/database/";
-	private static String NAMEPATHFILE = "db/key/name.txt";
+	private static final String MAINPATH = "db";
+	private static final String KEYPATH = "db/key";
+	private static final String KEYPATHFILE = "db/key/data.txt";
+	private static final String DBPATH = "db/database/";
+	private static final String NAMEPATHFILE = "db/key/name.txt";
 }
