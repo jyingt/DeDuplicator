@@ -4,7 +4,6 @@ import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-
 /**
  * Read at a specified path and return contents of file or folder
  * @author Yuteng Pan, Hansen Zhang
@@ -42,8 +41,10 @@ public class ReadInFile
      */
     public ArrayList<SaveLet> readInMain(String name, String type) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
         File file = new File(name);
-        if(type=="line")
+        
+        if(type == "line")
         	return readInByLine(name);
+        
         if (file.isFile())
             return readInByByte(name, file);
         else
@@ -80,14 +81,16 @@ public class ReadInFile
      */
     public ArrayList<SaveLet> readInByLine(String filename) throws IOException {
         ArrayList<SaveLet> save = new ArrayList<SaveLet>();
+        
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			String text;
-			while( (text=reader.readLine())!=null)
-			{
+			
+			while ((text=reader.readLine()) != null) {
 				save.add(new SaveLet(filename,text));
 			}
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			System.err.println("Could not open file " + filename);
 			System.exit(-1);
 		}
@@ -123,10 +126,10 @@ public class ReadInFile
     {
         public String filename, filecontent;
         
-        public SaveLet()
-        {
-        	
+        public SaveLet() {
+        	//
         }
+        
         public SaveLet(String filenames, String filecontents) {
             filename = filenames;
             filecontent = filecontents;

@@ -14,28 +14,33 @@ import deduplicator.encoder.ReadInFile.SaveLet;
 /**
  * Main block
  * @author John Ying
- *
  */
 public class DeDuplicator
 {   
-    public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-//    	ReadInFile rr1 =new ReadInFile("file1.txt");
-//    	ReadInFile rr2 =new ReadInFile("file4.txt");
-//        ArrayList<SaveLet> sl1 = rr1.ss;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
+    {
+//    	 ReadInFile rr1 =new ReadInFile("file1.txt");
+//    	 ReadInFile rr2 =new ReadInFile("file4.txt");
+        
+//       ArrayList<SaveLet> sl1 = rr1.ss;
 //       ArrayList<SaveLet> sl2 = rr2.ss;
+        
 //       StringComparison sc = new StringComparison(sl1.get(0).getFileContent(),sl2.get(0).getFileContent());
 //       sc.show();
   
         //stepcheckV2(file1.get(0).toString(),file2.get(0).toString());
         //readinfile.readinmain("test");
-//        MainSaving m1 = new MainSaving("file1.txt");
-//       MainSaving m2 = new MainSaving("file2.txt");
-//        MainSaving m3 = new MainSaving("file3.txt");
-//        MainSaving m4 = new MainSaving("file4.txt");
-    	MainRetrieving mr1 = new MainRetrieving("retrievefolder","file1.txt");
-    	MainRetrieving mr2 = new MainRetrieving("retrievefolder","file2.txt");
-    	MainRetrieving mr3 = new MainRetrieving("retrievefolder","file3.txt");
-    	MainRetrieving mr4 = new MainRetrieving("retrievefolder","file4.txt");
+        
+        //MainSaving m1 = new MainSaving("file1.txt");
+        //MainSaving m2 = new MainSaving("file2.txt");
+        //MainSaving m3 = new MainSaving("file3.txt");
+        //MainSaving m4 = new MainSaving("file4.txt");
+        
+    	MainRetrieving mr1 = new MainRetrieving("retrievefolder", "file1.txt");
+    	MainRetrieving mr2 = new MainRetrieving("retrievefolder", "file2.txt");
+    	MainRetrieving mr3 = new MainRetrieving("retrievefolder", "file3.txt");
+    	MainRetrieving mr4 = new MainRetrieving("retrievefolder", "file4.txt");
+    	
         //initialhashcodegenerator.writefile("test");
 
         /*
@@ -111,9 +116,9 @@ public class DeDuplicator
     {
     	System.out.println(a);
     }
+    
     public static void log(Integer a)
     {
     	System.out.println(a);
-    	
     }
 }
