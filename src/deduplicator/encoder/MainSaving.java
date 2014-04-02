@@ -83,9 +83,15 @@ public class MainSaving extends ReadInFile
 			while (ii < LENGTH) {
 				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
 				String str = hh.str;
-				outDecode.println(str);
+				outDecode.println(str);     // write hash to database
 				ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
 			}
+			
+			/**
+             * TODO:
+             * - Make hashtable
+             * - Serialize object into database
+             */
 			
 			outDecode.close();
 			saveFile(file, ss, false);

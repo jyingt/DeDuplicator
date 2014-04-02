@@ -12,6 +12,12 @@ import deduplicator.encoder.ReadInFile;
 
 public class MainRetrieving extends ReadInFile
 {
+    private static String NAMEPATH = "db/key/name.txt";
+    private static String FILEPATH = "db/database/";
+    private static String SAMPLEFILE;
+    
+    private static ArrayList<Change> AC = new ArrayList<Change>();
+    
     /**
      * Constructor
      * @param Path
@@ -123,39 +129,6 @@ public class MainRetrieving extends ReadInFile
     	}
     }
     
-    /**
-     * Helper class for regenerating the file
-     * @author Yuteng Pan, Hansen Zhang
-     */
-    public class Change
-	{
-        private int position;
-        private int operation; // 0 for replace, 1 for delete, 2 for insert
-        private String content;
-        
-		public Change(int myposition, int myoperation, String mycontent) {
-			position = myposition;
-			operation = myoperation;
-			content = mycontent;
-		}
-		
-		public int getPosition() {
-			return position;
-		}
-		
-		public int getOperation() {
-			return operation;
-		}
-		
-		public String getContent() {
-			return content;
-		}
-		
-		public void Print() {
-			log(position + " " + operation + " " + content , true);
-		}
-	}
-    
 	/**
      * Consoler output helper function
      * @param string
@@ -180,8 +153,32 @@ public class MainRetrieving extends ReadInFile
     		System.out.print(a);
 	}
     
-    private static String NAMEPATH = "db/key/name.txt";
-    private static String FILEPATH = "db/database/";
-    private static String SAMPLEFILE;
-    private static ArrayList<Change> AC = new ArrayList<Change>();
+    public class Change
+    {
+        private int position;
+        private int operation; // 0 for replace, 1 for delete, 2 for insert
+        private String content;
+        
+        public Change(int myposition, int myoperation, String mycontent) {
+            position = myposition;
+            operation = myoperation;
+            content = mycontent;
+        }
+        
+        public int getPosition() {
+            return position;
+        }
+        
+        public int getOperation() {
+            return operation;
+        }
+        
+        public String getContent() {
+            return content;
+        }
+        
+        public void print() {
+            log(position + " " + operation + " " + content, true);
+        }
+    }
 }
