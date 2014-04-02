@@ -98,7 +98,6 @@ public class ReadInFile
         return save;
     }
     
-    
     /**
      * Read in contents of a folder
      * @param foldername
@@ -126,13 +125,9 @@ public class ReadInFile
     {
         public String filename, filecontent;
         
-        public SaveLet() {
-        	//
-        }
-        
-        public SaveLet(String filenames, String filecontents) {
-            filename = filenames;
-            filecontent = filecontents;
+        public SaveLet(String _filename, String _filecontent) {
+            filename = _filename;
+            filecontent = _filecontent;
         }
         
         public String getFileName() {
@@ -143,12 +138,12 @@ public class ReadInFile
             return filecontent;
         }
         
-        public void setFileName(String filenames) {
-            filename = filenames;
+        public void setFileName(String _filename) {
+            filename = _filename;
         }
         
-        public void setfilecontent(String filecontents) {
-            filecontent = filecontents;
+        public void setfilecontent(String _filecontent) {
+            filecontent = _filecontent;
         }
     }
 }

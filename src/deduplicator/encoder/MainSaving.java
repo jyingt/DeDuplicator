@@ -24,10 +24,9 @@ public class MainSaving extends ReadInFile
      * @throws IOException
      */
 	public MainSaving(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-	   
-		
-	       saveFile(file, ss,true);
+	    saveFile(file, ss, true);
 	}
+	
 	 /**
      * Overloaded constructor
      * @param file
@@ -35,10 +34,8 @@ public class MainSaving extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
-	{
-		
-		 writeFile(file);
+	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	    writeFile(file);
 	}
 	
 	/**
@@ -46,7 +43,6 @@ public class MainSaving extends ReadInFile
      * @return boolean
      */
 	public static boolean initialfilechecker() {
-		
 		File ff = new File(KEYPATHFILE);
 		
 		if (ff.exists())
@@ -63,19 +59,18 @@ public class MainSaving extends ReadInFile
      * @throws IOException
      */
 	public void writeFile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-		
-		ReadInFile rr = new ReadInFile(file,"byte");
+		ReadInFile rr = new ReadInFile(file, "byte");
 		ArrayList<SaveLet> ss = rr.ss;
+		
 		if (initialfilechecker() == false) {
 			log("not exists");
 			//File ff = new File(filename);
 			File key = new File(KEYPATH);
-			if (key.exists())
-			{
-				
+			
+			if (key.exists()) {
+				//
 			}
-			else
-			{
+			else {
 				new File(MAINPATH).mkdir();
 				new File(KEYPATH).mkdir();
 				new File(DBPATH).mkdir();
@@ -85,34 +80,33 @@ public class MainSaving extends ReadInFile
 			PrintStream outDecode = new PrintStream(new FileOutputStream(KEYPATHFILE));
 			int LENGTH = ss.get(0).getFileContent().length();
 			
-			while ( ii < LENGTH) {
+			while (ii < LENGTH) {
 				HashCodeGenerator hh = new HashCodeGenerator(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
 				String str = hh.str;
 				outDecode.println(str);
-				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
-
+				ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
 			}
 			
 			outDecode.close();
+			saveFile(file, ss, false);
 			
-			saveFile(file, ss,false);
 			if (ss.size() > 1) {
 				ss.remove(0);
-				Comparison cc = new Comparison(file,ss);
+				Comparison cc = new Comparison(file, ss);
 			}
 		}
 		else {
 			log("here");
 			//saveFile(file, ss);
-			Comparison cc = new Comparison(file,ss);
+			Comparison cc = new Comparison(file, ss);
 			ArrayList<String> result = cc.getResult();
 			ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
-			for (String s : result)
-			{
+			
+			for (String s : result) {
 				slresult.add(new SaveLet(file,s));
-
 			}
-			saveFile(file,slresult,true);
+			
+			saveFile(file, slresult, true);
 			result.clear();
 			slresult.clear();
  		}
@@ -127,26 +121,26 @@ public class MainSaving extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public static void saveFile(String filename, ArrayList<SaveLet> ss2, boolean newline) throws IOException {
-		
+	public static void saveFile(String filename, ArrayList<SaveLet> savelets, boolean newline) throws IOException {
 		PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
-		for (SaveLet s : ss2)
-		{
-			if (newline==true) 
-				outDecode_file.println(s.getFileContent());
-			else
-				outDecode_file.print(s.getFileContent());
-		}
-		FileWriter fw = new FileWriter(NAMEPATHFILE, true);    
-		BufferedWriter bw = new BufferedWriter(fw);  
 		
-		bw.write(ss2.get(0).getFileName());    
-		bw.newLine(); 
-		bw.flush();    
-		bw.close();    
-		fw.close();  
+		for (SaveLet savelet : savelets) {
+			if (newline == true) 
+				outDecode_file.println(savelet.getFileContent());
+			else
+				outDecode_file.print(savelet.getFileContent());
+		}
+		
+		FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
+		BufferedWriter bufferedWriter = new BufferedWriter(writer);  
+		
+		bufferedWriter.write(savelets.get(0).getFileName());    
+		bufferedWriter.newLine();
+		bufferedWriter.flush();
+		bufferedWriter.close();
+		writer.close();
+		
 		log(filename + " is saved successfully!");
-
 	}
 	
 	/**
