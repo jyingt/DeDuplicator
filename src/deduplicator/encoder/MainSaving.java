@@ -26,7 +26,7 @@ public class MainSaving extends ReadInFile
 	    saveFile(file, ss, true);
 	}
 	
-	 /**
+	/**
      * Overloaded constructor
      * @param file
      * @throws ClassNotFoundException
