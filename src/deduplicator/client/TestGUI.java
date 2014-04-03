@@ -161,7 +161,7 @@ implements ActionListener {
  
         //Handle save button action.
         } else if (arg0.getSource() == btnSave) {
-        	/*
+        	
         	try {
 				MainSaving readFile = new MainSaving(textField.getText());
 			} catch (ClassNotFoundException e) {
@@ -174,7 +174,7 @@ implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			*/
+			
         	if(textField.getText().length() < 1)
         		JOptionPane.showMessageDialog(frmTestgui, "Filename cannot be empty.");
         	else {
