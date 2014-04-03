@@ -1,28 +1,36 @@
-
 package deduplicator.client;
 
 import java.awt.EventQueue;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
+
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.SpringLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JProgressBar;
-import javax.swing.JTextField;
 import java.awt.event.*;
+
+import deduplicator.compare.StringComparison;
+import deduplicator.compare.StringComparison.Change;
+import deduplicator.decoder.MainRetrieving;
+import deduplicator.encoder.MainSaving;
+import deduplicator.encoder.ReadInFile;
+import deduplicator.encoder.ReadInFile.SaveLet;
+
+/**
+ * GUI
+ * @author Chengxi Yang
+ */
 
 public class TestGUI extends JPanel
 implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; // for serialization
+	private static final String NAMEPATH = "db/key/name.txt";
 
 	private JFrame frmTestgui;
 	private JTextField textField;
     private JFileChooser fc;
     private JButton btnSave, btnOpen, btnDelete, btnRetrieve;
+    private DefaultComboBoxModel model;
     private JComboBox comboBox;
     private JProgressBar progressBar;
     private File file;
@@ -71,12 +79,27 @@ implements ActionListener {
 		btnRetrieve.addActionListener(this);
 		frmTestgui.getContentPane().add(btnRetrieve);
 		
-		comboBox = new JComboBox();
+		ReadInFile listFiles;
+		try {
+			listFiles = new ReadInFile(NAMEPATH, "byte");
+			String[] filenames = listFiles.ss.get(0).getFileContent().split("\n");
+			model = new DefaultComboBoxModel(filenames);
+			comboBox = new JComboBox(model);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 70, SpringLayout.WEST, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, comboBox, -264, SpringLayout.EAST, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, btnRetrieve, 19, SpringLayout.EAST, comboBox);
 		springLayout.putConstraint(SpringLayout.EAST, btnRetrieve, 100, SpringLayout.EAST, comboBox);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"File1", "File2", "File3", "File4"}));
+		comboBox.setModel(model);
 		comboBox.setEditable(true);
 		frmTestgui.getContentPane().add(comboBox);
 		
@@ -138,18 +161,40 @@ implements ActionListener {
  
         //Handle save button action.
         } else if (arg0.getSource() == btnSave) {
-        	progressBar.setValue(100);
-        	JOptionPane.showMessageDialog(frmTestgui, "File save completed.");
+        	/*
+        	try {
+				MainSaving readFile = new MainSaving(textField.getText());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
+        	if(textField.getText().length() < 1)
+        		JOptionPane.showMessageDialog(frmTestgui, "Filename cannot be empty.");
+        	else {
+	        	model.addElement(textField.getText());
+	        	progressBar.setValue(100);
+	        	JOptionPane.showMessageDialog(frmTestgui, "File save completed.");
+        	}
  
-        //Handle save button action.
+        //Handle retrieve button action.
         } else if (arg0.getSource() == btnRetrieve) {
         	progressBar.setValue(100);
         	JOptionPane.showMessageDialog(frmTestgui, "File retieval completed.");
  
-        //Handle save button action.
+        //Handle delete button action.
         } else if (arg0.getSource() == btnDelete) {
-        	progressBar.setValue(100);
-        	JOptionPane.showMessageDialog(frmTestgui, "File deletion completed.");
+        	/* Deletes the filename from combobox
+        	model.removeElement(model.getSelectedItem());
+        	*/
+        	progressBar.setValue(0);
+        	JOptionPane.showMessageDialog(frmTestgui, "Feature not available.");
         }
 	}
 
