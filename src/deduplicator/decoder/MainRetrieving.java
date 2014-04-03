@@ -119,14 +119,19 @@ public class MainRetrieving extends ReadInFile
     public void WriteToFile(String path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
     	File file = new File(path);
     	
-    	if (file.exists()) {
-	    	String content = decodeFile(filename);
-	    	PrintStream outDecode_file = new PrintStream(new FileOutputStream(path + "/" + filename));
-	   		outDecode_file.println(content);
-    	}
-    	else {
-    		log("Path does not exist!",true);
-    	}
+    	if (!file.exists())
+    		file.mkdir();
+    	
+    	int length = filename.length();
+    	String fn;
+    	
+    	if (filename.charAt(length-1) == 13)
+    		fn = filename.substring(0, filename.length()-1);
+    	else
+    		fn = filename;
+    	String content = decodeFile(fn);
+    	PrintStream outDecode_file = new PrintStream(new FileOutputStream(path + "/" + fn));
+   		outDecode_file.println(content);
     }
     
 	/**
