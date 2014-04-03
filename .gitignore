@@ -9,3 +9,4 @@
 # Others #
 .*
 /bin
+/db
