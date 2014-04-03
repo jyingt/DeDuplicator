@@ -100,17 +100,16 @@ implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		springLayout.putConstraint(SpringLayout.NORTH, btnRetrieve, -1, SpringLayout.NORTH, comboBox);
+		springLayout.putConstraint(SpringLayout.WEST, btnRetrieve, 67, SpringLayout.EAST, comboBox);
+		springLayout.putConstraint(SpringLayout.EAST, btnRetrieve, 148, SpringLayout.EAST, comboBox);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 70, SpringLayout.WEST, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, comboBox, -264, SpringLayout.EAST, frmTestgui.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnRetrieve, 19, SpringLayout.EAST, comboBox);
-		springLayout.putConstraint(SpringLayout.EAST, btnRetrieve, 100, SpringLayout.EAST, comboBox);
 		comboBox.setModel(model);
 		comboBox.setEditable(true);
 		frmTestgui.getContentPane().add(comboBox);
 		
 		progressBar = new JProgressBar();
-		springLayout.putConstraint(SpringLayout.SOUTH, btnRetrieve, -38, SpringLayout.NORTH, progressBar);
 		springLayout.putConstraint(SpringLayout.SOUTH, comboBox, -39, SpringLayout.NORTH, progressBar);
 		springLayout.putConstraint(SpringLayout.NORTH, progressBar, 198, SpringLayout.NORTH, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, progressBar, 143, SpringLayout.WEST, frmTestgui.getContentPane());
@@ -140,14 +139,6 @@ implements ActionListener {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnOpen, 99, SpringLayout.NORTH, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, btnOpen, 76, SpringLayout.NORTH, frmTestgui.getContentPane());
 		frmTestgui.getContentPane().add(btnOpen);
-		
-		btnDelete = new JButton("Delete");
-		btnDelete.addActionListener(this);
-		springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 38, SpringLayout.SOUTH, btnSave);
-		springLayout.putConstraint(SpringLayout.WEST, btnDelete, 18, SpringLayout.EAST, btnRetrieve);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnDelete, -38, SpringLayout.NORTH, progressBar);
-		springLayout.putConstraint(SpringLayout.EAST, btnDelete, 99, SpringLayout.EAST, btnRetrieve);
-		frmTestgui.getContentPane().add(btnDelete);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
@@ -159,7 +150,6 @@ implements ActionListener {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 file = fc.getSelectedFile();
                 textField.setText(file.getName());
-                //This is where a real application would open the file.
             } else {
                 /*Error Window*/
             	JOptionPane.showMessageDialog(frmTestgui, "An error occured. Please try again.");
@@ -168,22 +158,21 @@ implements ActionListener {
         //Handle save button action.
         } else if (arg0.getSource() == btnSave) {
         	
-        	try {
-				MainSaving readFile = new MainSaving(textField.getText());
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
         	if(textField.getText().length() < 1)
         		JOptionPane.showMessageDialog(frmTestgui, "Filename cannot be empty.");
         	else {
+        		try {
+    				MainSaving readFile = new MainSaving(file.getAbsolutePath());
+    			} catch (ClassNotFoundException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			} catch (NoSuchAlgorithmException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
 	        	model.addElement(textField.getText());
 	        	progressBar.setValue(100);
 	        	JOptionPane.showMessageDialog(frmTestgui, "File save completed.");
@@ -192,7 +181,6 @@ implements ActionListener {
         //Handle retrieve button action.
         } else if (arg0.getSource() == btnRetrieve) {
         	try {
-        		System.out.println(model.getSelectedItem().toString());
 				MainRetrieving retrieveFile = new MainRetrieving("retrievefolder", model.getSelectedItem().toString());
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -206,14 +194,6 @@ implements ActionListener {
 			}
         	progressBar.setValue(100);
         	JOptionPane.showMessageDialog(frmTestgui, "File retieval completed.");
- 
-        //Handle delete button action.
-        } else if (arg0.getSource() == btnDelete) {
-        	/* Deletes the filename from combobox
-        	model.removeElement(model.getSelectedItem());
-        	*/
-        	progressBar.setValue(0);
-        	JOptionPane.showMessageDialog(frmTestgui, "Feature not available.");
         }
 	}
 
