@@ -20,7 +20,6 @@ import deduplicator.encoder.ReadInFile.SaveLet;
  * @author Chengxi Yang
  */
 
-
 public class TestGUI extends JPanel
 implements ActionListener {
 	
@@ -82,9 +81,14 @@ implements ActionListener {
 		
 		ReadInFile listFiles;
 		try {
-			listFiles = new ReadInFile(NAMEPATH, "byte");
-			String[] filenames = listFiles.ss.get(0).getFileContent().split("\n");
-			model = new DefaultComboBoxModel(filenames);
+			File ff = new File(NAMEPATH);
+			if(ff.exists()) {
+				listFiles = new ReadInFile(NAMEPATH, "byte");
+				String[] filenames = listFiles.ss.get(0).getFileContent().split("\n");
+				model = new DefaultComboBoxModel(filenames);
+			} else {
+				model = new DefaultComboBoxModel();
+			}
 			comboBox = new JComboBox(model);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -96,6 +100,7 @@ implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 70, SpringLayout.WEST, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, comboBox, -264, SpringLayout.EAST, frmTestgui.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, btnRetrieve, 19, SpringLayout.EAST, comboBox);
@@ -186,6 +191,19 @@ implements ActionListener {
  
         //Handle retrieve button action.
         } else if (arg0.getSource() == btnRetrieve) {
+        	try {
+        		System.out.println(model.getSelectedItem().toString());
+				MainRetrieving retrieveFile = new MainRetrieving("retrievefolder", model.getSelectedItem().toString());
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	progressBar.setValue(100);
         	JOptionPane.showMessageDialog(frmTestgui, "File retieval completed.");
  
