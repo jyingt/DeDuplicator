@@ -76,8 +76,10 @@ public class StringComparison
 		while(((index = window.indexOf(str1.charAt(i))) == -1)) {				
 			del += str1.charAt(i++);
 			if (i == str1.length()) {
-				LOC.addElement(new Change(startpos + i - 1, 1, del));
-				//LOC.addElement(new Change(startpos + i - 1, 2, str2.substring(diffptr)));
+				System.out.println(startpos + " " + i);
+				String replace = str2.substring(diffptr);
+				LOC.addElement(new Change(startpos + i  - del.length() + replace.length(), 1, del.substring(replace.length())));
+				LOC.addElement(new Change(startpos + i  - del.length(), 0, replace));
 				return;
 			}
 		}

@@ -78,14 +78,14 @@ public class MainRetrieving extends ReadInFile
     		
     		String output = ori.ss.get(0).getFileContent();
     		log(output.length(),true);
-    		
+    		log(output.charAt(21337),true);
     		for (int ii = AC.size()-1; ii >= 0; ii--) {
     			switch (AC.get(ii).getOperation()) {
         			case 0:
         				output = output.substring(0, AC.get(ii).getPosition()) + AC.get(ii).getContent() + output.substring(AC.get(ii).getPosition()+1, output.length());
         				break;
         			case 1:
-        				log(AC.get(ii).getPosition() + AC.get(ii).getContent().length() + " + " + output.length(), true);
+        				log(AC.get(ii).getPosition()  + " + " + output.length(), true);
         				output = output.substring(0, AC.get(ii).getPosition()) + output.substring(AC.get(ii).getPosition()+AC.get(ii).getContent().length(), output.length());
         				break;
         			case 2:
@@ -148,6 +148,17 @@ public class MainRetrieving extends ReadInFile
      * @param newline
      */
     private static void log(Integer a, boolean newline) {
+    	if (newline)
+    		System.out.println(a);
+    	else
+    		System.out.print(a);
+	}
+	/**
+     * Overloaded consoler output helper function
+     * @param char
+     * @param newline
+     */
+    private static void log(char a, boolean newline) {
     	if (newline)
     		System.out.println(a);
     	else
