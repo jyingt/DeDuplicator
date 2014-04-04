@@ -12,11 +12,7 @@ import deduplicator.encoder.ReadInFile;
 
 public class MainRetrieving extends ReadInFile
 {
-    private static String NAMEPATH = "db/key/name.txt";
-    private static String FILEPATH = "db/database/";
-    private static String SAMPLEFILE;
-    
-    private static ArrayList<Change> AC = new ArrayList<Change>();
+
     
     /**
      * Constructor
@@ -186,4 +182,9 @@ public class MainRetrieving extends ReadInFile
             log(position + " " + operation + " " + content, true);
         }
     }
+    private static String NAMEPATH = "db/key/name.txt";
+    private static String FILEPATH = "db/database/";
+    private static String SAMPLEFILE;
+    
+    private static ArrayList<Change> AC = new ArrayList<Change>();
 }

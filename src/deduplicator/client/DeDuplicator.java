@@ -42,7 +42,8 @@ public class DeDuplicator
         }
         */
         
-        //ReadInFile rr1 =new ReadInFile("file1.txt");
+        //ReadInFile rr1 =new ReadInFile("/Users/ssec/Documents/GitHub/DeDuplicator/file1.txt","line");
+       // log(rr1.ss.get(0).getFileContent());
         //ReadInFile rr2 =new ReadInFile("file4.txt");
         
         //ArrayList<SaveLet> sl1 = rr1.ss;
@@ -54,11 +55,10 @@ public class DeDuplicator
         //stepcheckV2(file1.get(0).toString(),file2.get(0).toString());
         //readinfile.readinmain("test");
         
-        //MainSaving m1 = new MainSaving("file1.txt");
+        //MainSaving m1 = new MainSaving("/Users/ssec/Documents/GitHub/DeDuplicator/file1.txt");
         //MainSaving m2 = new MainSaving("file2.txt");
         //MainSaving m3 = new MainSaving("file3.txt");
         //MainSaving m4 = new MainSaving("file4.txt");
-        
     	//MainRetrieving mr1 = new MainRetrieving("retrievefolder", "file1.txt");
     	//MainRetrieving mr2 = new MainRetrieving("retrievefolder", "file2.txt");
     	//MainRetrieving mr3 = new MainRetrieving("retrievefolder", "file3.txt");

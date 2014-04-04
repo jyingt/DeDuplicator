@@ -12,10 +12,18 @@ import deduplicator.compare.Comparison;
  */
 public class MainSaving extends ReadInFile
 {
-    private static int CHUNKS = 1000;
-    
+
     /**
      * Constructor
+     * @throws ClassNotFoundException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
+	public MainSaving() throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	    //
+	}
+    /**
+     * Overloaded Constructor
      * @param file
      * @param ss
      * @throws ClassNotFoundException
@@ -34,7 +42,10 @@ public class MainSaving extends ReadInFile
      * @throws IOException
      */
 	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-	    writeFile(file);
+		String[] names = file.split("/");
+	    file = names[names.length-1];
+	    log(file);
+		writeFile(file);
 	}
 	
 	/**
@@ -173,4 +184,5 @@ public class MainSaving extends ReadInFile
 	private static final String KEYPATHFILE = "db/key/data.txt";
 	private static final String DBPATH = "db/database/";
 	private static final String NAMEPATHFILE = "db/key/name.txt";
+    private static int CHUNKS = 1000;
 }

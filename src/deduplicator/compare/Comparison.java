@@ -38,7 +38,9 @@ public class Comparison extends ReadInFile{
      */
 	public ArrayList<String> stepCompare(String filename, ArrayList<SaveLet> ss2) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
 	{
-		ReadInFile rr = new ReadInFile("db/database/file1.txt","byte");
+		ReadInFile ff = new ReadInFile(NAMEPATH, "line");
+		String tmpfilename  = ff.ss.get(0).getFileContent();
+		ReadInFile rr = new ReadInFile("db/database/" + tmpfilename,"byte");
 		ArrayList<SaveLet> data =rr.ss;
 		//String[] str = data.get(0).getFileContent().split("\n");
 		
@@ -118,4 +120,5 @@ public class Comparison extends ReadInFile{
 	}
 	private static int CHUNKS = 1000;
 	private static ArrayList<String> result = new ArrayList<String>();
+    private static String NAMEPATH = "db/key/name.txt";
 }

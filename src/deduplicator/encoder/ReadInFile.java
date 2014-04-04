@@ -41,7 +41,6 @@ public class ReadInFile
      */
     public ArrayList<SaveLet> readInMain(String name, String type) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
         File file = new File(name);
-        
         if(type == "line")
         	return readInByLine(name);
         

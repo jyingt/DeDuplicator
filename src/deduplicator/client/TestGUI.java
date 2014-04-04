@@ -162,8 +162,24 @@ implements ActionListener {
         		JOptionPane.showMessageDialog(frmTestgui, "Filename cannot be empty.");
         	else {
         		try {
-    				MainSaving readFile = new MainSaving(file.getAbsolutePath());
-    			} catch (ClassNotFoundException e) {
+        			String a = file.getAbsolutePath();
+        			String[] b = a.split(":");
+        			MainSaving readFile = new MainSaving();
+        			if (b.length>1)
+        			{
+        				String [] c = b[1].split("\\\\");
+        				
+        				String path="";
+        				for(String d:c)
+        					path += "/" + d;
+        				path=path.substring(1,path.length());
+        				System.out.println(path);
+        				readFile = new MainSaving(path);
+        			}
+        			else
+        				readFile = new MainSaving(file.getAbsolutePath());
+        			
+    			}  catch (ClassNotFoundException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();
     			} catch (NoSuchAlgorithmException e) {
