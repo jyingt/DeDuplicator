@@ -70,7 +70,7 @@ public class StringComparison
 		
 //		String window = str2.substring(Math.max(0, i-5),Math.min(i+5,str2.length()));
 		String window = str2.substring(i,Math.min(i+6,str2.length()));
-		System.out.println("window is " + window); 
+		//System.out.println("window is " + window); 
 		
 		// locate within 5 character window the char that matches
 		while(((index = window.indexOf(str1.charAt(i))) == -1)) {				

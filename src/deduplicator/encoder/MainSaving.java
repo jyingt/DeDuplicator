@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import deduplicator.compare.Comparison;
+import deduplicator.compare.Comparison.CompareLet;
 
 /**
  * Database encoding part - save files
@@ -44,7 +45,7 @@ public class MainSaving extends ReadInFile
 	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 		String[] names = file.split("/");
 	    file = names[names.length-1];
-	    log(file);
+	   // log(file);
 		writeFile(file);
 	}
 	
@@ -116,27 +117,63 @@ public class MainSaving extends ReadInFile
 			}
 			
 			outDecode.close();
-			saveFile(file, ss, false);
+			
 			
 			if (ss.size() > 1) {
+				ArrayList<SaveLet> tmp = new ArrayList<SaveLet>();	
+				tmp.add(ss.get(0));
+				saveFile(file,tmp, false);
 				ss.remove(0);
+				//log(ss.size());
 				Comparison cc = new Comparison(file, ss);
+				ArrayList<CompareLet> result = cc.getResult();
+
+				
+				for (CompareLet s : result) {
+					ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
+					for (String sss: s.getFileDiff())
+					{
+						slresult.add(new SaveLet(s.getFileName(),sss));
+					}
+//					for ( SaveLet str : slresult)
+//						log(str.getFileContent());
+					saveFile(file, slresult, true);
+				}
+
+
+				result.clear();
+			}
+			else
+			{
+				saveFile(file,ss, false);
 			}
 		}
 		else {
 			log("here");
 			//saveFile(file, ss);
 			Comparison cc = new Comparison(file, ss);
-			ArrayList<String> result = cc.getResult();
-			ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
-			
-			for (String s : result) {
-				slresult.add(new SaveLet(file,s));
+			ArrayList<CompareLet> result = cc.getResult();		
+			for (CompareLet s : result) {
+				ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
+				
+				for (String sss: s.getFileDiff())
+				{
+					slresult.add(new SaveLet(s.getFileName(),sss));
+				}
+				if ( slresult.isEmpty()==true)
+				{
+					slresult.add(new SaveLet(s.getFileName(),""));
+					saveFile(file, slresult, true);
+				}
+				else
+				{
+					saveFile(file, slresult, true);
+				}
 			}
 			
-			saveFile(file, slresult, true);
+			
 			result.clear();
-			slresult.clear();
+
  		}
 	}
 	
@@ -150,33 +187,75 @@ public class MainSaving extends ReadInFile
      * @throws IOException
      */
 	public static void saveFile(String filename, ArrayList<SaveLet> savelets, boolean newline) throws IOException {
-		PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
-		
-		for (SaveLet savelet : savelets) {
-			if (newline == true) 
-				outDecode_file.println(savelet.getFileContent());
-			else
-				outDecode_file.print(savelet.getFileContent());
+		File ff = new File(filename);
+		if (ff.isFile()==false)
+		{
+			if (new File(DBPATH + filename).exists()==false)
+				new File(DBPATH + filename).mkdir();
+			PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename + "/" + savelets.get(0).getFileName() ));
+	
+				for (SaveLet savelet : savelets) {
+					if (newline == true) 
+					{
+						outDecode_file.println(savelet.getFileContent());
+					}
+					else
+					{
+						outDecode_file.print(savelet.getFileContent());
+					}
+	
+				}
+				outDecode_file.close();
+			
+			log(filename + "/" + savelets.get(0).getFileName() + " is saved successfully!");
+
+			FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
+			BufferedWriter bufferedWriter = new BufferedWriter(writer);  
+			bufferedWriter.write(filename + "/" +  savelets.get(0).getFileName());
+			bufferedWriter.newLine();
+			bufferedWriter.flush();
+			bufferedWriter.close();
+			writer.close();
+			
+
+		}
+		else
+		{	
+			PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
+			for (SaveLet savelet : savelets) {
+				if (newline == true) 
+				{
+					outDecode_file.println(savelet.getFileContent());
+				}
+				else
+				{
+					outDecode_file.print(savelet.getFileContent());
+				}
+				
+			}
+			outDecode_file.close();
+			log(filename + " is saved successfully!");
+			FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
+			BufferedWriter bufferedWriter = new BufferedWriter(writer);  
+			bufferedWriter.write(savelets.get(0).getFileName());
+			bufferedWriter.newLine();
+			bufferedWriter.flush();
+			bufferedWriter.close();
+			writer.close();
 		}
 		
-		FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
-		BufferedWriter bufferedWriter = new BufferedWriter(writer);  
 		
-		bufferedWriter.write(savelets.get(0).getFileName());
-		bufferedWriter.newLine();
-		bufferedWriter.flush();
-		bufferedWriter.close();
-		writer.close();
 		
-		log(filename + " is saved successfully!");
+		
+
 	}
 	
 	/**
      * Consoler output helper function
      * @param string
      */
-	private static void log(String a) {
-		System.out.println(a);
+	private static void log(Object a) {
+		System.out.println(a.toString());
 	}
 	
 	private static final String MAINPATH = "db";
