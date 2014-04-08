@@ -88,14 +88,14 @@ public class StringComparison {
 
 		// String window = str2.substring(Math.max(0,
 		// i-5),Math.min(i+5,str2.length()));
-		String window1 = str1.substring(i + 1, Math.min(i + 7, str1.length()));
 		String window = str2.substring(i, Math.min(i + 6, str2.length()));
 //		System.out.println("window1 is " + window1);
-//		System.out.println("window is " + window);
-
+//		System.out.println("window is " + window)
+		
 		// locate within 5 character window the char that matches
 		while (((index = window.indexOf(str1.charAt(i))) == -1)) {
 			del += str1.charAt(i++);
+			System.out.println(del + " del-i " + i);
 			if (i == str1.length()) {
 				String replace = str2.substring(diffptr);
 				LOC.addElement(new Change(startpos + i - del.length()
@@ -108,9 +108,11 @@ public class StringComparison {
 		// here a hit is found, but might be a delete rather than insert
 		int index2;
 		int cnt = 0;
+		String window1 = str1.substring(i + 1, Math.min(i + 7, str1.length()));
 		if (((index1 = window1.indexOf(str1.charAt(i))) != -1)) {
-			// del += str1.charAt(i);
+			del += str1.charAt(i);
 			String tmp = window1.substring(cnt, index1 + 1);
+			cnt++;
 			while ((index2 = window.indexOf(tmp)) == -1) {
 				del += str1.charAt(i + cnt);
 				tmp = window1.substring(cnt, index1 + 1);
@@ -121,7 +123,7 @@ public class StringComparison {
 			newstr2 = str2.substring(i + index2 + tmp.length());
 			//System.out.println(newstr1 + " str1-str2 " + newstr2);
 
-			delcnt = cnt;
+			delcnt = cnt + 1;
 			inscnt = index2;
 			diff = str2.substring(diffptr, diffptr + index2);
 			//System.out.println(delcnt + " dcnt-icnt " + inscnt);
@@ -204,9 +206,9 @@ public class StringComparison {
 		// System.out.println(inscnt + " chars " + diff + " inserted at " +
 		// currpos);
 
-		// System.out.println("string1 is " + newstr1 + " length is " +
-		// newstr1.length() +
-		// " string2 is " + newstr2 + " length is " + newstr2.length());
+		 System.out.println("string1 is " + newstr1 + " length is " +
+		 newstr1.length() +
+		 " string2 is " + newstr2 + " length is " + newstr2.length());
 
 		findDiff(newstr1, newstr2, startpos + i);
 
