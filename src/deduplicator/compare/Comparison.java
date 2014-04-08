@@ -60,7 +60,7 @@ public class Comparison extends ReadInFile{
 		}*/
 		for (SaveLet s: ss2)
 		{
-			//log(s.getFileContent());
+			log(s.getFileContent());
 			//log(data.get(0).getFileContent());
 			StringComparison tt = new StringComparison(data.get(0).getFileContent(),s.getFileContent());
 			Vector<Change> vc = tt.getLOC();

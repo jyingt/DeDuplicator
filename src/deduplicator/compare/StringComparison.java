@@ -98,10 +98,25 @@ public class StringComparison {
 			System.out.println(del + " del-i " + i);
 			if (i == str1.length()) {
 				String replace = str2.substring(diffptr);
-				LOC.addElement(new Change(startpos + i - del.length()
-						+ replace.length(), 1, del.substring(replace.length())));
-				LOC.addElement(new Change(startpos + i - del.length(), 0,
-						replace));
+				int rlen = replace.length();
+				int dlen = del.length();
+				if(rlen < dlen) {
+					LOC.addElement(new Change(startpos + i - del.length(), 0,
+							replace));					
+					LOC.addElement(new Change(startpos + i - del.length()
+							+ rlen, 1, del.substring(rlen)));
+				}
+				else if (rlen == dlen){
+					LOC.addElement(new Change(startpos + i - del.length(), 0,
+							replace));	
+				}
+				else {
+					LOC.addElement(new Change(startpos + i - del.length(), 0,
+							replace.substring(0, dlen)));		
+					LOC.addElement(new Change(startpos + i - del.length()
+							+ dlen, 2, replace.substring(dlen)) 	);
+					
+				}
 				return;
 			}
 		}
@@ -206,9 +221,9 @@ public class StringComparison {
 		// System.out.println(inscnt + " chars " + diff + " inserted at " +
 		// currpos);
 
-		 System.out.println("string1 is " + newstr1 + " length is " +
-		 newstr1.length() +
-		 " string2 is " + newstr2 + " length is " + newstr2.length());
+//		 System.out.println("string1 is " + newstr1 + " length is " +
+//		 newstr1.length() +
+//		 " string2 is " + newstr2 + " length is " + newstr2.length());
 
 		findDiff(newstr1, newstr2, startpos + i);
 
