@@ -13,7 +13,6 @@ import deduplicator.compare.Comparison.CompareLet;
  */
 public class MainSaving extends ReadInFile
 {
-
     /**
      * Constructor
      * @throws ClassNotFoundException
@@ -23,6 +22,7 @@ public class MainSaving extends ReadInFile
 	public MainSaving() throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 	    //
 	}
+	
     /**
      * Overloaded Constructor
      * @param file
@@ -45,7 +45,7 @@ public class MainSaving extends ReadInFile
 	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 		String[] names = file.split("/");
 	    file = names[names.length-1];
-	   // log(file);
+	    // log(file);
 		writeFile(file);
 	}
 	
@@ -92,32 +92,31 @@ public class MainSaving extends ReadInFile
 			int LENGTH = ss.get(0).getFileContent().length();
 			
 			// Keep list of hashes
-			ArrayList<String> hashList = new ArrayList<String>();
-			
-			while (ii < LENGTH) {
-				Hash hh = new Hash(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
-				String str = hh.str;
-				outDecode.println(str);     // write hash to database
-				ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
-				
-				// Add hash to list
-				hashList.add(hh.str);
-			}
-			
-			// Serialize list of hashes
-			try {
-			    FileOutputStream fileOut = new FileOutputStream("hashes.ser");
-			    ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			    objectOut.writeObject(hashList);
-			    objectOut.close();
-			    fileOut.close();
-			} 
-			catch (IOException e) {
-			    e.printStackTrace();
-			}
+            ArrayList<String> hashList = new ArrayList<String>();
+            
+            while (ii < LENGTH) {
+                Hash hh = new Hash(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
+                String str = hh.str;
+                outDecode.println(str);     // write hash to database
+                ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
+                
+                // Add hash to list
+                hashList.add(hh.str);
+            }
+            
+            // Serialize list of hashes
+            try {
+                FileOutputStream fileOut = new FileOutputStream(KEYPATH + "/hashes.ser");
+                ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+                objectOut.writeObject(hashList);
+                objectOut.close();
+                fileOut.close();
+            } 
+            catch (IOException e) {
+                e.printStackTrace();
+            }
 			
 			outDecode.close();
-			
 			
 			if (ss.size() > 1) {
 				ArrayList<SaveLet> tmp = new ArrayList<SaveLet>();	
@@ -127,12 +126,10 @@ public class MainSaving extends ReadInFile
 				//log(ss.size());
 				Comparison cc = new Comparison(file, ss);
 				ArrayList<CompareLet> result = cc.getResult();
-
 				
 				for (CompareLet s : result) {
 					ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
-					for (String sss: s.getFileDiff())
-					{
+					for (String sss: s.getFileDiff()) {
 						slresult.add(new SaveLet(s.getFileName(),sss));
 					}
 //					for ( SaveLet str : slresult)
@@ -140,11 +137,9 @@ public class MainSaving extends ReadInFile
 					saveFile(file, slresult, true);
 				}
 
-
 				result.clear();
 			}
-			else
-			{
+			else {
 				saveFile(file,ss, false);
 			}
 		}
@@ -156,24 +151,19 @@ public class MainSaving extends ReadInFile
 			for (CompareLet s : result) {
 				ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
 				
-				for (String sss: s.getFileDiff())
-				{
+				for (String sss: s.getFileDiff()) {
 					slresult.add(new SaveLet(s.getFileName(),sss));
 				}
-				if ( slresult.isEmpty()==true)
-				{
+				if ( slresult.isEmpty()==true) {
 					slresult.add(new SaveLet(s.getFileName(),""));
 					saveFile(file, slresult, true);
 				}
-				else
-				{
+				else {
 					saveFile(file, slresult, true);
 				}
 			}
 			
-			
 			result.clear();
-
  		}
 	}
 	
@@ -188,24 +178,23 @@ public class MainSaving extends ReadInFile
      */
 	public static void saveFile(String filename, ArrayList<SaveLet> savelets, boolean newline) throws IOException {
 		File ff = new File(filename);
-		if (ff.isFile()==false)
-		{
-			if (new File(DBPATH + filename).exists()==false)
+		
+		if (ff.isFile() == false) {
+			if (new File(DBPATH + filename).exists() == false)
 				new File(DBPATH + filename).mkdir();
-			PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename + "/" + savelets.get(0).getFileName() ));
-	
-				for (SaveLet savelet : savelets) {
-					if (newline == true) 
-					{
-						outDecode_file.println(savelet.getFileContent());
-					}
-					else
-					{
-						outDecode_file.print(savelet.getFileContent());
-					}
-	
+			
+		    PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename + "/" + savelets.get(0).getFileName() ));
+
+			for (SaveLet savelet : savelets) {
+				if (newline == true)  {
+					outDecode_file.println(savelet.getFileContent());
 				}
-				outDecode_file.close();
+				else {
+					outDecode_file.print(savelet.getFileContent());
+				}
+			}
+				
+			outDecode_file.close();
 			
 			log(filename + "/" + savelets.get(0).getFileName() + " is saved successfully!");
 
@@ -216,23 +205,19 @@ public class MainSaving extends ReadInFile
 			bufferedWriter.flush();
 			bufferedWriter.close();
 			writer.close();
-			
-
 		}
-		else
-		{	
+		else {
 			PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
+			
 			for (SaveLet savelet : savelets) {
-				if (newline == true) 
-				{
+				if (newline == true) {
 					outDecode_file.println(savelet.getFileContent());
 				}
-				else
-				{
+				else {
 					outDecode_file.print(savelet.getFileContent());
-				}
-				
+				}				
 			}
+			
 			outDecode_file.close();
 			log(filename + " is saved successfully!");
 			FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
@@ -243,11 +228,6 @@ public class MainSaving extends ReadInFile
 			bufferedWriter.close();
 			writer.close();
 		}
-		
-		
-		
-		
-
 	}
 	
 	/**

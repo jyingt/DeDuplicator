@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import deduplicator.encoder.ReadInFile;
 
 public class MainRetrieving extends ReadInFile
-{
-
-    
+{    
     /**
      * Constructor
      * @param Path

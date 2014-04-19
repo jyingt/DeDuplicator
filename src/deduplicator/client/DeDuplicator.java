@@ -54,14 +54,14 @@ public class DeDuplicator
   
         //stepcheckV2(file1.get(0).toString(),file2.get(0).toString());
         //readinfile.readinmain("test");
-     // MainSaving m3 = new MainSaving("file2.txt");
-      MainSaving m1 = new MainSaving("file3.txt");
+        // MainSaving m3 = new MainSaving("file2.txt");
       
+        MainSaving m1 = new MainSaving("file3.txt");
         MainSaving m2 = new MainSaving("testsavingfolder");
-       MainSaving m3 = new MainSaving("testsavingfolder2");
-//        MainSaving m2 = new MainSaving("file2.txt");
-//        MainSaving m3 = new MainSaving("file3.txt");
-//        MainSaving m4 = new MainSaving("file4.txt");
+        MainSaving m3 = new MainSaving("testsavingfolder2");
+        //MainSaving m2 = new MainSaving("file2.txt");
+        //MainSaving m3 = new MainSaving("file3.txt");
+        //MainSaving m4 = new MainSaving("file4.txt");
     	//MainRetrieving mr1 = new MainRetrieving("retrievefolder", "file1.txt");
     	//MainRetrieving mr2 = new MainRetrieving("retrievefolder", "file2.txt");
     	//MainRetrieving mr3 = new MainRetrieving("retrievefolder", "file3.txt");
