@@ -29,8 +29,20 @@ public class TestGUI extends JPanel implements ActionListener
     private DefaultComboBoxModel model;
     private JComboBox comboBox;
     private JProgressBar progressBar ;
+    private JLabel storageInfo;
     private File file;
-
+    
+    public static long folderSize(File directory) {
+        long length = 0;
+        for (File file : directory.listFiles()) {
+            if (file.isFile())
+                length += file.length();
+            else
+                length += folderSize(file);
+        }
+        return length;
+    }
+    
     /**
     * Launch the application.
     */
@@ -75,6 +87,11 @@ public class TestGUI extends JPanel implements ActionListener
         btnRetrieve.addActionListener( this);
         frmTestgui.getContentPane().add(btnRetrieve );
       
+        storageInfo = new JLabel("Storage Usage is: 0 MBs");
+        springLayout.putConstraint(SpringLayout.NORTH, storageInfo , 220, SpringLayout. NORTH, frmTestgui .getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, storageInfo , 135, SpringLayout. WEST, frmTestgui .getContentPane());
+        frmTestgui.getContentPane().add(storageInfo);
+        
         ReadInFile listFiles;
         
         try {
@@ -172,6 +189,9 @@ public class TestGUI extends JPanel implements ActionListener
         			}
         			else
         			    readFile = new MainSaving(file.getAbsolutePath());
+        			long sss = folderSize(new File("db/database/"));
+        			String dir = Double.toString((double)sss/(1024*1024));
+        			storageInfo.setText("Storage Usage is: "+ dir.substring(0, 6) +" MBs");
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
