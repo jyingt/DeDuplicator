@@ -19,7 +19,6 @@ public class DeDuplicator
 {   
     public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
-        /*
         File file;
         FileReader fileReader;
         
@@ -37,13 +36,12 @@ public class DeDuplicator
                 fileReader = new FileReader(file);
             }
             else {
-                return;
+                //return;
             }
         }
-        */
         
         //ReadInFile rr1 =new ReadInFile("/Users/ssec/Documents/GitHub/DeDuplicator/file1.txt","line");
-       // log(rr1.ss.get(0).getFileContent());
+        //log(rr1.ss.get(0).getFileContent());
         //ReadInFile rr2 =new ReadInFile("file4.txt");
         
         //ArrayList<SaveLet> sl1 = rr1.ss;
@@ -169,11 +167,7 @@ public class DeDuplicator
         }
     }
     
-    public static void log(String a) {
-    	System.out.println(a);
-    }
-    
-    public static void log(Integer a) {
-    	System.out.println(a);
+    public static void log(Object object) {
+    	System.out.println(object);
     }
 }
