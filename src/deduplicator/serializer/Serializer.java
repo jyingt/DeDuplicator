@@ -43,7 +43,6 @@ public class Serializer
         try {
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            
             Object object = in.readObject();
             in.close();
             fileIn.close();
