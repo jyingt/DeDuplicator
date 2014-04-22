@@ -1,15 +1,11 @@
 package deduplicator.client;
 
+import java.awt.EventQueue;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-import deduplicator.compare.StringComparison;
-import deduplicator.compare.StringComparison.Change;
-import deduplicator.main.ReceiveFile;
-import deduplicator.main.StoreFile;
-import deduplicator.main.ReadInFile;
-import deduplicator.main.ReadInFile.SaveLet;
+import deduplicator.main.*;
 
 /**
  * Main block
@@ -17,27 +13,44 @@ import deduplicator.main.ReadInFile.SaveLet;
  */
 public class DeDuplicator
 {   
+    /**
+     * Client
+     * @param args the command line arguments
+     */
     public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
-        File file;
-        FileReader fileReader;
-        
         // Command line arguments
-        if (args.length != 2) {
-            // Leave program
-            System.out.println("usage: store -file [file]");
-            //System.out.println("usage: store -file [file] -locker [locker location]");
-            return;
+        if (args.length == 4 && args[0].equals("-file") && args[2].equals("-locker")) {
+            // Check if specified file exists
+            File file = new File(args[1]);
+            if (!file.exists()) {
+                System.out.println("File " + args[1] + " does not exist!");
+                return;
+            }
+            
+            // Store file
+            StoreFile storeFile = new StoreFile(args[1]);
+        }
+        else if (args.length == 1 && args[0].equals("-gui")) {
+            // Launch GUI
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        TestGUI window = new TestGUI();
+                        window.frmTestgui.setVisible(true);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
         else {
-            // Reads file name from argument
-            if (args[0].equals("-file")) {
-                file = new File(args[1]);
-                fileReader = new FileReader(file);
-            }
-            else {
-                //return;
-            }
+            // Leave program
+            System.out.println("Invalid command line arguments!");
+            System.out.println("Usage: store -file [file] -locker [locker location]");
+            System.out.println("Usage: store -gui");
+            return;
         }
         
         //ReadInFile rr1 =new ReadInFile("/Users/ssec/Documents/GitHub/DeDuplicator/file1.txt","line");
@@ -54,9 +67,9 @@ public class DeDuplicator
         //readinfile.readinmain("test");
         // MainSaving m3 = new MainSaving("file2.txt");
       
-        StoreFile m1 = new StoreFile("file3.txt");
-        StoreFile m2 = new StoreFile("testsavingfolder");
-        StoreFile m3 = new StoreFile("testsavingfolder2");
+        //StoreFile m1 = new StoreFile("file3.txt");
+        //StoreFile m2 = new StoreFile("testsavingfolder");
+        //StoreFile m3 = new StoreFile("testsavingfolder2");
         //MainSaving m2 = new MainSaving("file2.txt");
         //MainSaving m3 = new MainSaving("file3.txt");
         //MainSaving m4 = new MainSaving("file4.txt");

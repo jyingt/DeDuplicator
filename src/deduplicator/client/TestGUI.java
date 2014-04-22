@@ -22,7 +22,7 @@ public class TestGUI extends JPanel implements ActionListener
     private static final long serialVersionUID = 1L; // for serialization
     private static final String NAMEPATH = "db/key/name.txt" ;
 
-    private JFrame frmTestgui;
+    public JFrame frmTestgui;
     private JTextField textField;
     private JFileChooser fc;
     private JButton btnSave, btnOpen, btnRetrieve;
@@ -191,7 +191,7 @@ public class TestGUI extends JPanel implements ActionListener
         			    readFile = new StoreFile(file.getAbsolutePath());
         			long sss = folderSize(new File("db/database/"));
         			String dir = Double.toString((double)sss/(1024*1024));
-        			storageInfo.setText("Storage Usage is: "+ dir.substring(0, 6) +" MBs");
+        			storageInfo.setText("Storage Usage is: "+ dir +" MBs");
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
