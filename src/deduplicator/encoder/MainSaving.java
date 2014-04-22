@@ -1,11 +1,12 @@
 package deduplicator.encoder;
 
 import java.io.*;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.security.*;
+import java.util.*;
 
 import deduplicator.compare.Comparison;
 import deduplicator.compare.Comparison.CompareLet;
+import deduplicator.serializer.*;
 
 /**
  * Database encoding part - save files
@@ -91,7 +92,7 @@ public class MainSaving extends ReadInFile
 			PrintStream outDecode = new PrintStream(new FileOutputStream(KEYPATHFILE));
 			int LENGTH = ss.get(0).getFileContent().length();
 			
-			// Keep list of hashes
+			// Keep list of hashes to serialize
             ArrayList<String> hashList = new ArrayList<String>();
             
             while (ii < LENGTH) {
@@ -104,19 +105,10 @@ public class MainSaving extends ReadInFile
                 hashList.add(hh.str);
             }
             
+            outDecode.close();
+            
             // Serialize list of hashes
-            try {
-                FileOutputStream fileOut = new FileOutputStream(KEYPATH + "/hashes.ser");
-                ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-                objectOut.writeObject(hashList);
-                objectOut.close();
-                fileOut.close();
-            } 
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-			
-			outDecode.close();
+            Serializer.serializeObjectToPath(hashList, KEYPATH + "/data.ser");
 			
 			if (ss.size() > 1) {
 				ArrayList<SaveLet> tmp = new ArrayList<SaveLet>();	
@@ -147,15 +139,16 @@ public class MainSaving extends ReadInFile
 			log("here");
 			//saveFile(file, ss);
 			Comparison cc = new Comparison(file, ss);
-			ArrayList<CompareLet> result = cc.getResult();		
+			ArrayList<CompareLet> result = cc.getResult();
+			
 			for (CompareLet s : result) {
 				ArrayList<SaveLet> slresult = new ArrayList<SaveLet>();
 				
 				for (String sss: s.getFileDiff()) {
 					slresult.add(new SaveLet(s.getFileName(),sss));
 				}
-				if ( slresult.isEmpty()==true) {
-					slresult.add(new SaveLet(s.getFileName(),""));
+				if (slresult.isEmpty() == true) {
+					slresult.add(new SaveLet(s.getFileName(), ""));
 					saveFile(file, slresult, true);
 				}
 				else {
