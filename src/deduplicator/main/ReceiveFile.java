@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-public class MainRetrieving extends ReadInFile
+public class ReceiveFile extends ReadInFile
 {    
     /**
      * Constructor
@@ -18,7 +18,7 @@ public class MainRetrieving extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public MainRetrieving(String path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	public ReceiveFile(String path, String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 		WriteToFile(path, filename);
 	}
 	

@@ -8,7 +8,7 @@ import java.util.Vector;
 
 import deduplicator.compare.StringComparison.Change;
 import deduplicator.main.Hash;
-import deduplicator.main.MainSaving;
+import deduplicator.main.StoreFile;
 import deduplicator.main.ReadInFile;
 
 public class Comparison extends ReadInFile{

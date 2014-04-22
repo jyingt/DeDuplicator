@@ -8,8 +8,8 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
-import deduplicator.main.MainRetrieving;
-import deduplicator.main.MainSaving;
+import deduplicator.main.ReceiveFile;
+import deduplicator.main.StoreFile;
 import deduplicator.main.ReadInFile;
 
 /**
@@ -176,7 +176,7 @@ public class TestGUI extends JPanel implements ActionListener
                 try {
                     String a = file.getAbsolutePath();
         			String[] b = a.split(":");
-        			MainSaving readFile = new MainSaving();
+        			StoreFile readFile = new StoreFile();
         			if (b.length>1) {
     			        String [] c = b[1].split("\\\\");
         				
@@ -185,10 +185,10 @@ public class TestGUI extends JPanel implements ActionListener
     			            path += "/" + d;
     			        path=path.substring(1,path.length());
     			        System.out.println(path);
-    			        readFile = new MainSaving(path);
+    			        readFile = new StoreFile(path);
         			}
         			else
-        			    readFile = new MainSaving(file.getAbsolutePath());
+        			    readFile = new StoreFile(file.getAbsolutePath());
         			long sss = folderSize(new File("db/database/"));
         			String dir = Double.toString((double)sss/(1024*1024));
         			storageInfo.setText("Storage Usage is: "+ dir.substring(0, 6) +" MBs");
@@ -209,7 +209,7 @@ public class TestGUI extends JPanel implements ActionListener
         //Handle retrieve button action.
         } else if (arg0.getSource() == btnRetrieve) {
             try {
-                MainRetrieving retrieveFile = new MainRetrieving("retrievefolder" , model .getSelectedItem().toString());
+                ReceiveFile retrieveFile = new ReceiveFile("retrievefolder" , model .getSelectedItem().toString());
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

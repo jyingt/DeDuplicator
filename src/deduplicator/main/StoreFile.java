@@ -12,7 +12,7 @@ import deduplicator.serializer.*;
  * Database encoding part - save files
  * @author Yuteng Pan, Hansen Zhang
  */
-public class MainSaving extends ReadInFile
+public class StoreFile extends ReadInFile
 {
     /**
      * Constructor
@@ -20,7 +20,7 @@ public class MainSaving extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public MainSaving() throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	public StoreFile() throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 	    //
 	}
 	
@@ -32,7 +32,7 @@ public class MainSaving extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public MainSaving(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	public StoreFile(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 	    saveFile(file, ss, true);
 	}
 	
@@ -43,7 +43,7 @@ public class MainSaving extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public MainSaving(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+	public StoreFile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 		String[] names = file.split("/");
 	    file = names[names.length-1];
 	    // log(file);

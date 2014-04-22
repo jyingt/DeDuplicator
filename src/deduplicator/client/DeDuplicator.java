@@ -6,8 +6,8 @@ import java.util.*;
 
 import deduplicator.compare.StringComparison;
 import deduplicator.compare.StringComparison.Change;
-import deduplicator.main.MainRetrieving;
-import deduplicator.main.MainSaving;
+import deduplicator.main.ReceiveFile;
+import deduplicator.main.StoreFile;
 import deduplicator.main.ReadInFile;
 import deduplicator.main.ReadInFile.SaveLet;
 
@@ -56,9 +56,9 @@ public class DeDuplicator
         //readinfile.readinmain("test");
         // MainSaving m3 = new MainSaving("file2.txt");
       
-        MainSaving m1 = new MainSaving("file3.txt");
-        MainSaving m2 = new MainSaving("testsavingfolder");
-        MainSaving m3 = new MainSaving("testsavingfolder2");
+        StoreFile m1 = new StoreFile("file3.txt");
+        StoreFile m2 = new StoreFile("testsavingfolder");
+        StoreFile m3 = new StoreFile("testsavingfolder2");
         //MainSaving m2 = new MainSaving("file2.txt");
         //MainSaving m3 = new MainSaving("file3.txt");
         //MainSaving m4 = new MainSaving("file4.txt");
