@@ -6,10 +6,10 @@ import java.util.*;
 
 import deduplicator.compare.StringComparison;
 import deduplicator.compare.StringComparison.Change;
-import deduplicator.decoder.MainRetrieving;
-import deduplicator.encoder.MainSaving;
-import deduplicator.encoder.ReadInFile;
-import deduplicator.encoder.ReadInFile.SaveLet;
+import deduplicator.main.MainRetrieving;
+import deduplicator.main.MainSaving;
+import deduplicator.main.ReadInFile;
+import deduplicator.main.ReadInFile.SaveLet;
 
 /**
  * Main block

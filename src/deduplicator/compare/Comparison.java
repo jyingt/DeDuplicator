@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import deduplicator.compare.StringComparison.Change;
-import deduplicator.encoder.Hash;
-import deduplicator.encoder.MainSaving;
-import deduplicator.encoder.ReadInFile;
+import deduplicator.main.Hash;
+import deduplicator.main.MainSaving;
+import deduplicator.main.ReadInFile;
 
 public class Comparison extends ReadInFile{
 	

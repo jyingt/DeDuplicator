@@ -1,4 +1,4 @@
-package deduplicator.encoder;
+package deduplicator.main;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;

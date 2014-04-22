@@ -8,9 +8,9 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
-import deduplicator.decoder.MainRetrieving;
-import deduplicator.encoder.MainSaving;
-import deduplicator.encoder.ReadInFile;
+import deduplicator.main.MainRetrieving;
+import deduplicator.main.MainSaving;
+import deduplicator.main.ReadInFile;
 
 /**
  * GUI
