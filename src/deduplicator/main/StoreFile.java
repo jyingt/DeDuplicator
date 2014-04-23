@@ -34,6 +34,16 @@ public class StoreFile extends ReadInFile
      */
 	public StoreFile(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
 	    saveFile(file, ss, true);
+	    
+	    File database = new File(DBPATH);
+	    System.out.print("Current storage: ");
+	    
+	    if (database.exists())
+	        System.out.print(folderSize(database));
+	    else
+	        System.out.print("0");
+	    
+	    System.out.println(" B");
 	}
 	
 	/**
@@ -48,6 +58,16 @@ public class StoreFile extends ReadInFile
 	    file = names[names.length-1];
 	    // log(file);
 		writeFile(file);
+		
+		File database = new File(DBPATH);
+        System.out.print("Current storage: ");
+        
+        if (database.exists())
+            System.out.print(folderSize(database));
+        else
+            System.out.print("0");
+        
+        System.out.println(" B");
 	}
 	
 	/**
@@ -222,6 +242,23 @@ public class StoreFile extends ReadInFile
 			writer.close();
 		}
 	}
+	
+	/**
+	 * 
+	 * @param directory
+	 * @return
+	 */
+	public static long folderSize(File directory) {
+        long length = 0;
+        for (File file : directory.listFiles()) {
+            if (file.isFile())
+                length += file.length();
+            else
+                length += folderSize(file);
+        }
+        return length;
+	}
+    
 	
 	/**
      * Consoler output helper function

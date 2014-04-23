@@ -29,7 +29,7 @@ public class DeDuplicator
             }
 
             // Store file
-            StoreFile storeFile = new StoreFile(args[1]);
+            new StoreFile(args[1]);
         }
         else if (args.length == 1 && args[0].equals("-gui")) {
             // Launch GUI
