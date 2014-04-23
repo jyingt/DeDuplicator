@@ -50,8 +50,7 @@ public class TestGUI extends JPanel implements ActionListener
         EventQueue. invokeLater(new Runnable() {
             public void run() {
                 try {
-                    TestGUI window = new TestGUI();
-                    window.frmTestgui.setVisible(true);
+                    new TestGUI();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -64,6 +63,7 @@ public class TestGUI extends JPanel implements ActionListener
     */
     public TestGUI() {
         initialize();
+        frmTestgui.setVisible(true);
     }
 
     /**

@@ -2,7 +2,7 @@ package deduplicator.client;
 
 import java.awt.EventQueue;
 import java.io.*;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.*;
 
 import deduplicator.main.*;
@@ -27,7 +27,7 @@ public class DeDuplicator
                 System.out.println("File " + args[1] + " does not exist!");
                 return;
             }
-            
+
             // Store file
             StoreFile storeFile = new StoreFile(args[1]);
         }
@@ -36,8 +36,7 @@ public class DeDuplicator
             EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     try {
-                        TestGUI window = new TestGUI();
-                        window.frmTestgui.setVisible(true);
+                        new TestGUI();
                     }
                     catch (Exception e) {
                         e.printStackTrace();
@@ -84,7 +83,7 @@ public class DeDuplicator
     /**
      * Example for serializing an object
      */
-    public void serializeExample() {
+    public static void serializeExample() {
         Hashtable<Integer, String> hashtable = new Hashtable<Integer, String>();
         
         // Populate hash table
@@ -131,7 +130,7 @@ public class DeDuplicator
      * File write/read example
      * @throws IOException
      */
-    public void fileExample() {
+    public static void fileExample() {
         // WRITE FILE EXAMPLE
         File file = new File("sample.txt");
         try {
