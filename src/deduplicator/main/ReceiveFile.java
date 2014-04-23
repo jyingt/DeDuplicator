@@ -32,11 +32,10 @@ public class ReceiveFile extends ReadInFile
      */
     public boolean checkExisting(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
     	ReadInFile rr = new ReadInFile(NAMEPATH, "byte");
-    	String[] str = rr.ss.get(0).getFileContent().split("\n");
-    	SAMPLEFILE = str[0].substring(0,str[0].length());
+    	String[] str = rr.ss.get(0).getFileContent().split("[\r\n]");
+    	SAMPLEFILE = str[0];
 
     	for (String s : str) {
-    		s = s.substring(0, s.length());
     		if (s.equals(filename) == true)
     			return true;
     	}
