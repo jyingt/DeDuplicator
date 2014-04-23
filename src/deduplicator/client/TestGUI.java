@@ -26,10 +26,11 @@ public class TestGUI extends JPanel implements ActionListener
     private JTextField textField;
     private JFileChooser fc;
     private JButton btnSave, btnOpen, btnRetrieve;
-    private DefaultComboBoxModel model;
-    private JComboBox comboBox;
+    private DefaultComboBoxModel<String> model;
+    private JComboBox<String> comboBox;
     private JProgressBar progressBar ;
     private JLabel storageInfo;
+    private ProgressMonitor progressMonitor;
     private File file;
     
     public static long folderSize(File directory) {
@@ -94,11 +95,11 @@ public class TestGUI extends JPanel implements ActionListener
             if (ff.exists()) {
                 listFiles = new ReadInFile( NAMEPATH, "byte");
                 String[] filenames = listFiles.ss .get(0).getFileContent().split("\n");
-                model = new DefaultComboBoxModel(filenames);
+                model = new DefaultComboBoxModel<String>(filenames);
             } else {
-                model = new DefaultComboBoxModel();
+                model = new DefaultComboBoxModel<String>();
             }
-            comboBox = new JComboBox(model );
+            comboBox = new JComboBox<String>(model );
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
