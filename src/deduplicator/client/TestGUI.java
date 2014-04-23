@@ -2,11 +2,13 @@ package deduplicator.client;
 
 import java.awt.EventQueue;
 import java.io.*;
-import java.security.NoSuchAlgorithmException;
+import java.awt.event.*;
 
 import javax.swing.*;
 
-import java.awt.event.*;
+import java.beans.*;
+import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 import deduplicator.main.ReceiveFile;
 import deduplicator.main.StoreFile;
@@ -26,12 +28,41 @@ public class TestGUI extends JPanel implements ActionListener
     private JTextField textField;
     private JFileChooser fc;
     private JButton btnSave, btnOpen, btnRetrieve;
-    private DefaultComboBoxModel<String> model;
-    private JComboBox<String> comboBox;
+    private DefaultComboBoxModel model;
+    private JComboBox comboBox;
     private JProgressBar progressBar ;
     private JLabel storageInfo;
     private ProgressMonitor progressMonitor;
     private File file;
+    private Task task;
+ 
+    class Task extends SwingWorker<Void, Void> {
+        @Override
+        public Void doInBackground() {
+            Random random = new Random();
+            int progress = 0;
+            setProgress(0);
+            try {
+                Thread.sleep(1000);
+                while (progress < 100 && !isCancelled()) {
+                    //Sleep for up to one second.
+                    Thread.sleep(random.nextInt(1000));
+                    //Make random progress.
+                    progress += random.nextInt(10);
+                    setProgress(Math.min(progress, 100));
+                }
+            } catch (InterruptedException ignore) {}
+            return null;
+        }
+ 
+        @Override
+        public void done() {
+        	btnSave.setEnabled(true);
+        	btnRetrieve.setEnabled(true);
+        	btnOpen.setEnabled(true);
+            progressMonitor.close();
+        }
+    }
     
     public static long folderSize(File directory) {
         long length = 0;
@@ -95,11 +126,11 @@ public class TestGUI extends JPanel implements ActionListener
             if (ff.exists()) {
                 listFiles = new ReadInFile( NAMEPATH, "byte");
                 String[] filenames = listFiles.ss .get(0).getFileContent().split("\n");
-                model = new DefaultComboBoxModel<String>(filenames);
+                model = new DefaultComboBoxModel(filenames);
             } else {
-                model = new DefaultComboBoxModel<String>();
+                model = new DefaultComboBoxModel();
             }
-            comboBox = new JComboBox<String>(model );
+            comboBox = new JComboBox(model );
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
