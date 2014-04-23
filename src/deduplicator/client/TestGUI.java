@@ -86,21 +86,6 @@ public class TestGUI extends JPanel implements ActionListener
         btnRetrieve = new JButton("Retrieve");
         btnRetrieve.addActionListener( this);
         frmTestgui.getContentPane().add(btnRetrieve );
-      
-        storageInfo = new JLabel();
-		springLayout.putConstraint(SpringLayout.NORTH, storageInfo, 10, SpringLayout.SOUTH, progressBar);
-		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, storageInfo, 0, SpringLayout.HORIZONTAL_CENTER, frmTestgui.getContentPane());
-		File dbFolder = new File("db/database/");
-		if (dbFolder.exists()) {
-	        long sss = folderSize(new File("db/database/"));
-			String dir = Double.toString((double)sss/(1024*1024));
-			storageInfo.setText("Storage Usage is: " + dir + " MB");
-			progressBar.setValue((int)((double)sss*5/(1024*1024)));
-		}
-		else {
-			storageInfo.setText("Storage Usage is: 0 MB");
-		}
-        frmTestgui.getContentPane().add(storageInfo);
         
         ReadInFile listFiles;
         
@@ -141,6 +126,21 @@ public class TestGUI extends JPanel implements ActionListener
         springLayout.putConstraint(SpringLayout.EAST, progressBar , -145, SpringLayout. EAST, frmTestgui .getContentPane());
         progressBar.setValue(0);
         frmTestgui.getContentPane().add(progressBar );
+      
+        storageInfo = new JLabel();
+		springLayout.putConstraint(SpringLayout.NORTH, storageInfo, 10, SpringLayout.SOUTH, progressBar);
+		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, storageInfo, 0, SpringLayout.HORIZONTAL_CENTER, frmTestgui.getContentPane());
+		File dbFolder = new File("db/database/");
+		if (dbFolder.exists()) {
+	        long sss = folderSize(new File("db/database/"));
+			String dir = Double.toString((double)sss/(1024*1024));
+			storageInfo.setText("Storage Usage is: " + dir + " MB");
+			progressBar.setValue((int)((double)sss*5/(1024*1024)));
+		}
+		else {
+			storageInfo.setText("Storage Usage is: 0 MB");
+		}
+        frmTestgui.getContentPane().add(storageInfo);
       
         textField = new JTextField();
         springLayout.putConstraint( SpringLayout. EAST, textField , -264, SpringLayout. EAST, frmTestgui .getContentPane());
