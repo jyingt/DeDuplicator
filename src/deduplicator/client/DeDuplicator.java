@@ -140,8 +140,8 @@ public class DeDuplicator
             FileWriter writer = new FileWriter(file);
             
             // Write 10MB of ASCII (each char is 2 bytes)
-            // # of iterations = 10 * 1024B / 2B = 10 * 512B = 10B * 2^9
-            for (int ii = 0; ii < 10 * (2 << 9); ii++) {
+            // # of iterations = 10 * 2^20 B / 2B = 10B * 2^19
+            for (int ii = 0; ii < 10 * (2 << 19); ii++) {
                 if (ii % 27 == 26)
                     writer.write("\n");
                 else
