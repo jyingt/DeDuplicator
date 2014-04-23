@@ -47,7 +47,7 @@ public class TestGUI extends JPanel implements ActionListener,PropertyChangeList
                 Thread.sleep(1000);
                 while (progress < 100 && !isCancelled()) {
                     //Sleep for up to one second.
-                    Thread.sleep(random.nextInt(1000));
+                    Thread.sleep(random.nextInt(10));
                     //Make random progress.
                     progress += random.nextInt(10);
                     setProgress(Math.min(progress, 100));
