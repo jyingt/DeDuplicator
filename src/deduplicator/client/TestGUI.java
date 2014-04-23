@@ -23,7 +23,7 @@ import deduplicator.main.ReadInFile;
 public class TestGUI extends JPanel implements ActionListener,PropertyChangeListener
 {
     private static final long serialVersionUID = 1L; // for serialization
-    private static final String NAMEPATH = "db/key/name.txt" ;
+    private static final String NAMEPATH = "db/database/name.txt" ;
 
     public JFrame frmTestgui;
     private JTextField textField;

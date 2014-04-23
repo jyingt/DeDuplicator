@@ -75,7 +75,7 @@ public class StoreFile extends ReadInFile
      * @return boolean
      */
 	public static boolean initialFileChecker() {
-		File ff = new File(KEYPATHFILE);
+		File ff = new File(NAMEPATHFILE);
 		
 		if (ff.exists())
 			return true;
@@ -97,38 +97,35 @@ public class StoreFile extends ReadInFile
 		if (initialFileChecker() == false) {
 			log("not exists");
 			//File ff = new File(filename);
-			File key = new File(KEYPATH);
+			File key = new File(MAINPATH);
 			
-			if (key.exists()) {
-				//
-			}
-			else {
+			if (!key.exists()) {
 				new File(MAINPATH).mkdir();
-				new File(KEYPATH).mkdir();
+				//new File(KEYPATH).mkdir();
 				new File(DBPATH).mkdir();
 			}
 			
 			int ii = 0;
-			PrintStream outDecode = new PrintStream(new FileOutputStream(KEYPATHFILE));
-			int LENGTH = ss.get(0).getFileContent().length();
+			//PrintStream outDecode = new PrintStream(new FileOutputStream(KEYPATHFILE));
+			//int LENGTH = ss.get(0).getFileContent().length();
 			
 			// Keep list of hashes to serialize
-            ArrayList<String> hashList = new ArrayList<String>();
+           // ArrayList<String> hashList = new ArrayList<String>();
             
-            while (ii < LENGTH) {
-                Hash hh = new Hash(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
-                String str = hh.str;
-                outDecode.println(str);     // write hash to database
-                ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
-                
-                // Add hash to list
-                hashList.add(hh.str);
-            }
+//            while (ii < LENGTH) {
+//                Hash hh = new Hash(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
+//                String str = hh.str;
+//                outDecode.println(str);     // write hash to database
+//                ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
+//                
+//                // Add hash to list
+//                hashList.add(hh.str);
+//            }
             
-            outDecode.close();
+           // outDecode.close();
             
             // Serialize list of hashes
-            Serializer.serializeObjectToPath(hashList, KEYPATH + "/data.ser");
+           // Serializer.serializeObjectToPath(hashList, DBPATH + "/data.ser");
 			
 			if (ss.size() > 1) {
 				ArrayList<SaveLet> tmp = new ArrayList<SaveLet>();	
@@ -269,9 +266,9 @@ public class StoreFile extends ReadInFile
 	}
 	
 	private static final String MAINPATH = "db";
-	private static final String KEYPATH = "db/key";
-	private static final String KEYPATHFILE = "db/key/data.txt";
+	//private static final String KEYPATH = "db/key";
+//	private static final String KEYPATHFILE = "db/key/data.txt";
 	private static final String DBPATH = "db/database/";
-	private static final String NAMEPATHFILE = "db/key/name.txt";
-    private static int CHUNKS = 1000;
+	private static final String NAMEPATHFILE = "db/database/name.txt";
+   // private static int CHUNKS = 1000;
 }

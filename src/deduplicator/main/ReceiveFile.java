@@ -122,7 +122,8 @@ public class ReceiveFile extends ReadInFile
     	String content = decodeFile(fn);
     	PrintStream outDecode_file = new PrintStream(new FileOutputStream(path + "/" + fn));
 //    	log(content,true);
-   		outDecode_file.println(content);
+   		outDecode_file.print(content);
+   		log(fn + " is retrieved successfully!",true);
     }
     
 	/**
@@ -130,35 +131,14 @@ public class ReceiveFile extends ReadInFile
      * @param string
      * @param newline
      */
-    private static void log(String a, boolean newline) {
+    private static void log(Object a, boolean newline) {
     	if (newline)
-    		System.out.println(a);
+    		System.out.println(a.toString());
     	else
-    		System.out.print(a);
+    		System.out.print(a.toString());
 	}
     
-	/**
-     * Overloaded consoler output helper function
-     * @param Integer
-     * @param newline
-     */
-    private static void log(Integer a, boolean newline) {
-    	if (newline)
-    		System.out.println(a);
-    	else
-    		System.out.print(a);
-	}
-	/**
-     * Overloaded consoler output helper function
-     * @param char
-     * @param newline
-     */
-    private static void log(char a, boolean newline) {
-    	if (newline)
-    		System.out.println(a);
-    	else
-    		System.out.print(a);
-	}
+	
     
     public class Change
     {
@@ -188,7 +168,7 @@ public class ReceiveFile extends ReadInFile
             log(position + " " + operation + " " + content, true);
         }
     }
-    private static String NAMEPATH = "db/key/name.txt";
+    private static String NAMEPATH = "db/database/name.txt";
     private static String FILEPATH = "db/database/";
     private static String SAMPLEFILE;
     

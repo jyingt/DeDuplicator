@@ -148,5 +148,5 @@ public class Comparison extends ReadInFile{
 	}
 	private static int CHUNKS = 1000;
 	private static ArrayList<CompareLet> result = new ArrayList<CompareLet>();
-    private static String NAMEPATH = "db/key/name.txt";
+    private static String NAMEPATH = "db/database/name.txt";
 }
