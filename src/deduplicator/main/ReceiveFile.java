@@ -33,11 +33,10 @@ public class ReceiveFile extends ReadInFile
     public boolean checkExisting(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
     	ReadInFile rr = new ReadInFile(NAMEPATH, "byte");
     	String[] str = rr.ss.get(0).getFileContent().split("\n");
-    	SAMPLEFILE = str[0].substring(0,str[0].length()-1);
-    	
+    	SAMPLEFILE = str[0].substring(0,str[0].length());
+
     	for (String s : str) {
-    		s = s.substring(0, s.length()-1);
-    		
+    		s = s.substring(0, s.length());
     		if (s.equals(filename) == true)
     			return true;
     	}
@@ -73,12 +72,12 @@ public class ReceiveFile extends ReadInFile
     		}
     		
     		String output = ori.ss.get(0).getFileContent();
-    		log(output.length(),true);
-    		log(output.charAt(21337),true);
+//    		log(output.length(),true);
+//    		log(output.charAt(21337),true);
     		for (int ii = AC.size()-1; ii >= 0; ii--) {
     			switch (AC.get(ii).getOperation()) {
         			case 0:
-        				output = output.substring(0, AC.get(ii).getPosition()) + AC.get(ii).getContent() + output.substring(AC.get(ii).getPosition()+1, output.length());
+        				output = output.substring(0, AC.get(ii).getPosition()) + AC.get(ii).getContent() + output.substring(AC.get(ii).getPosition()+AC.get(ii).getContent().length(), output.length());
         				break;
         			case 1:
         				log(AC.get(ii).getPosition()  + " + " + output.length(), true);
@@ -123,6 +122,7 @@ public class ReceiveFile extends ReadInFile
     		fn = filename;
     	String content = decodeFile(fn);
     	PrintStream outDecode_file = new PrintStream(new FileOutputStream(path + "/" + fn));
+//    	log(content,true);
    		outDecode_file.println(content);
     }
     
