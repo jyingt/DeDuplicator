@@ -1,6 +1,7 @@
 package deduplicator.client;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.io.*;
 import java.awt.event.*;
 
@@ -19,7 +20,7 @@ import deduplicator.main.ReadInFile;
  * @author Chengxi Yang
  */
 
-public class TestGUI extends JPanel implements ActionListener
+public class TestGUI extends JPanel implements ActionListener,PropertyChangeListener
 {
     private static final long serialVersionUID = 1L; // for serialization
     private static final String NAMEPATH = "db/key/name.txt" ;
@@ -34,7 +35,7 @@ public class TestGUI extends JPanel implements ActionListener
     private JLabel storageInfo;
     private ProgressMonitor progressMonitor;
     private File file;
-    private Task task;
+    private Task taskSave, taskRetrieve;
  
     class Task extends SwingWorker<Void, Void> {
         @Override
@@ -219,6 +220,18 @@ public class TestGUI extends JPanel implements ActionListener
                     String a = file.getAbsolutePath();
         			String[] b = a.split(":");
         			StoreFile readFile = new StoreFile();
+        			
+        			progressMonitor = new ProgressMonitor(TestGUI.this,
+                            "Running a Long Task",
+                            "", 0, 100);
+					progressMonitor.setProgress(0);
+					taskSave = new Task();
+					taskSave.addPropertyChangeListener(this);
+					taskSave.execute();
+		        	btnSave.setEnabled(false);
+		        	btnRetrieve.setEnabled(false);
+		        	btnOpen.setEnabled(false);
+
         			if (b.length>1) {
     			        String [] c = b[1].split("\\\\");
         				
@@ -231,10 +244,7 @@ public class TestGUI extends JPanel implements ActionListener
         			}
         			else
         			    readFile = new StoreFile(file.getAbsolutePath());
-        			long sss = folderSize(new File("db/database/"));
-        			String dir = Double.toString((double)sss/(1024*1024));
-        			storageInfo.setText("Storage Usage is: "+ dir +" MBs");
-        			progressBar.setValue((int)((double)sss*5/(1024*1024)));
+        			
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -245,13 +255,21 @@ public class TestGUI extends JPanel implements ActionListener
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                model.addElement( textField .getText());
-                progressBar .setValue(100);
-                JOptionPane. showMessageDialog( frmTestgui, "File save completed.");
             }
         //Handle retrieve button action.
         } else if (arg0.getSource() == btnRetrieve) {
             try {
+            	progressMonitor = new ProgressMonitor(TestGUI.this,
+                        "Running a Long Task",
+                        "", 0, 100);
+				progressMonitor.setProgress(0);
+				taskRetrieve = new Task();
+				taskRetrieve.addPropertyChangeListener(this);
+				taskRetrieve.execute();
+	        	btnSave.setEnabled(false);
+	        	btnRetrieve.setEnabled(false);
+	        	btnOpen.setEnabled(false);
+	        	
                 ReceiveFile retrieveFile = new ReceiveFile("retrievefolder" , model .getSelectedItem().toString());
             } catch (ClassNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -263,9 +281,49 @@ public class TestGUI extends JPanel implements ActionListener
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
-            progressBar.setValue(100);
-            JOptionPane.showMessageDialog( frmTestgui, "File retieval completed.");
         }
+    }
+ 
+    /**
+     * Invoked when task's progress property changes.
+     */
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("progress" == evt.getPropertyName() ) {
+            int progress = (Integer) evt.getNewValue();
+            progressMonitor.setProgress(progress);
+            String message =
+                String.format("Completed %d%%.\n", progress);
+            progressMonitor.setNote(message);
+            Task task = (Task) evt.getSource();
+            
+            if (progressMonitor.isCanceled() || task.isDone()) {
+                Toolkit.getDefaultToolkit().beep();
+                if (progressMonitor.isCanceled()) {
+                    task.cancel(true);
+                    if (task == taskSave)
+                    	JOptionPane. showMessageDialog( frmTestgui, "File save failed.");
+                    else if (task == taskRetrieve)
+                    	JOptionPane. showMessageDialog( frmTestgui, "File retrieval failed.");
+                }
+                else {
+                    if (task == taskSave) {
+                    	JOptionPane. showMessageDialog( frmTestgui, "File save completed.");
+            			
+            			long sss = folderSize(new File("db/database/"));
+            			String dir = Double.toString((double)sss/(1024*1024));
+            			storageInfo.setText("Storage Usage is: "+ dir +" MBs");
+            			progressBar.setValue((int)((double)sss*5/(1024*1024)));
+
+                        model.addElement(textField.getText());
+                    }
+                    else if (task == taskRetrieve)
+                    	JOptionPane.showMessageDialog( frmTestgui, "File retieval completed.");
+                }
+            	btnSave.setEnabled(true);
+            	btnRetrieve.setEnabled(true);
+            	btnOpen.setEnabled(true);
+            }
+        }
+ 
     }
 }
