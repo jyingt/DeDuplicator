@@ -3,11 +3,11 @@ package deduplicator.compare;
 import java.util.Vector;
 
 public class StringComparison {
-	// public static void main(String[] args) {
-	// StringComparison x = new StringComparison("abcdef12ef", "abcd412ef");
-	// x.show();
-	//
-	// }
+	public static void main(String[] args) {
+		StringComparison x = new StringComparison("abcdxxssww12ef", "abcdxxss");
+		x.show();
+
+	}
 
 	public class Change {
 		public Change(int myposition, int myoperation, String mycontent) {
@@ -36,7 +36,41 @@ public class StringComparison {
 
 	public StringComparison(String s1, String s2) {
 		LOC = new Vector<Change>();
-		findDiff(s1, s2, 0);
+		deleteFixes(s1, s2);
+		// findDiff(s1, s2, 0);
+	}
+
+	// gets rid of prefix and postfix
+	public void deleteFixes(String str1, String str2) {
+		int i = 0;
+		int j = 1;
+		int len1 = str1.length();
+		int len2 = str2.length();
+//		System.out.println(len1 + " len1-len2 " + len2);
+		if (str1.equals(str2)) {
+			return;
+		}
+		while ((i < len1 && i < len2) && (str1.charAt(i) == str2.charAt(i))) {
+			i++;
+		}
+		while ((j <= len1 && j <= len2)
+				&& (str1.charAt(len1 - j) == str2.charAt(len2 - j))) {
+			j++;
+		}
+		j--;
+		if ((i + j) == len1) {
+			// other string has inserted characters in the middle
+			LOC.addElement(new Change(i, 2, str2.substring(i, len2 - j)));
+			return;
+		} else {
+			if ((i + j) == len2) {
+				// sample string has inserted characters in the middle
+				LOC.addElement(new Change(i, 1, str1.substring(i, len1 - j)));
+				return;
+			}
+		}
+		findDiff(str1.substring(i, len1 - j), str2.substring(i, len2 - j), i);
+
 	}
 
 	public void findDiff(String str1, String str2, int startpos) {
@@ -54,7 +88,18 @@ public class StringComparison {
 		String newstr1;
 		String newstr2;
 
+		// System.out.println(str1 + " str1-str2 " + str2);
 		// System.out.println("startpos is " + startpos);
+		// check if either file is empty
+		if (str1.isEmpty()) {
+			LOC.addElement(new Change(0, 2, str2));
+			return;
+		} else {
+			if (str2.isEmpty()) {
+				LOC.addElement(new Change(0, 1, str1));
+				return;
+			}
+		}
 
 		if (str1.equals(str2)) {
 			// System.out.println("no diff till end, complete");
@@ -86,12 +131,12 @@ public class StringComparison {
 		// character in sample string
 		String window = str2.substring(i, Math.min(i + 6, str2.length()));
 
-
 		// locate within 6 character window (next 5 characters) the char that
 		// matches
 		while (((index = window.indexOf(str1.charAt(i))) == -1)) {
 			del += str1.charAt(i++);
 			System.out.println(del + " del-i " + i);
+			// if reaches end of sample string
 			if (i == str1.length()) {
 				String replace = str2.substring(diffptr);
 				int rlen = replace.length();
@@ -113,13 +158,15 @@ public class StringComparison {
 				return;
 			}
 		}
-		// here a hit is found, but might be a delete rather than insert, which is why we 
+		// here a hit is found, but might be a delete rather than insert, which
+		// is why we need the following code
 		int index2;
-		int cnt = 0;
+		int cnt = 0; // delete counter
 		// window1 is a section of the sample string to scan for the current
 		// character in sample string
 		String window1 = str1.substring(i + 1, Math.min(i + 7, str1.length()));
 		if (((index1 = window1.indexOf(str1.charAt(i))) != -1)) {
+			// append the might be delete to the delete from previous code
 			del += str1.charAt(i);
 			String tmp = window1.substring(cnt, index1 + 1);
 			cnt++;
@@ -128,10 +175,14 @@ public class StringComparison {
 				tmp = window1.substring(cnt, index1 + 1);
 				cnt++;
 			}
+			// go to the character after the deleted character and copy
+			// everything onward to the new string1
 			newstr1 = str1.substring(i + cnt + tmp.length());
-			newstr2 = str2.substring(i + index2 + tmp.length());
-
-			delcnt = cnt + 1;
+			// go to the corresponding character in the other string right after
+			// the delete and copy everything onward to the new string2
+			newstr2 = str2.substring(i + cnt - del.length() + index2
+					+ tmp.length());
+			delcnt = del.length();
 			inscnt = index2;
 			diff = str2.substring(diffptr, diffptr + index2);
 			currpos = diffptr + startpos;
