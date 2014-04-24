@@ -2,13 +2,12 @@ package deduplicator.client;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-
-import javax.swing.*;
-
 import java.beans.*;
+import java.io.*;
 import java.security.*;
 import java.util.*;
+
+import javax.swing.*;
 
 import deduplicator.main.*;
 
@@ -18,56 +17,11 @@ import deduplicator.main.*;
  */
 public class TestGUI extends JPanel implements ActionListener, PropertyChangeListener
 {
-<<<<<<< HEAD
+    // For serialization
     private static final long serialVersionUID = 1L;
-=======
-    private static final long serialVersionUID = 1L; // for serialization
-    private static final String NAMEPATH = "db/database/name.txt" ;
-    private static boolean falsesave = false;
-
-    public JFrame frmTestgui;
-    private JTextField textField;
-    private JFileChooser fc;
-    private JButton btnSave, btnOpen, btnRetrieve;
-    private DefaultComboBoxModel model;
-    private JComboBox comboBox;
-    private JProgressBar progressBar ;
-    private JLabel storageInfo;
-    private ProgressMonitor progressMonitor;
-    private File file;
-    private Task taskSave, taskRetrieve;
- 
-    class Task extends SwingWorker<Void, Void> {
-        @Override
-        public Void doInBackground() {
-            Random random = new Random();
-            int progress = 0;
-            setProgress(0);
-            try {
-                Thread.sleep(100);
-                while (progress < 100 && !isCancelled()) {
-                    //Sleep for up to one second.
-                    Thread.sleep(random.nextInt(10));
-                    //Make random progress.
-                    progress += random.nextInt(10);
-                    setProgress(Math.min(progress, 100));
-                }
-            } catch (InterruptedException ignore) {}
-            return null;
-        }
- 
-        @Override
-        public void done() {
-        	btnSave.setEnabled(true);
-        	btnRetrieve.setEnabled(true);
-        	btnOpen.setEnabled(true);
-            progressMonitor.close();
-        }
-    }
->>>>>>> a69254f87b4e5e4d28ae954c9bbb71bba0998163
     
+    // Constants
     private final String NAMEPATH = "db/database/name.txt";
-    private boolean falseSave = false;
 
     // GUI components
     public  JFrame                  frameGui;
@@ -84,6 +38,8 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
     private File                    file;
     private Task                    taskSave;
     private Task                    taskRetrieve;
+    
+    private boolean falseSave = false;
     
     /**
      * Constructor
@@ -346,7 +302,6 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
                 			progressBar.setValue((int) ((double) sss*5 / (1024*1024)));
     
                             comboBoxModel.addElement(textFieldFile.getText());
-                            // falseSave = false;
                     	}
                     	else {
                     		falseSave = false;
@@ -374,12 +329,10 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
         long length = 0;
         
         for (File file : dir.listFiles()) {
-            if (file.isFile()) {
+            if (file.isFile())
                 length += file.length();
-            }
-            else {
+            else
                 length += folderSize(file);
-            }
         }
         
         return length;
@@ -396,7 +349,7 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
             setProgress(0);
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 
                 while (progress < 100 && !isCancelled()) {
                     Thread.sleep(random.nextInt(10));   // sleep for up to one second
