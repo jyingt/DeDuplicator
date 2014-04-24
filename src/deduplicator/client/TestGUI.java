@@ -15,7 +15,7 @@ import deduplicator.main.*;
  * Front-end GUI for DeDuplicator
  * @author Chengxi Yang
  */
-public class TestGUI extends JPanel implements ActionListener, PropertyChangeListener
+public class TestGUI extends JPanel implements ActionListener
 {
     // For serialization
     private static final long serialVersionUID = 1L;
@@ -34,10 +34,7 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
     private JComboBox               comboBoxFiles;
     private JProgressBar            progressBar;
     private JLabel                  labelStorage;
-    private ProgressMonitor         progressMonitor;
     private File                    file;
-    private Task                    taskSave;
-    private Task                    taskRetrieve;
     
     private boolean falseSave = false;
     
@@ -186,15 +183,6 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
                     String a = file.getAbsolutePath();
         			String[] b = a.split(":");
         			StoreFile readFile = new StoreFile();
-        			
-        			progressMonitor = new ProgressMonitor(TestGUI.this, "Running a long task", "", 0, 100);
-					progressMonitor.setProgress(0);
-					taskSave = new Task();
-					taskSave.addPropertyChangeListener(this);
-					taskSave.execute();
-		        	btnSave.setEnabled(false);
-		        	btnRetrieve.setEnabled(false);
-		        	btnOpen.setEnabled(false);
 
         			if (b.length > 1) {
     			        String[] c = b[1].split("\\\\");
@@ -226,6 +214,8 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
         			else {
         			    readFile = new StoreFile(file.getAbsolutePath());
         			}
+        			comboBoxModel.addElement(textFieldFile.getText());
+        			JOptionPane.showMessageDialog(frameGui, "File save completed.");
                 }
                 catch (ClassNotFoundException e) {
                     e.printStackTrace();
@@ -242,16 +232,8 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
         // Handle retrieve button action
         else if (event.getSource() == btnRetrieve) {
             try {
-            	progressMonitor = new ProgressMonitor(TestGUI.this, "Running a long task", "", 0, 100);
-				progressMonitor.setProgress(0);
-				taskRetrieve = new Task();
-				taskRetrieve.addPropertyChangeListener(this);
-				taskRetrieve.execute();
-	        	btnSave.setEnabled(false);
-	        	btnRetrieve.setEnabled(false);
-	        	btnOpen.setEnabled(false);
-	        	
                 new ReceiveFile("retrievefolder", comboBoxModel.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(frameGui, "File retrieval completed.");
             }
             catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -261,61 +243,6 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
             }
             catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-    }
- 
-    /**
-     * Invoked when task's progress property changes
-     */
-    public void propertyChange(PropertyChangeEvent event) {
-        if ("progress" == event.getPropertyName()) {
-            int progress = (Integer) event.getNewValue();
-            progressMonitor.setProgress(progress);
-            
-            String message = String.format("Completed %d%%.\n", progress);
-            progressMonitor.setNote(message);
-            
-            Task task = (Task) event.getSource();
-            
-            if (progressMonitor.isCanceled() || task.isDone()) {
-                Toolkit.getDefaultToolkit().beep();
-                
-                if (progressMonitor.isCanceled()) {
-                    task.cancel(true);
-                    
-                    if (task == taskSave)
-                    	JOptionPane.showMessageDialog(frameGui, "File save failed.");
-                    else if (task == taskRetrieve)
-                    	JOptionPane.showMessageDialog(frameGui, "File retrieval failed.");
-                }
-                else {
-                    if (task == taskSave) {
-                    	System.out.println(falseSave);
-                    	
-                    	if (!falseSave) {
-                        	JOptionPane.showMessageDialog(frameGui, "File save completed.");
-                			
-                			long sss = folderSize(new File("db/database/"));
-                			String dir = Double.toString((double) sss / (1024*1024));
-                			labelStorage.setText("Storage Usage is: "+ dir +" MBs");
-                			progressBar.setValue((int) ((double) sss*5 / (1024*1024)));
-    
-                            comboBoxModel.addElement(textFieldFile.getText());
-                    	}
-                    	else {
-                    		falseSave = false;
-                    	}
-                    	
-                    }
-                    else if (task == taskRetrieve) {
-                    	JOptionPane.showMessageDialog(frameGui, "File retrieval completed.");
-                    }
-                }
-                
-            	btnSave.setEnabled(true);
-            	btnRetrieve.setEnabled(true);
-            	btnOpen.setEnabled(true);
             }
         }
     }
@@ -336,40 +263,6 @@ public class TestGUI extends JPanel implements ActionListener, PropertyChangeLis
         }
         
         return length;
-    }
-    
-    /**
-     * Worker class for progress bar
-     * @author Chengxi Yang
-     */
-    class Task extends SwingWorker<Void, Void> {
-        public Void doInBackground() {
-            Random random = new Random();
-            int progress = 0;
-            setProgress(0);
-            
-            try {
-                Thread.sleep(100);
-                
-                while (progress < 100 && !isCancelled()) {
-                    Thread.sleep(random.nextInt(10));   // sleep for up to one second
-                    progress += random.nextInt(10);     // make random progress
-                    setProgress(Math.min(progress, 100));
-                }
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            return null;
-        }
- 
-        public void done() {
-            btnSave.setEnabled(true);
-            btnRetrieve.setEnabled(true);
-            btnOpen.setEnabled(true);
-            progressMonitor.close();
-        }
     }
     
     /**
