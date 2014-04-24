@@ -19,7 +19,7 @@ public class DeDuplicator
      */
     public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
-    	//StoreFile m2 = new StoreFile("testfolder");
+    	StoreFile m2 = new StoreFile("testfolder");
         // Command line arguments
         if (args.length == 4 && args[0].equals("-file") && args[2].equals("-locker")) {
             // Check if specified file exists

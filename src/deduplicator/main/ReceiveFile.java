@@ -1,12 +1,13 @@
 package deduplicator.main;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.Vector;
+
+import deduplicator.serializer.Serializer;
 
 public class ReceiveFile extends ReadInFile
 {    
@@ -51,13 +52,18 @@ public class ReceiveFile extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    public String decodeFile(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+    @SuppressWarnings("unchecked")
+	public String decodeFile(String filename) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+
     	if (checkExisting(filename) == true) {
+
     		ReadInFile ff = new ReadInFile();
     		ReadInFile ori = new ReadInFile();
     		
-    		if (SAMPLEFILE.equals(filename) == false) {
-    			ff = new ReadInFile(FILEPATH + filename, "line");
+    		if (!SAMPLEFILE.equals(filename)) {
+    			//ff = new ReadInFile(FILEPATH + filename, "line");
+    			Vector<deduplicator.compare.StringComparison.Change> ac = (Vector<deduplicator.compare.StringComparison.Change>) Serializer.deserializeObjectFromPath(FILEPATH+filename);
+    			AC=ac;
     			ori = new ReadInFile(FILEPATH + SAMPLEFILE, "byte");
     		}
     		else {
@@ -65,10 +71,10 @@ public class ReceiveFile extends ReadInFile
     			return ff.ss.get(0).getFileContent();
     		}
 
-    		for (SaveLet s : ff.ss) {
-    			String[] str = s.getFileContent().split(":");
-    			AC.add(new Change(Integer.parseInt(str[0]),Integer.parseInt(str[2]),str[1]));
-    		}
+//    		for (SaveLet s : ff.ss) {
+//    			String[] str = s.getFileContent().split(":");
+//    			AC.add(new Change(Integer.parseInt(str[0]),Integer.parseInt(str[2]),str[1]));
+//    		}
     		
     		String output = ori.ss.get(0).getFileContent();
 //    		log(output.length(),true);
@@ -188,5 +194,5 @@ public class ReceiveFile extends ReadInFile
     private static String FILEPATH = "db/database/";
     private static String SAMPLEFILE;
     
-    private static ArrayList<Change> AC = new ArrayList<Change>();
+    private static Vector<deduplicator.compare.StringComparison.Change> AC = new Vector<deduplicator.compare.StringComparison.Change>();
 }

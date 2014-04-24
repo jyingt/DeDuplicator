@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import deduplicator.compare.StringComparison.Change;
-import deduplicator.main.Hash;
 import deduplicator.main.StoreFile;
 import deduplicator.main.ReadInFile;
+import deduplicator.serializer.Serializer;
 
 public class Comparison extends ReadInFile{
 	
@@ -64,6 +64,7 @@ public class Comparison extends ReadInFile{
 			//log(data.get(0).getFileContent());
 			StringComparison tt = new StringComparison(data.get(0).getFileContent(),s.getFileContent());
 			Vector<Change> vc = tt.getLOC();
+			Serializer.serializeObjectToPath(vc, DBPATH + s.getFileName());
 			ArrayList<String> tmpresult = new ArrayList<String>();
 	        for (int i = 0; i < vc.size(); i++) {
 				Change tmpc = vc.get(i);
@@ -149,4 +150,6 @@ public class Comparison extends ReadInFile{
 	private static int CHUNKS = 1000;
 	private static ArrayList<CompareLet> result = new ArrayList<CompareLet>();
     private static String NAMEPATH = "db/database/name.txt";
+	private static final String DBPATH = "db/database/";
+	private static final long serialVersionUID = 1L;
 }

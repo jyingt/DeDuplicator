@@ -24,27 +24,27 @@ public class StoreFile extends ReadInFile
 	    //
 	}
 	
-    /**
-     * Overloaded Constructor
-     * @param file
-     * @param ss
-     * @throws ClassNotFoundException
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
-     */
-	public StoreFile(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
-	    saveFile(file, ss, true);
-	    
-	    File database = new File(DBPATH);
-	    System.out.print("Current storage: ");
-	    
-	    if (database.exists())
-	        System.out.print(folderSize(database));
-	    else
-	        System.out.print("0");
-	    
-	    System.out.println(" B");
-	}
+//    /**
+//     * Overloaded Constructor
+//     * @param file
+//     * @param ss
+//     * @throws ClassNotFoundException
+//     * @throws NoSuchAlgorithmException
+//     * @throws IOException
+//     */
+//	public StoreFile(String file, ArrayList<SaveLet> ss) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+//	    saveFile(file, ss, true);
+//	    
+//	    File database = new File(DBPATH);
+//	    System.out.print("Current storage: ");
+//	    
+//	    if (database.exists())
+//	        System.out.print(folderSize(database));
+//	    else
+//	        System.out.print("0");
+//	    
+//	    System.out.println(" B");
+//	}
 	
 	/**
      * Overloaded constructor
@@ -95,8 +95,6 @@ public class StoreFile extends ReadInFile
 		ArrayList<SaveLet> ss = rr.ss;
 		
 		if (initialFileChecker() == false) {
-			log("not exists");
-			//File ff = new File(filename);
 			File key = new File(MAINPATH);
 			
 			if (!key.exists()) {
@@ -106,31 +104,13 @@ public class StoreFile extends ReadInFile
 			}
 			
 			int ii = 0;
-			//PrintStream outDecode = new PrintStream(new FileOutputStream(KEYPATHFILE));
-			//int LENGTH = ss.get(0).getFileContent().length();
-			
-			// Keep list of hashes to serialize
-           // ArrayList<String> hashList = new ArrayList<String>();
-            
-//            while (ii < LENGTH) {
-//                Hash hh = new Hash(ss.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH)));
-//                String str = hh.str;
-//                outDecode.println(str);     // write hash to database
-//                ii = Math.min(ii + LENGTH/CHUNKS, LENGTH);
-//                
-//                // Add hash to list
-//                hashList.add(hh.str);
-//            }
-            
-           // outDecode.close();
-            
             // Serialize list of hashes
            // Serializer.serializeObjectToPath(hashList, DBPATH + "/data.ser");
 			
 			if (ss.size() > 1) {
 				ArrayList<SaveLet> tmp = new ArrayList<SaveLet>();	
 				tmp.add(ss.get(0));
-				saveFile(file,tmp, false);
+				saveFile(file,tmp, false,true);
 				ss.remove(0);
 				//log(ss.size());
 				Comparison cc = new Comparison(file, ss);
@@ -143,17 +123,18 @@ public class StoreFile extends ReadInFile
 					}
 //					for ( SaveLet str : slresult)
 //						log(str.getFileContent());
-					saveFile(file, slresult, true);
+					saveFile(file, slresult, true,false);
 				}
 
 				result.clear();
+
 			}
 			else {
-				saveFile(file,ss, false);
+				saveFile(file,ss, false,true);
 			}
 		}
 		else {
-			log("here");
+			//log("here");
 			//saveFile(file, ss);
 			Comparison cc = new Comparison(file, ss);
 			ArrayList<CompareLet> result = cc.getResult();
@@ -166,10 +147,10 @@ public class StoreFile extends ReadInFile
 				}
 				if (slresult.isEmpty() == true) {
 					slresult.add(new SaveLet(s.getFileName(), ""));
-					saveFile(file, slresult, true);
+					saveFile(file, slresult, true,false);
 				}
 				else {
-					saveFile(file, slresult, true);
+					saveFile(file, slresult, true,false);
 				}
 			}
 			
@@ -186,25 +167,27 @@ public class StoreFile extends ReadInFile
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-	public static void saveFile(String filename, ArrayList<SaveLet> savelets, boolean newline) throws IOException {
+	public static void saveFile(String filename, ArrayList<SaveLet> savelets, boolean newline, boolean print) throws IOException {
 		File ff = new File(filename);
-		
+		if (savelets!=null)
+		{
 		if (ff.isFile() == false) {
 			if (new File(DBPATH + filename).exists() == false)
 				new File(DBPATH + filename).mkdir();
-			
-		    PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename + "/" + savelets.get(0).getFileName() ));
-
-			for (SaveLet savelet : savelets) {
-				if (newline == true)  {
-					outDecode_file.println(savelet.getFileContent());
+				if(print)	{
+				    PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename + "/" + savelets.get(0).getFileName() ));
+		
+					for (SaveLet savelet : savelets) {
+						if (newline == true)  {
+							outDecode_file.println(savelet.getFileContent());
+						}
+						else {
+							outDecode_file.print(savelet.getFileContent());
+						}
+					}
+						
+					outDecode_file.close();
 				}
-				else {
-					outDecode_file.print(savelet.getFileContent());
-				}
-			}
-				
-			outDecode_file.close();
 			
 			log(filename + "/" + savelets.get(0).getFileName() + " is saved successfully!");
 
@@ -217,19 +200,22 @@ public class StoreFile extends ReadInFile
 			writer.close();
 		}
 		else {
-			PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
-			
-			for (SaveLet savelet : savelets) {
-				if (newline == true) {
-					outDecode_file.println(savelet.getFileContent());
+				if (print){
+				PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename));
+				
+					for (SaveLet savelet : savelets) {
+						if (newline == true) {
+							outDecode_file.println(savelet.getFileContent());
+						}
+						else {
+							outDecode_file.print(savelet.getFileContent());
+						}				
+					}
+				
+				outDecode_file.close();
 				}
-				else {
-					outDecode_file.print(savelet.getFileContent());
-				}				
-			}
-			
-			outDecode_file.close();
 			log(filename + " is saved successfully!");
+			log("haha");
 			FileWriter writer = new FileWriter(NAMEPATHFILE, true);    
 			BufferedWriter bufferedWriter = new BufferedWriter(writer);  
 			bufferedWriter.write(savelets.get(0).getFileName());
@@ -237,6 +223,11 @@ public class StoreFile extends ReadInFile
 			bufferedWriter.flush();
 			bufferedWriter.close();
 			writer.close();
+		}
+		}
+		else
+		{
+			
 		}
 	}
 	

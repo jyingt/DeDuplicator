@@ -1,15 +1,17 @@
 package deduplicator.compare;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class StringComparison {
+public class StringComparison implements Serializable{
 	public static void main(String[] args) {
 		StringComparison x = new StringComparison("abcdxxssww12ef", "abcdxxss");
 		x.show();
 
 	}
 
-	public class Change {
+	public class Change implements Serializable{
+		private static final long serialVersionUID = 2L;
 		public Change(int myposition, int myoperation, String mycontent) {
 			position = myposition;
 			operation = myoperation;
@@ -135,7 +137,7 @@ public class StringComparison {
 		// matches
 		while (((index = window.indexOf(str1.charAt(i))) == -1)) {
 			del += str1.charAt(i++);
-			System.out.println(del + " del-i " + i);
+			//System.out.println(del + " del-i " + i);
 			// if reaches end of sample string
 			if (i == str1.length()) {
 				String replace = str2.substring(diffptr);
@@ -283,12 +285,12 @@ public class StringComparison {
 				tmps = "deleted";
 			else
 				tmps = "insterted";
-			System.out.println("At position " + tmpc.getPosition() + ", "
-					+ tmpc.getContent() + " is " + tmps);
+			//System.out.println("At position " + tmpc.getPosition() + ", "
+			//		+ tmpc.getContent() + " is " + tmps);
 
 		}
 		int sizediff = getDiffSize();
-		System.out.println("Size Diff:" + sizediff);
+		//System.out.println("Size Diff:" + sizediff);
 	}
 
 	public int getDiffSize() {
@@ -309,4 +311,5 @@ public class StringComparison {
 	}
 
 	private static Vector<Change> LOC;
+	private static final long serialVersionUID = 1L;
 }
