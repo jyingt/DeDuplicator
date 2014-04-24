@@ -3,15 +3,16 @@ package deduplicator.compare;
 import java.io.Serializable;
 import java.util.Vector;
 
-public class StringComparison implements Serializable{
+public class StringComparison implements Serializable {
 	public static void main(String[] args) {
 		StringComparison x = new StringComparison("abcdxxssww12ef", "abcdxxss");
 		x.show();
 
 	}
 
-	public class Change implements Serializable{
+	public class Change implements Serializable {
 		private static final long serialVersionUID = 2L;
+
 		public Change(int myposition, int myoperation, String mycontent) {
 			position = myposition;
 			operation = myoperation;
@@ -48,29 +49,37 @@ public class StringComparison implements Serializable{
 		int j = 1;
 		int len1 = str1.length();
 		int len2 = str2.length();
-//		System.out.println(len1 + " len1-len2 " + len2);
+		// System.out.println(len1 + " len1-len2 " + len2);
 		if (str1.equals(str2)) {
 			return;
 		}
 		while ((i < len1 && i < len2) && (str1.charAt(i) == str2.charAt(i))) {
 			i++;
+			if (i == len1) {
+				LOC.addElement(new Change(i, 2, str2.substring(i)));
+				return;
+			}
+			if (i == len2) {
+				LOC.addElement(new Change(i, 1, str1.substring(i)));
+				return;
+			}
 		}
 		while ((j <= len1 && j <= len2)
 				&& (str1.charAt(len1 - j) == str2.charAt(len2 - j))) {
 			j++;
-		}
-		j--;
-		if ((i + j) == len1) {
-			// other string has inserted characters in the middle
-			LOC.addElement(new Change(i, 2, str2.substring(i, len2 - j)));
-			return;
-		} else {
+			if ((i + j) == len1) {
+				// other string has inserted characters in the middle
+				LOC.addElement(new Change(i, 2, str2.substring(i, len2 - j)));
+				return;
+			}
 			if ((i + j) == len2) {
 				// sample string has inserted characters in the middle
 				LOC.addElement(new Change(i, 1, str1.substring(i, len1 - j)));
 				return;
 			}
 		}
+		j--;
+
 		findDiff(str1.substring(i, len1 - j), str2.substring(i, len2 - j), i);
 
 	}
@@ -137,7 +146,7 @@ public class StringComparison implements Serializable{
 		// matches
 		while (((index = window.indexOf(str1.charAt(i))) == -1)) {
 			del += str1.charAt(i++);
-			//System.out.println(del + " del-i " + i);
+			// System.out.println(del + " del-i " + i);
 			// if reaches end of sample string
 			if (i == str1.length()) {
 				String replace = str2.substring(diffptr);
@@ -285,12 +294,12 @@ public class StringComparison implements Serializable{
 				tmps = "deleted";
 			else
 				tmps = "insterted";
-			//System.out.println("At position " + tmpc.getPosition() + ", "
-			//		+ tmpc.getContent() + " is " + tmps);
+			// System.out.println("At position " + tmpc.getPosition() + ", "
+			// + tmpc.getContent() + " is " + tmps);
 
 		}
 		int sizediff = getDiffSize();
-		//System.out.println("Size Diff:" + sizediff);
+		// System.out.println("Size Diff:" + sizediff);
 	}
 
 	public int getDiffSize() {
