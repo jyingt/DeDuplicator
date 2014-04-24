@@ -120,6 +120,22 @@ public class ReceiveFile extends ReadInFile
     	else
     		fn = filename;
     	String content = decodeFile(fn);
+    	String [] ffn = fn.split("/");
+    	String Path = path;
+    	int i =0;
+    	while (i<ffn.length-1)
+    	{
+    		Path += "/"+ffn[i];
+    		i++;
+    	}
+    	
+    	File ff = new File(Path);
+    	if (!ff.exists())
+    	{
+        	//log(Path,true);
+    		new File(Path).mkdir();
+    	}
+    	
     	PrintStream outDecode_file = new PrintStream(new FileOutputStream(path + "/" + fn));
 //    	log(content,true);
    		outDecode_file.print(content);

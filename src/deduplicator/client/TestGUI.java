@@ -1,6 +1,7 @@
 package deduplicator.client;
 
 import java.awt.EventQueue;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.io.*;
 import java.awt.event.*;
@@ -9,6 +10,8 @@ import javax.swing.*;
 
 import java.beans.*;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import deduplicator.main.ReceiveFile;
@@ -24,6 +27,7 @@ public class TestGUI extends JPanel implements ActionListener,PropertyChangeList
 {
     private static final long serialVersionUID = 1L; // for serialization
     private static final String NAMEPATH = "db/database/name.txt" ;
+    private static boolean falsesave = false;
 
     public JFrame frmTestgui;
     private JTextField textField;
@@ -238,12 +242,37 @@ public class TestGUI extends JPanel implements ActionListener,PropertyChangeList
     			        String path="";
     			        for(String d:c)
     			            path += "/" + d;
-    			        path=path.substring(1,path.length());
-    			        System.out.println(path);
-    			        readFile = new StoreFile(path);
+    			       // path=path.substring(1,path.length());
+    			        System.out.println(c[c.length-1]);
+    			        
+    			        File ff = new File(NAMEPATH);
+    			        if (ff.exists()) {
+    			             ReadInFile listFiles = new ReadInFile( NAMEPATH, "byte");
+    			             String[] filenames = listFiles.ss.get(0).getFileContent().split("[\r\n]");
+    			             ArrayList<String> fns = new ArrayList(Arrays.asList(filenames));
+    			             if (!fns.contains(c[c.length-1]))
+    			             {
+    			            	 readFile = new StoreFile(path);
+    			             }
+    			             else
+    			             {
+    			            	 falsesave=true;
+    			            	 JOptionPane. showMessageDialog( frmTestgui, "File already in the storage.");
+    			            	
+    			             }
+    			            	 
+    			        } 
+    			        else 
+    			        {
+    			            	 readFile = new StoreFile(path);
+    			            }
+    			        
+//    			        readFile = new StoreFile(path);
         			}
         			else
+        			{
         			    readFile = new StoreFile(file.getAbsolutePath());
+        			}
         			
                 } catch (ClassNotFoundException e) {
                     // TODO Auto-generated catch block
@@ -307,6 +336,8 @@ public class TestGUI extends JPanel implements ActionListener,PropertyChangeList
                 }
                 else {
                     if (task == taskSave) {
+                    	System.out.println(falsesave);
+                    	if (!falsesave){
                     	JOptionPane. showMessageDialog( frmTestgui, "File save completed.");
             			
             			long sss = folderSize(new File("db/database/"));
@@ -315,6 +346,13 @@ public class TestGUI extends JPanel implements ActionListener,PropertyChangeList
             			progressBar.setValue((int)((double)sss*5/(1024*1024)));
 
                         model.addElement(textField.getText());
+                        //falsesave=false;
+                    	}
+                    	else
+                    	{
+                    		falsesave=false;
+                    	}
+                    	
                     }
                     else if (task == taskRetrieve)
                     	JOptionPane.showMessageDialog( frmTestgui, "File retieval completed.");
