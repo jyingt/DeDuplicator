@@ -18,7 +18,53 @@ import deduplicator.main.*;
  */
 public class TestGUI extends JPanel implements ActionListener, PropertyChangeListener
 {
+<<<<<<< HEAD
     private static final long serialVersionUID = 1L;
+=======
+    private static final long serialVersionUID = 1L; // for serialization
+    private static final String NAMEPATH = "db/database/name.txt" ;
+    private static boolean falsesave = false;
+
+    public JFrame frmTestgui;
+    private JTextField textField;
+    private JFileChooser fc;
+    private JButton btnSave, btnOpen, btnRetrieve;
+    private DefaultComboBoxModel model;
+    private JComboBox comboBox;
+    private JProgressBar progressBar ;
+    private JLabel storageInfo;
+    private ProgressMonitor progressMonitor;
+    private File file;
+    private Task taskSave, taskRetrieve;
+ 
+    class Task extends SwingWorker<Void, Void> {
+        @Override
+        public Void doInBackground() {
+            Random random = new Random();
+            int progress = 0;
+            setProgress(0);
+            try {
+                Thread.sleep(100);
+                while (progress < 100 && !isCancelled()) {
+                    //Sleep for up to one second.
+                    Thread.sleep(random.nextInt(10));
+                    //Make random progress.
+                    progress += random.nextInt(10);
+                    setProgress(Math.min(progress, 100));
+                }
+            } catch (InterruptedException ignore) {}
+            return null;
+        }
+ 
+        @Override
+        public void done() {
+        	btnSave.setEnabled(true);
+        	btnRetrieve.setEnabled(true);
+        	btnOpen.setEnabled(true);
+            progressMonitor.close();
+        }
+    }
+>>>>>>> a69254f87b4e5e4d28ae954c9bbb71bba0998163
     
     private final String NAMEPATH = "db/database/name.txt";
     private boolean falseSave = false;
