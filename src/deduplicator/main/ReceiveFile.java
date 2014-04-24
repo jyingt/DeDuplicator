@@ -190,8 +190,8 @@ public class ReceiveFile extends ReadInFile
             log(position + " " + operation + " " + content, true);
         }
     }
-    private static String NAMEPATH = "db/database/name.txt";
-    private static String FILEPATH = "db/database/";
+    private static String NAMEPATH = "database/name.txt";
+    private static String FILEPATH = "database/";
     private static String SAMPLEFILE;
     
     private static Vector<deduplicator.compare.StringComparison.Change> AC = new Vector<deduplicator.compare.StringComparison.Change>();

@@ -2,7 +2,6 @@ package deduplicator.client;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.*;
 import java.io.*;
 import java.security.*;
 import java.util.*;
@@ -21,7 +20,7 @@ public class TestGUI extends JPanel implements ActionListener
     private static final long serialVersionUID = 1L;
     
     // Constants
-    private final String NAMEPATH = "db/database/name.txt";
+    private final String NAMEPATH = "database/name.txt";
 
     // GUI components
     public  JFrame                  frameGui;
@@ -116,9 +115,9 @@ public class TestGUI extends JPanel implements ActionListener
         labelStorage = new JLabel();
 		springLayout.putConstraint(SpringLayout.NORTH, labelStorage, 10, SpringLayout.SOUTH, progressBar);
 		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, labelStorage, 0, SpringLayout.HORIZONTAL_CENTER, frameGui.getContentPane());
-		File dbFolder = new File("db/database/");
+		File dbFolder = new File("database/");
 		if (dbFolder.exists()) {
-	        long sss = folderSize(new File("db/database/"));
+	        long sss = folderSize(new File("database/"));
 			String dir = Double.toString((double) sss / (1024*1024));
 			labelStorage.setText("Storage Usage is: " + dir + " MB");
 			progressBar.setValue((int) ((double) sss*5 / (1024*1024)));

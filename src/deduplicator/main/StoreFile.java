@@ -95,17 +95,13 @@ public class StoreFile extends ReadInFile
 		ArrayList<SaveLet> ss = rr.ss;
 		
 		if (initialFileChecker() == false) {
-			File key = new File(MAINPATH);
+			//File key = new File(MAINPATH);
+		    File key = new File(DBPATH);
 			
 			if (!key.exists()) {
-				new File(MAINPATH).mkdir();
-				//new File(KEYPATH).mkdir();
+				//new File(MAINPATH).mkdir();
 				new File(DBPATH).mkdir();
 			}
-			
-			int ii = 0;
-            // Serialize list of hashes
-           // Serializer.serializeObjectToPath(hashList, DBPATH + "/data.ser");
 			
 			if (ss.size() > 1) {
 				ArrayList<SaveLet> tmp = new ArrayList<SaveLet>();	
@@ -256,10 +252,7 @@ public class StoreFile extends ReadInFile
 		System.out.println(a.toString());
 	}
 	
-	private static final String MAINPATH = "db";
-	//private static final String KEYPATH = "db/key";
-//	private static final String KEYPATHFILE = "db/key/data.txt";
-	private static final String DBPATH = "db/database/";
-	private static final String NAMEPATHFILE = "db/database/name.txt";
-   // private static int CHUNKS = 1000;
+	//private static final String MAINPATH = "db";
+	private static final String DBPATH = "database/";
+	private static final String NAMEPATHFILE = "database/name.txt";
 }

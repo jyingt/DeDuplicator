@@ -8,7 +8,7 @@ import java.util.*;
 import deduplicator.main.*;
 
 /**
- * Main block
+ * Main client
  * @author John Ying
  */
 public class DeDuplicator
@@ -19,7 +19,6 @@ public class DeDuplicator
      */
     public static void main(String[] args) throws ClassNotFoundException, NoSuchAlgorithmException, IOException
     {
-    	StoreFile m2 = new StoreFile("testfolder");
         // Command line arguments
         if (args.length == 4 && args[0].equals("-file") && args[2].equals("-locker")) {
             // Check if specified file exists
@@ -52,33 +51,6 @@ public class DeDuplicator
             System.out.println("Usage: store -gui");
             return;
         }
-        
-        //ReadInFile rr1 =new ReadInFile("/Users/ssec/Documents/GitHub/DeDuplicator/file1.txt","line");
-        //log(rr1.ss.get(0).getFileContent());
-        //ReadInFile rr2 =new ReadInFile("file4.txt");
-        
-        //ArrayList<SaveLet> sl1 = rr1.ss;
-        //ArrayList<SaveLet> sl2 = rr2.ss;
-        
-        //StringComparison sc = new StringComparison(sl1.get(0).getFileContent(),sl2.get(0).getFileContent());
-        //sc.show();
-  
-        //stepcheckV2(file1.get(0).toString(),file2.get(0).toString());
-        //readinfile.readinmain("test");
-        // MainSaving m3 = new MainSaving("file2.txt");
-      
-        //StoreFile m1 = new StoreFile("file3.txt");
-        //StoreFile m2 = new StoreFile("testsavingfolder");
-        //StoreFile m3 = new StoreFile("testsavingfolder2");
-        //MainSaving m2 = new MainSaving("file2.txt");
-        //MainSaving m3 = new MainSaving("file3.txt");
-        //MainSaving m4 = new MainSaving("file4.txt");
-    	//MainRetrieving mr1 = new MainRetrieving("retrievefolder", "file1.txt");
-    	//MainRetrieving mr2 = new MainRetrieving("retrievefolder", "file2.txt");
-    	//MainRetrieving mr3 = new MainRetrieving("retrievefolder", "file3.txt");
-    	//MainRetrieving mr4 = new MainRetrieving("retrievefolder", "file4.txt");
-    	
-        //initialhashcodegenerator.writefile("test");
     }
     
     /**
@@ -178,9 +150,5 @@ public class DeDuplicator
         catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-    public static void log(Object object) {
-    	System.out.println(object);
     }
 }

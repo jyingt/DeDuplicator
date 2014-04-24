@@ -41,7 +41,7 @@ public class Comparison extends ReadInFile{
 		ReadInFile ff = new ReadInFile(NAMEPATH, "line");
 		String tmpfilename  = ff.ss.get(0).getFileContent();
 		//log(tmpfilename);
-		ReadInFile rr = new ReadInFile("db/database/" + tmpfilename,"byte");
+		ReadInFile rr = new ReadInFile("database/" + tmpfilename, "byte");
 		ArrayList<SaveLet> data =rr.ss;
 		//log(data.get(0).getFileContent());
 		//String[] str = data.get(0).getFileContent().split("\n");
@@ -149,7 +149,7 @@ public class Comparison extends ReadInFile{
 	}
 	private static int CHUNKS = 1000;
 	private static ArrayList<CompareLet> result = new ArrayList<CompareLet>();
-    private static String NAMEPATH = "db/database/name.txt";
-	private static final String DBPATH = "db/database/";
+    private static String NAMEPATH = "database/name.txt";
+	private static final String DBPATH = "database/";
 	private static final long serialVersionUID = 1L;
 }
