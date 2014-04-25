@@ -64,7 +64,8 @@ public class Comparison extends ReadInFile{
 			//log(data.get(0).getFileContent());
 			StringComparison tt = new StringComparison(data.get(0).getFileContent(),s.getFileContent());
 			Vector<Change> vc = tt.getLOC();
-			Serializer.serializeObjectToPath(vc, DBPATH + s.getFileName());
+			log(DBPATH + s.getFolderName()+ "/" +s.getFileName());
+			Serializer.serializeObjectToPath(vc, DBPATH + s.getFolderName()+ "/" +s.getFileName());
 			ArrayList<String> tmpresult = new ArrayList<String>();
 	        for (int i = 0; i < vc.size(); i++) {
 				Change tmpc = vc.get(i);

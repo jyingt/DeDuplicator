@@ -4,6 +4,8 @@ import java.io.*;
 import java.security.*;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import deduplicator.compare.Comparison;
 import deduplicator.compare.Comparison.CompareLet;
 import deduplicator.serializer.*;
@@ -91,8 +93,15 @@ public class StoreFile extends ReadInFile
      * @throws IOException
      */
 	public void writeFile(String file) throws ClassNotFoundException, NoSuchAlgorithmException, IOException {
+		flag=true;
 		ReadInFile rr = new ReadInFile(file, "byte");
 		ArrayList<SaveLet> ss = rr.ss;
+          if (ss==null)
+          {
+        	 flag=false;
+        	 System.out.println(flag);
+         	 return;
+          }
 		
 		if (initialFileChecker() == false) {
 			//File key = new File(MAINPATH);
@@ -170,6 +179,7 @@ public class StoreFile extends ReadInFile
 		if (ff.isFile() == false) {
 			if (new File(DBPATH + filename).exists() == false)
 				new File(DBPATH + filename).mkdir();
+			
 				if(print)	{
 				    PrintStream outDecode_file = new PrintStream(new FileOutputStream(DBPATH + filename + "/" + savelets.get(0).getFileName() ));
 		
@@ -255,4 +265,5 @@ public class StoreFile extends ReadInFile
 	//private static final String MAINPATH = "db";
 	private static final String DBPATH = "database/";
 	private static final String NAMEPATHFILE = "database/name.txt";
+	public static boolean flag;
 }

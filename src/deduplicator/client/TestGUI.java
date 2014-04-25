@@ -196,10 +196,16 @@ public class TestGUI extends JPanel implements ActionListener
     			        
 			            if (new File(NAMEPATH).exists()) {
     			             ReadInFile listFiles = new ReadInFile( NAMEPATH, "byte");
+    			             
     			             String[] filenames = listFiles.ss.get(0).getFileContent().split("[\r\n]");
     			             ArrayList<String> listFilenames = new ArrayList(Arrays.asList(filenames));
     			             
     			             if (!listFilenames.contains(c[c.length-1])) {
+    			            	//System.out.println("gui level" + readFile.flag);
+    			            	 if (!readFile.flag)
+    	    			            {
+    	    			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
+    	    			            }
     			            	 readFile = new StoreFile(path);
     			             }
     			             else {
@@ -209,10 +215,20 @@ public class TestGUI extends JPanel implements ActionListener
     			        } 
     			        else {
     			            readFile = new StoreFile(path);
+    			           // System.out.println("gui level" + readFile.flag);
+    			            if (!readFile.flag)
+    			            {
+    			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
+    			            }
 			            }
         			}
         			else {
         			    readFile = new StoreFile(file.getAbsolutePath());
+        			    //System.out.println("gui level" + readFile.flag);
+			            if (!readFile.flag)
+			            {
+			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
+			            }
         			}
         	        long sss = folderSize(new File("database/"));
         			String dir = Double.toString((double)((int)(sss*10/(1024*1024)))/10);

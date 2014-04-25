@@ -47,7 +47,12 @@ public class ReadInFile
         if (file.isFile())
             return readInByByte(name, file);
         else
-            return readInByFolder(name, file);
+        {
+        	if (file.isDirectory())
+        		return readInByFolder(name, file);
+        	else
+        		return null;
+        }
     }
     
     /**
@@ -109,7 +114,9 @@ public class ReadInFile
         ArrayList<SaveLet> result = new ArrayList<SaveLet>();
         
         for (File file: listoffiles) {
-            result.add(readInByByte(file.getName(),file).get(0));
+        	SaveLet tempsl = readInByByte(file.getName(),file).get(0);
+        	tempsl.setFolderName(foldername);
+            result.add(tempsl);
         }
         
         return result;
@@ -122,11 +129,17 @@ public class ReadInFile
      */
     public class SaveLet
     {
-        public String filename, filecontent;
+        public String filename, filecontent,foldername;
         
+        public SaveLet(String _filename, String _filecontent, String _foldername) {
+            filename = _filename;
+            filecontent = _filecontent;
+            foldername = _foldername;
+        }
         public SaveLet(String _filename, String _filecontent) {
             filename = _filename;
             filecontent = _filecontent;
+
         }
         
         public String getFileName() {
@@ -137,10 +150,16 @@ public class ReadInFile
             return filecontent;
         }
         
+        public String getFolderName() {
+            return foldername;
+        }
+        
         public void setFileName(String _filename) {
             filename = _filename;
         }
-        
+        public void setFolderName(String _foldername) {
+            foldername = _foldername;
+        }
         public void setfilecontent(String _filecontent) {
             filecontent = _filecontent;
         }
