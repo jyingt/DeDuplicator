@@ -52,7 +52,6 @@ public class ReadInFile
         {
         	if (file.isDirectory())
         	{
-        		System.out.println("folderhere");
         		return readInByFolder(name, file);
         	}
         	else

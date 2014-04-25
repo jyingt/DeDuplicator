@@ -38,6 +38,23 @@ public class StoreFile extends ReadInFile
 	    file = names[names.length-1];
 	    if (file.contains(".")==false)
 	    	file += "/";
+	    else
+	    {
+	    	File f = new File(NAMEPATHFILE);
+	    	if (f.exists())
+	    	{
+	    		 ReadInFile listFiles = new ReadInFile(NAMEPATHFILE, "byte");
+	             String[] filenames = listFiles.ss.get(0).getFileContent().split("[\r\n]");
+		    	for (String ss : filenames)
+		    	{
+		    		if (ss.equals(file))
+		    		{
+		    			System.out.println("File already in the storage!");
+		    			return;
+		    		}
+		    	}
+	    	}
+	    }
 		writeFile(file);
 		
 		File database = new File(DBPATH);

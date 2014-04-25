@@ -74,7 +74,7 @@ public class TestGUI extends JPanel implements ActionListener
             if (new File(NAMEPATH).exists()) {
                 // Get list of files currently stored in locker
                 ReadInFile listFiles = new ReadInFile(NAMEPATH, "byte");
-                String[] filenames = listFiles.ss.get(0).getFileContent().split("\n");
+                String[] filenames = listFiles.ss.get(0).getFileContent().split("[\r\n]");
                 comboBoxModel = new DefaultComboBoxModel(filenames);
             }
             else {
