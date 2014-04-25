@@ -49,7 +49,7 @@ public class StringComparison implements Serializable {
 		int j = 1;
 		int len1 = str1.length();
 		int len2 = str2.length();
-		// System.out.println(len1 + " len1-len2 " + len2);
+
 		if (str1.equals(str2)) {
 			return;
 		}

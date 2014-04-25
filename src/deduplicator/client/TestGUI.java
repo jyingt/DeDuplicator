@@ -191,8 +191,7 @@ public class TestGUI extends JPanel implements ActionListener
     			        for(String str : c) {
     			            path += "/" + str;
     			        }
-    			        // path = path.substring(1,path.length());
-    			       // System.out.println(c[c.length-1] + "here");
+
     			        
 			            if (new File(NAMEPATH).exists()) {
 			            	
@@ -229,9 +228,9 @@ public class TestGUI extends JPanel implements ActionListener
 			            }
         			}
         			else {
-        				System.out.println("gui level3" );
+
         			    readFile = new StoreFile(file.getAbsolutePath());
-        			    //System.out.println("gui level" + readFile.flag);
+
 			            if (!readFile.flag)
 			            {
 			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
