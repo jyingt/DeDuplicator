@@ -52,7 +52,7 @@ public class TestGUI extends JPanel implements ActionListener
         // Frame
         frameGui = new JFrame();
         frameGui.setTitle("TestGUI");
-        frameGui.setBounds(100, 100, 450, 300);
+        frameGui.setBounds(100, 100, 550, 350);
         frameGui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         SpringLayout springLayout = new SpringLayout();
         frameGui.getContentPane().setLayout(springLayout);
@@ -118,7 +118,8 @@ public class TestGUI extends JPanel implements ActionListener
 		File dbFolder = new File("database/");
 		if (dbFolder.exists()) {
 	        long sss = folderSize(new File("database/"));
-			String dir = Double.toString((double) sss / (1024*1024));
+			String dir = Double.toString((double)((int)(sss*10/(1024*1024)))/10);
+//			String dir = Double.toString((double) sss / (1024*1024));
 			labelStorage.setText("Storage Usage is: " + dir + " MB");
 			progressBar.setValue((int) ((double) sss*5 / (1024*1024)));
 		}
@@ -213,7 +214,16 @@ public class TestGUI extends JPanel implements ActionListener
         			else {
         			    readFile = new StoreFile(file.getAbsolutePath());
         			}
-        			comboBoxModel.addElement(textFieldFile.getText());
+        	        long sss = folderSize(new File("database/"));
+        			String dir = Double.toString((double)((int)(sss*10/(1024*1024)))/10);
+        			labelStorage.setText("Storage Usage is: " + dir + " MB");
+        			progressBar.setValue((int) ((double) sss*5 / (1024*1024)));
+        			
+        			comboBoxModel.removeAllElements();
+                    ReadInFile listFiles = new ReadInFile(NAMEPATH, "byte");
+                    String[] filenames = listFiles.ss.get(0).getFileContent().split("\n");
+                    for (String s: filenames)
+                    	comboBoxModel.addElement(s);
         			JOptionPane.showMessageDialog(frameGui, "File save completed.");
                 }
                 catch (ClassNotFoundException e) {
