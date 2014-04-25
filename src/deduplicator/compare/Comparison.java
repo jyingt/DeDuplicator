@@ -40,67 +40,34 @@ public class Comparison extends ReadInFile{
 	{
 		ReadInFile ff = new ReadInFile(NAMEPATH, "line");
 		String tmpfilename  = ff.ss.get(0).getFileContent();
-		//log(tmpfilename);
+
 		ReadInFile rr = new ReadInFile("database/" + tmpfilename, "byte");
 		ArrayList<SaveLet> data =rr.ss;
-		//log(data.get(0).getFileContent());
-		//String[] str = data.get(0).getFileContent().split("\n");
 		
-		//int ii = 0 ; 
-		//int counter = 0;
-		//int startpt = 0;
-		//int LENGTH = ss2.get(0).getFileContent().length();
-		//log(Integer.toString(LENGTH));
-		
-		/*while ( ii < LENGTH) {
-			StringComparison tt = new StringComparison(data.get(0).getFileContent(),ss2.get(0).getFileContent());
-			//tt.getDiffSize()
-			ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
-
-		}*/
 		for (SaveLet s: ss2)
 		{
-			//log(s.getFileContent());
-			//log(data.get(0).getFileContent());
+
 			StringComparison tt = new StringComparison(data.get(0).getFileContent(),s.getFileContent());
 			Vector<Change> vc = tt.getLOC();
-			log(DBPATH + s.getFolderName()+ "/" +s.getFileName());
-			Serializer.serializeObjectToPath(vc, DBPATH + s.getFolderName()+ "/" +s.getFileName());
+			if (s.getFolderName()==null)
+				Serializer.serializeObjectToPath(vc, DBPATH +s.getFileName());
+			else
+			{
+				if (s.getFolderName().charAt(s.getFolderName().length()-1)=='/')
+					Serializer.serializeObjectToPath(vc, DBPATH + s.getFolderName() +s.getFileName());
+				else
+					Serializer.serializeObjectToPath(vc, DBPATH + s.getFolderName() +"/" +s.getFileName());
+			}
 			ArrayList<String> tmpresult = new ArrayList<String>();
 	        for (int i = 0; i < vc.size(); i++) {
 				Change tmpc = vc.get(i);
 				tmpresult.add(tmpc.getPosition() + ":" + tmpc.getContent() + ":" + tmpc.getOperation());
 			
 			}
-	        //log(vc.size());
+
 	        result.add(new CompareLet(s.getFileName(),tmpresult));
 	        
 		}
-//		for (CompareLet cccc : result)
-//			log(cccc.getFileName());
-		/*while (ii <= LENGTH && counter < data.size())
-		{
-			String temp = ss2.get(0).getFileContent().substring(ii,Math.min(ii+LENGTH/CHUNKS, LENGTH));
-			HashCodeGenerator hh = new HashCodeGenerator(temp);
-			String ss = hh.str;
-			if ( ss.equals(str[counter++]))
-			{
-				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
-				//log("true");
-			}
-			else
-			{
-				//log("false");
-				ii=Math.min(ii+LENGTH/CHUNKS, LENGTH);
-				result.add(temp);
-			}
-		}
-		
-		data.get(0).setfilecontent(result.toString());
-		MainSaving mm = new MainSaving(filename, data);
-		result.clear();
-		log(Integer.toString(counter) + " " + data.size());
-		*/
 		
 		return result;
 	}

@@ -192,22 +192,24 @@ public class TestGUI extends JPanel implements ActionListener
     			            path += "/" + str;
     			        }
     			        // path = path.substring(1,path.length());
-    			        System.out.println(c[c.length-1]);
+    			       // System.out.println(c[c.length-1] + "here");
     			        
 			            if (new File(NAMEPATH).exists()) {
+			            	
     			             ReadInFile listFiles = new ReadInFile( NAMEPATH, "byte");
     			             
     			             String[] filenames = listFiles.ss.get(0).getFileContent().split("[\r\n]");
     			             ArrayList<String> listFilenames = new ArrayList(Arrays.asList(filenames));
     			             
     			             if (!listFilenames.contains(c[c.length-1])) {
-    			            	//System.out.println("gui level" + readFile.flag);
+
+    			            	readFile = new StoreFile(path);
     			            	 if (!readFile.flag)
     	    			            {
     	    			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
     	    			            	 return;
     	    			            }
-    			            	 readFile = new StoreFile(path);
+    			            	 
     			             }
     			             else {
     			            	 falseSave = true;
@@ -216,8 +218,9 @@ public class TestGUI extends JPanel implements ActionListener
     			             }
     			        } 
     			        else {
+
     			            readFile = new StoreFile(path);
-    			           // System.out.println("gui level" + readFile.flag);
+
     			            if (!readFile.flag)
     			            {
     			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
@@ -226,6 +229,7 @@ public class TestGUI extends JPanel implements ActionListener
 			            }
         			}
         			else {
+        				System.out.println("gui level3" );
         			    readFile = new StoreFile(file.getAbsolutePath());
         			    //System.out.println("gui level" + readFile.flag);
 			            if (!readFile.flag)

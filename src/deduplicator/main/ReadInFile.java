@@ -45,11 +45,16 @@ public class ReadInFile
         	return readInByLine(name);
         
         if (file.isFile())
+        {
             return readInByByte(name, file);
+        }
         else
         {
         	if (file.isDirectory())
+        	{
+        		System.out.println("folderhere");
         		return readInByFolder(name, file);
+        	}
         	else
         		return null;
         }
