@@ -205,12 +205,14 @@ public class TestGUI extends JPanel implements ActionListener
     			            	 if (!readFile.flag)
     	    			            {
     	    			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
+    	    			            	 return;
     	    			            }
     			            	 readFile = new StoreFile(path);
     			             }
     			             else {
     			            	 falseSave = true;
     			            	 JOptionPane.showMessageDialog(frameGui, "File already in the storage.");
+    			            	 return;
     			             }
     			        } 
     			        else {
@@ -219,6 +221,7 @@ public class TestGUI extends JPanel implements ActionListener
     			            if (!readFile.flag)
     			            {
     			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
+    			            	 return;
     			            }
 			            }
         			}
@@ -228,6 +231,7 @@ public class TestGUI extends JPanel implements ActionListener
 			            if (!readFile.flag)
 			            {
 			            	 JOptionPane.showMessageDialog(frameGui, "File type error.");
+			            	 return;
 			            }
         			}
         	        long sss = folderSize(new File("database/"));
